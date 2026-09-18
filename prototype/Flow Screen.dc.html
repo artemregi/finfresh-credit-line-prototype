@@ -44,6 +44,21 @@
 
   <div style="{{ pageStyle }}">
 
+    <sc-if value="{{ isDash }}" hint-placeholder-val="{{ false }}">
+    <sc-if value="{{ isDesk }}" hint-placeholder-val="{{ false }}">
+    <div style="width:100%;max-width:920px;margin:0 auto">
+      <div style="font-weight:800;font-size:28px;margin-bottom:20px">Личный кабинет</div>
+      <div style="display:flex;gap:8px;flex-wrap:wrap;margin-bottom:24px">
+        <div style="{{ lkTabActive }}">Кредитная линия</div>
+        <div style="{{ lkTabInactive }}">История</div>
+        <div style="{{ lkTabInactive }}">Личная информация</div>
+        <div style="{{ lkTabInactive }}">Реферальная система</div>
+        <div style="{{ lkTabInactive }}">Справки и документы</div>
+      </div>
+    </div>
+    </sc-if>
+    </sc-if>
+
     <!-- ==================== SCREEN-005 · Калькулятор кредитной линии · step key: "calc" ==================== -->
     <sc-if value="{{ s.calc }}" hint-placeholder-val="{{ true }}">
     <div data-screen-id="SCREEN-005" data-screen-label="SCREEN-005 calc" style="{{ calcRow }}">
@@ -329,6 +344,70 @@
 
     <!-- ==================== Кабинет активной линии · step key: "cabinet" ==================== -->
     <sc-if value="{{ s.cabinet }}" hint-placeholder-val="{{ false }}">
+
+    <!-- DESKTOP cabinet -->
+    <sc-if value="{{ isDesk }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-id="SCREEN-039-A" data-screen-label="SCREEN-039-A cabinet" style="width:100%;max-width:920px;margin:0 auto">
+      <div style="display:flex;gap:24px;align-items:flex-start">
+
+        <!-- Left column -->
+        <div style="flex:0 0 440px">
+          <div style="background:#fff;border-radius:18px;padding:24px;box-sizing:border-box">
+            <div style="font-size:14px;color:#9B9B9B">Доступно</div>
+            <div style="font-weight:800;font-size:36px;line-height:1.1">{{ availableFmt }} ₽</div>
+            <div style="font-size:14px;color:#9B9B9B;margin-bottom:16px">из {{ limitFmt }} ₽</div>
+            <div style="background:#008E7F;border-radius:16px;padding:16px;color:#fff;display:flex;align-items:center;justify-content:space-between;margin-bottom:16px">
+              <div><div style="font-weight:700;font-size:15px;letter-spacing:.06em">•••• 4416</div><div style="font-size:12px;opacity:.85;margin-top:4px">Виртуальная карта</div></div>
+              <div style="display:flex;align-items:center;gap:10px"><span style="background:#DDF8D6;color:#004447;border-radius:999px;padding:5px 10px;font-size:11px;font-weight:800">АКТИВНА</span><span style="font-size:12px;font-weight:700;text-decoration:underline">Реквизиты</span></div>
+            </div>
+            <div style="background:#F5F5F5;border-radius:16px;padding:18px;display:flex;flex-direction:column;gap:10px;margin-bottom:16px">
+              <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-weight:800;font-size:16px">Обеспечение</span><span style="font-size:13px;color:#9B9B9B">{{ recommended }} {{ token }}</span></div>
+              <div style="display:flex;justify-content:space-between;font-size:14px"><span style="color:#9B9B9B">Оценка</span><span style="font-weight:700">{{ collateralRub }} ₽</span></div>
+            </div>
+            <div style="border:1px solid #F1F3F5;border-radius:16px;overflow:hidden">
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 15px;border-bottom:1px solid #F1F3F5"><div style="display:flex;align-items:center;gap:10px"><img src="ref/icons/pdf.svg" alt="" style="width:18px;height:18px"><div><div style="font-size:13px;font-weight:700">Выписка за август</div><div style="font-size:11px;color:#9B9B9B">Минимальный платёж 5 780 ₽ до 25.09</div></div></div><span style="color:#9B9B9B">›</span></div>
+              <div onClick="{{ go.inc_start }}" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 15px;border-bottom:1px solid #F1F3F5;cursor:pointer"><div><div style="font-size:13px;font-weight:700;color:#008E7F">Увеличить лимит</div><div style="font-size:11px;color:#9B9B9B">Доступно до <span style="background:#DCF8D6;border-bottom:1px dashed #008E7F;border-radius:3px;padding:0 3px">220 000 ₽</span> при пополнении залога</div></div><span style="color:#9B9B9B">›</span></div>
+              <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 15px;border-bottom:1px solid #F1F3F5"><div><div style="font-size:13px;font-weight:700">Пополнить залог</div><div style="font-size:11px;color:#9B9B9B">Снизит загрузку залога и риск margin call</div></div><span style="color:#9B9B9B">›</span></div>
+              <div onClick="{{ go.margin }}" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 15px;border-bottom:1px solid #F1F3F5;cursor:pointer"><div><div style="font-size:13px;font-weight:700;color:#A33131">Margin Call</div><div style="font-size:11px;color:#9B9B9B">Демо экрана маржин-колла</div></div><span style="color:#9B9B9B">›</span></div>
+              <div onClick="{{ go.ret_select }}" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 15px;border-bottom:1px solid #F1F3F5;cursor:pointer"><div><div style="font-size:13px;font-weight:700">Возврат обеспечения</div><div style="font-size:11px;color:#9B9B9B">Вывод залога после закрытия линии</div></div><span style="color:#9B9B9B">›</span></div>
+              <div onClick="{{ go.close_start }}" style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 15px;cursor:pointer"><div><div style="font-size:13px;font-weight:700">Закрытие линии</div><div style="font-size:11px;color:#9B9B9B">Документы · возврат залога</div></div><span style="color:#9B9B9B">›</span></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right column -->
+        <div style="flex:1;min-width:300px">
+          <div style="background:#fff;border-radius:16px;padding:20px;display:flex;flex-direction:column;gap:10px;margin-bottom:16px;border:1px solid #F1F3F5">
+            <div style="font-weight:800;font-size:16px">Задолженность</div>
+            <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Основной долг</span><span style="font-weight:700">{{ principalFmt }} ₽</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Проценты</span><span style="font-weight:700">340 ₽</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Заморожено по операциям</span><span style="font-weight:700">3 060 ₽</span></div>
+            <div style="height:1px;background:#E3E7EA;margin:4px 0"></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Минимальный платёж</span><span style="font-weight:800">5 780 ₽ · до 25.09</span></div>
+            <div onClick="{{ go.pay }}" style="background:#008E7F;color:#fff;border-radius:12px;padding:13px;text-align:center;font-weight:700;font-size:14px;cursor:pointer;margin-top:4px">Погасить 5 780 ₽</div>
+          </div>
+          <div style="background:#DDF8D6;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px;margin-bottom:16px">
+            <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-weight:800;font-size:13px;color:#044448">Льготный период</span><span style="font-size:11px;font-weight:700;color:#044448">до 25.09</span></div>
+            <div style="font-size:12px;color:#044448;line-height:1.45">Внесите 96 500 ₽ до 25.09, чтобы не платить проценты за период</div>
+            <div style="height:6px;border-radius:3px;background:#fff;overflow:hidden"><div style="width:22%;height:100%;background:#008E7F"></div></div>
+            <div style="display:flex;justify-content:space-between;font-size:11px;color:#044448"><span>внесено 21 000 ₽</span><span>осталось 75 500 ₽</span></div>
+          </div>
+          <div style="background:#fff;border-radius:16px;padding:20px;border:1px solid #F1F3F5">
+            <div style="font-weight:800;font-size:16px;margin-bottom:8px">Последние операции</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid #F1F3F5"><div><div style="font-size:13px;font-weight:700">Пятёрочка</div><div style="font-size:11px;color:#9B9B9B">Заморожено · 24.08</div></div><div style="font-weight:700;font-size:13px">−1 240 ₽</div></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid #F1F3F5"><div><div style="font-size:13px;font-weight:700">Ozon</div><div style="font-size:11px;color:#9B9B9B">Списано · 23.08</div></div><div style="font-weight:700;font-size:13px">−7 890 ₽</div></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 0"><div><div style="font-size:13px;font-weight:700">Яндекс Такси</div><div style="font-size:11px;color:#9B9B9B">Списано · 23.08</div></div><div style="font-weight:700;font-size:13px">−540 ₽</div></div>
+            <div style="font-size:13px;font-weight:700;color:#008E7F;padding:10px 0 0">Все операции</div>
+          </div>
+        </div>
+
+      </div>
+      <div onClick="{{ go.calc }}" style="text-align:center;font-size:12px;font-weight:700;color:#008E7F;padding:14px 0 0;cursor:pointer">↺ Начать прототип заново</div>
+    </div>
+    </sc-if>
+
+    <!-- MOBILE cabinet -->
+    <sc-if value="{{ isMob }}" hint-placeholder-val="{{ true }}">
     <div data-screen-id="SCREEN-039-A" data-screen-label="SCREEN-039-A cabinet" style="{{ card }}">
       <div style="font-size:13px;color:#9B9B9B">Доступно</div>
       <div style="font-weight:800;font-size:36px;line-height:1.1">{{ availableFmt }} ₽</div>
@@ -371,6 +450,8 @@
       </div>
       <div onClick="{{ go.calc }}" style="text-align:center;font-size:12px;font-weight:700;color:#008E7F;padding:14px 0 0;cursor:pointer">↺ Начать прототип заново</div>
     </div>
+    </sc-if>
+
     </sc-if>
 
     <!-- ==================== Погашение · step key: "pay" ==================== -->
@@ -765,6 +846,7 @@ class Component extends DCLogic {
 
     const payTotal = this.state.pay === 'min' ? 5780 : this.state.pay === 'own' ? 20000 : 96840;
     const onCalc = st === 'calc';
+    const isDash = ['cabinet','pay','paid','margin','inc_start','inc_check','inc_deposit','inc_terms','inc_sign','inc_cool','inc_done','close_start','close_wait','close_balance','close_pay','close_done','ret_select','ret_address','ret_confirm','ret_done'].includes(st);
 
     // inc flow: total collateral after increase
     const incAdditional = 1540;
@@ -776,11 +858,11 @@ class Component extends DCLogic {
       stepLabel: LABELS[st],
       rootStyle: 'display:flex;flex-direction:column;min-height:100%;background:' + (desk && onCalc ? '#004447' : desk ? '#EFF3F2' : '#fff'),
       pageStyle: desk
-        ? 'flex:1;display:flex;justify-content:center;padding:' + (onCalc ? '28px' : '32px') + ';box-sizing:border-box'
+        ? 'flex:1;padding:' + (onCalc ? '28px' : '32px 48px') + ';box-sizing:border-box' + (isDash ? '' : ';display:flex;justify-content:center')
         : 'flex:1;padding:16px 16px 40px;box-sizing:border-box',
       calcRow: desk ? 'display:flex;gap:28px;align-items:flex-start;width:100%;max-width:800px' : 'display:block',
       calcCard: desk ? 'flex:0 0 340px;background:#fff;border-radius:18px;padding:20px' : 'display:block',
-      card: desk ? 'width:440px;background:#fff;border-radius:18px;padding:24px;box-sizing:border-box;height:fit-content' : 'display:block',
+      card: desk ? (isDash ? 'width:440px;max-width:100%;background:#fff;border-radius:18px;padding:24px;box-sizing:border-box;margin:0 auto' : 'width:440px;background:#fff;border-radius:18px;padding:24px;box-sizing:border-box;height:fit-content') : 'display:block',
 
       isLoan: this.state.product === 'loan',
       isLine: this.state.product === 'line',
@@ -806,6 +888,9 @@ class Component extends DCLogic {
       principalFmt: nf(96500),
 
       incTotalCollateral,
+      isDash,
+      lkTabActive: 'background:#008E7F;color:#fff;border-radius:12px;padding:12px 24px;font-size:14px;font-weight:800;white-space:nowrap',
+      lkTabInactive: 'background:#777D92;color:#fff;border-radius:12px;padding:12px 24px;font-size:14px;font-weight:800;white-space:nowrap;cursor:pointer;opacity:.85',
 
       pickMin: () => this.setState({ pay: 'min' }),
       pickFull: () => this.setState({ pay: 'full' }),

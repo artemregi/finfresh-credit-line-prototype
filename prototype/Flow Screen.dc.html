@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,600;6..12,700;6..12,800&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;font-family:'Nunito Sans',system-ui,sans-serif;color:#212529;-webkit-font-smoothing:antialiased}
+  a{color:#008E7F}
+  a:hover{color:#004447}
+  input[type=range]{-webkit-appearance:none;appearance:none;background:transparent;height:20px;width:100%;margin:2px 0}
+  input[type=range]::-webkit-slider-runnable-track{height:5px;border-radius:3px;background:#DDF8D6}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;height:17px;width:17px;margin-top:-6px;border-radius:50%;background:#008E7F;border:4px solid #fff;box-shadow:0 0 0 1px #008E7F;cursor:pointer}
+</style>
+</helmet>
+
+<div style="{{ rootStyle }}">
+
+  <sc-if value="{{ isDesk }}" hint-placeholder-val="{{ false }}">
+    <div style="background:#008E7F;padding:12px 28px;display:flex;justify-content:flex-end;align-items:center;gap:12px;color:#fff;font-size:13px;font-weight:700;flex:0 0 auto"><span>Иван Иванов</span><div style="width:28px;height:28px;border-radius:50%;background:#004447;color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center">ИИ</div></div>
+    <div style="background:#DDF8D6;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex:0 0 auto">
+      <img src="ref/logo.svg" alt="FinFresh" onClick="{{ go.calc }}" style="height:24px;display:block;cursor:pointer">
+      <div style="display:flex;gap:20px;font-size:13px;font-weight:700;color:#004447">
+        <div style="display:flex;align-items:center;gap:7px"><img src="ref/icons/nav-how.png" alt="" style="width:17px;height:17px">Как это работает</div>
+        <div style="display:flex;align-items:center;gap:7px"><img src="ref/icons/nav-faq.png" alt="" style="width:17px;height:17px">FAQ</div>
+        <div style="display:flex;align-items:center;gap:7px"><img src="ref/icons/nav-news.png" alt="" style="width:17px;height:17px">Новости</div>
+        <div style="display:flex;align-items:center;gap:7px"><img src="ref/icons/nav-issues.png" alt="" style="width:17px;height:17px">Проблемы и предложения</div>
+      </div>
+    </div>
+  </sc-if>
+
+  <sc-if value="{{ isMob }}" hint-placeholder-val="{{ true }}">
+    <div style="background:#DDF8D6;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;flex:0 0 auto;padding-top:58px">
+      <img src="ref/logo.svg" alt="FinFresh" onClick="{{ go.calc }}" style="height:22px;display:block;cursor:pointer">
+      <div style="font-size:12px;font-weight:800;color:#004447">{{ stepLabel }}</div>
+    </div>
+  </sc-if>
+
+  <div style="{{ pageStyle }}">
+
+    <!-- ==================== SCREEN-005 · Калькулятор кредитной линии (точка входа, публичный сайт) · step key: "calc" ==================== -->
+    <sc-if value="{{ s.calc }}" hint-placeholder-val="{{ true }}">
+    <div data-screen-id="SCREEN-005" data-screen-label="SCREEN-005 calc" style="{{ calcRow }}">
+      <sc-if value="{{ isDesk }}" hint-placeholder-val="{{ false }}">
+      <div style="flex:1 1 220px;display:flex;flex-direction:column;gap:18px;max-width:340px">
+        <div style="font-weight:800;font-size:28px;color:#fff;line-height:1.15;text-wrap:pretty">Рубли из крипты без обменников</div>
+        <div style="background:#fff;border-radius:14px;padding:16px;font-size:12px;line-height:1.55"><div style="font-weight:800;color:#008E7F;margin-bottom:6px">Кредитная линия</div>Возобновляемый лимит и виртуальная карта. Криптовалюта остаётся в залоге, проценты — только на потраченное, срока у линии нет.</div>
+        <img src="ref/hero-frog.png" alt="FinFresh" style="width:100%;aspect-ratio:1;border-radius:50%;display:block;object-fit:cover">
+      </div>
+      </sc-if>
+      <div style="{{ calcCard }}">
+        <div style="display:flex;gap:2px;background:#F5F5F5;border-radius:12px;padding:4px;margin-bottom:16px">
+          <div onClick="{{ setLoan }}" style="{{ tabLoan }}">Займ</div>
+          <div onClick="{{ setLine }}" style="{{ tabLine }}">Кредитная линия</div>
+        </div>
+
+        <sc-if value="{{ isLoan }}" hint-placeholder-val="{{ false }}">
+          <div style="font-weight:800;font-size:17px;text-align:center;margin-bottom:16px">Какая сумма Вам необходима?</div>
+          <div style="background:#F5F5F5;border-radius:12px;padding:14px;margin-bottom:14px">
+            <div style="font-size:12px;color:#777D92">Сумма займа, ₽</div>
+            <div style="font-weight:800;font-size:20px;margin:2px 0 8px">50 000 ₽</div>
+            <div style="display:flex;justify-content:space-between;font-size:11px;color:#9B9B9B"><span>30 000 ₽</span><span>150 000 ₽</span></div>
+            <div style="height:5px;border-radius:3px;background:#DDF8D6;position:relative;margin-top:8px"><div style="width:16%;height:5px;border-radius:3px;background:#008E7F"></div><div style="position:absolute;left:16%;top:-6px;width:17px;height:17px;border-radius:50%;background:#008E7F;border:4px solid #fff;box-sizing:border-box;box-shadow:0 0 0 1px #008E7F"></div></div>
+            <div style="font-weight:800;font-size:14px;color:#008E7F;margin-top:12px">697.2918 USDT*</div>
+          </div>
+          <div style="background:#F5F5F5;border-radius:12px;padding:14px;margin-bottom:14px">
+            <div style="font-size:12px;color:#777D92">Срок кредитования</div>
+            <div style="font-weight:800;font-size:20px;margin:2px 0 8px">1 день</div>
+            <div style="display:flex;justify-content:space-between;font-size:11px;color:#9B9B9B"><span>1 день</span><span>21 день</span></div>
+          </div>
+          <div style="background:#008E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:800;font-size:15px">Получить рубли</div>
+          <div style="font-size:11px;color:#777D92;margin-top:12px;line-height:1.45">Существующий продукт — оставлен без изменений. Переключитесь на «Кредитную линию».</div>
+        </sc-if>
+
+        <sc-if value="{{ isLine }}" hint-placeholder-val="{{ true }}">
+          <div style="font-weight:800;font-size:17px;text-align:center;margin-bottom:16px">Какой лимит Вам необходим?</div>
+          <div style="background:#F5F5F5;border-radius:12px;padding:14px;margin-bottom:14px">
+            <div style="font-size:12px;color:#777D92">Кредитный лимит, ₽</div>
+            <div style="font-weight:800;font-size:20px;margin:2px 0 6px">{{ limitFmt }} ₽</div>
+            <div style="display:flex;justify-content:space-between;font-size:11px;color:#9B9B9B"><span>30 000 ₽</span><span style="background:#DCF8D6;border-bottom:1px dashed #008E7F;border-radius:3px;padding:0 3px">500 000 ₽</span></div>
+            <input type="range" min="30000" max="500000" step="10000" value="{{ limit }}" onInput="{{ onLimit }}">
+            <div style="font-weight:800;font-size:14px;color:#008E7F;margin-top:6px">{{ recommended }} USDT*</div>
+          </div>
+          <div style="font-weight:800;font-size:13px;margin-bottom:10px">Выберите токен обеспечения</div>
+          <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px">
+            <div style="display:flex;align-items:center;gap:2px;background:#F5F5F5;border-radius:999px;padding:4px">
+              <div onClick="{{ pickUsdt }}" style="{{ tokUsdt }}"><span style="{{ glyUsdt }}">₮</span>USDT</div>
+              <div onClick="{{ pickBtc }}" style="{{ tokBtc }}"><span style="{{ glyBtc }}">₿</span>BTC</div>
+              <div onClick="{{ pickEth }}" style="{{ tokEth }}"><span style="{{ glyEth }}">◆</span>ETH</div>
+            </div>
+            <div style="display:flex;align-items:center;gap:5px;background:#fff;border:1px solid #E3E7EA;border-radius:999px;padding:8px 11px;font-size:12px;font-weight:800;white-space:nowrap">Ещё <span style="background:#DDF8D6;color:#004447;border-radius:999px;padding:1px 6px;font-size:11px">2</span> ⌄</div>
+          </div>
+          <div style="background:#F5F5F5;border-radius:12px;padding:12px 14px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center"><span style="font-size:12px;color:#777D92">Сеть перевода</span><span style="font-weight:800;font-size:13px">{{ network }} ⌄</span></div>
+          <div style="font-size:13px;margin-bottom:2px">Необходимо внести <b style="color:#008E7F">{{ recommended }} {{ token }}</b></div>
+          <div style="font-size:11px;color:#9B9B9B;margin-bottom:14px">Курсы обновлены в 15:44 · минимально {{ required }} {{ token }}</div>
+          <div style="background:#F5F5F5;border-radius:12px;padding:14px;margin-bottom:14px">
+            <div style="display:flex;justify-content:space-between;gap:12px;margin-bottom:12px"><div><div style="font-size:12px;color:#777D92">Лимит:</div><div style="font-weight:800;font-size:17px">{{ limitFmt }} ₽</div></div><div style="text-align:right"><div style="font-size:12px;color:#777D92">Обеспечение:</div><div style="font-weight:800;font-size:17px;color:#008E7F">{{ recommended }} {{ token }}</div></div></div>
+            <div style="display:flex;justify-content:space-between;gap:12px;padding-top:12px;border-top:1px solid #E3E7EA"><div><div style="font-size:12px;color:#777D92">Ставка:</div><div style="font-weight:800;font-size:17px"><span style="background:#DCF8D6;border-bottom:1px dashed #008E7F;border-radius:3px;padding:0 3px">36 %</span></div></div><div style="text-align:right"><div style="font-size:12px;color:#777D92">Срок линии:</div><div style="font-weight:800;font-size:17px"><span style="background:#DCF8D6;border-bottom:1px dashed #008E7F;border-radius:3px;padding:0 3px">до закрытия</span></div></div></div>
+            <div style="padding-top:12px;margin-top:12px;border-top:1px solid #E3E7EA"><div style="font-size:12px;color:#777D92">Проценты:</div><div style="font-weight:800;font-size:15px">Только на потраченное</div></div>
+          </div>
+          <div style="background:#FFF4E0;border-radius:12px;padding:12px;font-size:12px;line-height:1.5;color:#8A5A12;margin-bottom:14px">
+            <b>Что важно знать.</b> Если курс {{ token }} упадёт настолько, что залога перестанет хватать, мы попросим пополнить его или погасить часть долга. Если не сделать это в срок — залог продаётся полностью. <b style="text-decoration:underline">Подробнее</b>
+          </div>
+          <div onClick="{{ go.reg }}" style="background:#008E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:800;font-size:15px;cursor:pointer">Открыть кредитную линию</div>
+          <div style="font-size:11px;color:#777D92;margin-top:12px;line-height:1.45">* Приблизительный расчёт обеспечения. Окончательные условия — после проверки.</div>
+        </sc-if>
+      </div>
+    </div>
+    </sc-if>
+
+    <!-- ==================== R001 · Регистрация одним экраном: телефон + SMS + согласия · step key: "reg" ==================== -->
+    <sc-if value="{{ s.reg }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-id="R001" data-screen-label="R001 reg" style="{{ card }}">
+      <div style="font-weight:800;font-size:20px;margin-bottom:14px">Вход или регистрация</div>
+      <div style="background:#DFF1EF;border-radius:12px;padding:12px;font-size:12px;line-height:1.5;color:#044448;margin-bottom:14px">Расчёт сохранён: лимит {{ limitFmt }} ₽, обеспечение {{ recommended }} {{ token }} · сеть {{ network }}. Он подставится в заявку.</div>
+      <div style="background:#F5F5F5;border-radius:14px;padding:14px;margin-bottom:14px"><div style="font-size:12px;color:#9B9B9B">Телефон</div><div style="font-weight:800;font-size:18px;margin-top:2px">+7 985 123-45-14</div></div>
+      <div style="font-size:12px;color:#9B9B9B;margin-bottom:8px">Код из SMS</div>
+      <div style="display:flex;gap:10px;margin-bottom:8px">
+        <div style="width:44px;height:52px;border-radius:12px;background:#F5F5F5;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px">8</div>
+        <div style="width:44px;height:52px;border-radius:12px;background:#F5F5F5;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px">2</div>
+        <div style="width:44px;height:52px;border-radius:12px;background:#F5F5F5;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px">6</div>
+        <div style="width:44px;height:52px;border-radius:12px;background:#fff;border:1.5px solid #008E7F"></div>
+      </div>
+      <div style="font-size:11px;color:#9B9B9B;margin-bottom:16px">Новый код через 00:42</div>
+      <div style="display:flex;flex-direction:column;gap:10px;padding-top:14px;border-top:1px solid #F1F3F5;margin-bottom:16px">
+        <div style="display:flex;gap:10px"><div style="flex:0 0 20px;height:20px;border-radius:6px;background:#008E7F;color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center">✓</div><div style="font-size:12px;line-height:1.45">Согласие на обработку персональных данных</div></div>
+        <div style="display:flex;gap:10px"><div style="flex:0 0 20px;height:20px;border-radius:6px;background:#008E7F;color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center">✓</div><div style="font-size:12px;line-height:1.45">Запрос кредитной истории в БКИ и проверка самозапрета</div></div>
+      </div>
+      <div onClick="{{ go.form }}" style="background:#008E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:800;font-size:15px;cursor:pointer">Зарегистрироваться и продолжить</div>
+    </div>
+    </sc-if>
+
+    <!-- ==================== SCREEN-009 · Анкета: подтверждение данных клиента · step key: "form" ==================== -->
+    <sc-if value="{{ s.form }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-id="SCREEN-009" data-screen-label="SCREEN-009 form" style="{{ card }}">
+      <div style="display:flex;gap:6px;margin-bottom:14px"><div style="flex:1;height:4px;border-radius:2px;background:#008E7F"></div><div style="flex:1;height:4px;border-radius:2px;background:#008E7F"></div><div style="flex:1;height:4px;border-radius:2px;background:#DDF8D6"></div></div>
+      <div style="font-weight:800;font-size:20px;margin-bottom:6px">Проверьте данные</div>
+      <div style="font-size:12px;color:#9B9B9B;line-height:1.45;margin-bottom:14px">Заполнено из профиля. Паспорт и адрес подтверждены ранее.</div>
+      <div style="border:1px solid #F1F3F5;border-radius:16px;overflow:hidden;margin-bottom:12px">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;border-bottom:1px solid #F1F3F5"><div><div style="font-size:11px;color:#9B9B9B">ФИО</div><div style="font-weight:700;font-size:14px">Иванов Иван Иванович</div></div><span style="font-size:12px;font-weight:700;color:#008E7F;white-space:nowrap">Изменить</span></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;border-bottom:1px solid #F1F3F5"><div><div style="font-size:11px;color:#9B9B9B">Паспорт</div><div style="font-weight:700;font-size:14px">45 12 №123456</div></div><span style="font-size:11px;font-weight:700;color:#008E7F;background:#DDF8D6;border-radius:6px;padding:3px 8px;white-space:nowrap">Подтверждён</span></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;border-bottom:1px solid #F1F3F5"><div><div style="font-size:11px;color:#9B9B9B">Адрес регистрации</div><div style="font-weight:700;font-size:14px">г. Москва, ул. Тверская, 12</div></div><span style="font-size:12px;font-weight:700;color:#008E7F;white-space:nowrap">Изменить</span></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px;border-bottom:1px solid #F1F3F5"><div><div style="font-size:11px;color:#9B9B9B">Занятость</div><div style="font-weight:700;font-size:14px">Работа по найму · IT</div></div><span style="font-size:12px;font-weight:700;color:#008E7F;white-space:nowrap">Изменить</span></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 16px"><div><div style="font-size:11px;color:#9B9B9B">Среднемесячный доход</div><div style="font-weight:700;font-size:14px">180 000 ₽</div></div><span style="font-size:12px;font-weight:700;color:#008E7F;white-space:nowrap">Изменить</span></div>
+      </div>
+      <div style="background:#F5F5F5;border-radius:12px;padding:12px;font-size:11.5px;line-height:1.5;color:#495057;margin-bottom:16px">Доход влияет на показатель долговой нагрузки (ПДН) и на размер одобренного лимита. Если он изменился — поправьте, это ускорит проверку.</div>
+      <div onClick="{{ go.check }}" style="background:#008E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:800;font-size:15px;cursor:pointer">Отправить заявку</div>
+    </div>
+    </sc-if>
+
+    <!-- ==================== SCREEN-012 · Проверка заявки (БКИ, самозапрет, скоринг) · step key: "check" ==================== -->
+    <sc-if value="{{ s.check }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-id="SCREEN-012" data-screen-label="SCREEN-012 check" style="{{ card }}">
+      <div style="font-weight:800;font-size:20px;margin-bottom:6px">Проверяем заявку</div>
+      <div style="font-size:12px;color:#9B9B9B;line-height:1.45;margin-bottom:16px">Обычно до 2 минут. Можно закрыть — пришлём уведомление.</div>
+      <div style="display:flex;flex-direction:column;gap:12px;margin-bottom:18px">
+        <div style="display:flex;align-items:center;gap:10px"><div style="width:20px;height:20px;border-radius:50%;background:#008E7F;color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center">✓</div><div style="font-size:13px">Проверка документов</div></div>
+        <div style="display:flex;align-items:center;gap:10px"><div style="width:20px;height:20px;border-radius:50%;background:#008E7F;color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center">✓</div><div style="font-size:13px">Самозапрет на кредиты — не установлен</div></div>
+        <div style="display:flex;align-items:center;gap:10px"><div style="width:20px;height:20px;border-radius:50%;border:2px solid #008E7F"></div><div style="font-size:13px;font-weight:700">Кредитная история и скоринг</div></div>
+        <div style="display:flex;align-items:center;gap:10px"><div style="width:20px;height:20px;border-radius:50%;border:2px solid #DEE2E6"></div><div style="font-size:13px;color:#9B9B9B">Расчёт лимита и обеспечения</div></div>
+      </div>
+      <div style="background:#F5F5F5;border-radius:14px;padding:14px;margin-bottom:14px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px"><span style="font-size:12px;color:#777D92">Осталось примерно</span><span style="font-weight:800;font-size:14px">1 мин 20 с</span></div>
+        <div style="height:6px;border-radius:3px;background:#DDF8D6;overflow:hidden"><div style="width:62%;height:100%;background:#008E7F"></div></div>
+      </div>
+      <div style="background:#DFF1EF;border-radius:12px;padding:12px;font-size:12px;line-height:1.5;color:#044448;margin-bottom:14px">Приложение можно закрыть — пришлём push, как только решение будет готово. Заявка не отменится.</div>
+      <div onClick="{{ go.decision }}" style="background:#008E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:800;font-size:15px;cursor:pointer">Посмотреть решение</div>
+      <div style="text-align:center;font-size:12px;font-weight:700;color:#008E7F;padding:12px 0 0">Что мы проверяем и зачем</div>
+    </div>
+    </sc-if>
+
+    <!-- ==================== SCREEN-013-A · Кредитное решение + обязательное раскрытие ПСК/ПДН (SCREEN-014) · step key: "decision" ==================== -->
+    <sc-if value="{{ s.decision }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-id="SCREEN-013-A" data-screen-label="SCREEN-013-A decision" style="{{ card }}">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:8px;margin-bottom:16px">
+        <div style="width:48px;height:48px;border-radius:50%;background:#DDF8D6;color:#008E7F;font-size:22px;display:flex;align-items:center;justify-content:center">✓</div>
+        <div style="font-weight:800;font-size:20px">Лимит одобрен</div>
+        <div style="font-weight:800;font-size:32px;color:#008E7F">{{ limitFmt }} ₽</div>
+      </div>
+      <div style="background:#F5F5F5;border-radius:16px;padding:16px;margin-bottom:14px">
+        <div style="font-size:13px;color:#9B9B9B">Обеспечение</div>
+        <div style="font-weight:800;font-size:20px;margin:2px 0">{{ recommended }} {{ token }}</div>
+        <div style="font-size:12px;color:#9B9B9B">сеть {{ network }} · по курсу на 15:44</div>
+      </div>
+      <div style="border:1px solid #F1F3F5;border-radius:16px;overflow:hidden;margin-bottom:14px">
+        <div style="display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="color:#9B9B9B">Ставка</span><span style="font-weight:700"><span style="background:#DCF8D6;border-bottom:1px dashed #008E7F;border-radius:3px;padding:0 3px">36 % годовых</span></span></div>
+        <div style="display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="color:#9B9B9B">Попросим пополнить залог при</span><span style="font-weight:700"><span style="background:#DCF8D6;border-bottom:1px dashed #008E7F;border-radius:3px;padding:0 3px">70 %</span></span></div>
+        <div style="display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="color:#9B9B9B">Продадим залог при</span><span style="font-weight:700;color:#A33131"><span style="background:#DCF8D6;border-bottom:1px dashed #008E7F;border-radius:3px;padding:0 3px">80 %</span></span></div>
+        <div style="display:flex;justify-content:space-between;padding:12px 16px;font-size:13px"><span style="color:#9B9B9B">Льготный период</span><span style="font-weight:700"><span style="background:#DCF8D6;border-bottom:1px dashed #008E7F;border-radius:3px;padding:0 3px">до 55 дней</span></span></div>
+      </div>
+      <div style="background:#F5F5F5;border-radius:16px;padding:16px;margin-bottom:14px">
+        <div style="font-weight:800;font-size:13px;margin-bottom:10px">Обязательное раскрытие</div>
+        <div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:8px"><span style="color:#9B9B9B">ПСК, % годовых</span><span style="font-weight:700"><span style="background:#DCF8D6;border-bottom:1px dashed #008E7F;border-radius:3px;padding:0 3px">от 36 до 41</span></span></div>
+        <div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:8px"><span style="color:#9B9B9B">ПСК, ₽ за весь срок</span><span style="font-weight:700"><span style="background:#DCF8D6;border-bottom:1px dashed #008E7F;border-radius:3px;padding:0 3px">рассчитывается</span></span></div>
+        <div style="display:flex;justify-content:space-between;font-size:12.5px"><span style="color:#9B9B9B">Показатель долговой нагрузки</span><span style="font-weight:700"><span style="background:#DCF8D6;border-bottom:1px dashed #008E7F;border-radius:3px;padding:0 3px">28 %</span></span></div>
+        <div style="font-size:11px;color:#9B9B9B;line-height:1.5;margin-top:10px">ПСК считается на всю сумму лимита. Если вы используете часть лимита, фактическая переплата будет меньше.</div>
+      </div>
+      <div style="text-align:center;font-size:13px;font-weight:700;color:#008E7F;padding:2px 0 14px">Все условия, ПСК и ПДН</div>
+      <div style="background:#DFF1EF;border-radius:12px;padding:12px;font-size:12px;line-height:1.5;color:#044448;margin-bottom:14px">Решение действует до 27.08.2026 15:44. После этой даты потребуется повторная проверка.</div>
+      <div onClick="{{ go.docs }}" style="background:#008E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:800;font-size:15px;cursor:pointer">Подписать документы</div>
+    </div>
+    </sc-if>
+
+    <!-- ==================== SCREEN-016 · Пакет документов · step key: "docs" ==================== -->
+    <sc-if value="{{ s.docs }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-id="SCREEN-016" data-screen-label="SCREEN-016 docs" style="{{ card }}">
+      <div style="font-weight:800;font-size:20px;margin-bottom:6px">Документы</div>
+      <div style="font-size:12px;color:#9B9B9B;line-height:1.45;margin-bottom:14px">Подписываются одним кодом. Подписание не означает заключение договора — он вступит в силу с первой оплаты картой.</div>
+      <div style="border:1px solid #F1F3F5;border-radius:16px;overflow:hidden;margin-bottom:16px">
+        <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #F1F3F5"><img src="ref/icons/pdf.svg" alt="" style="width:20px;height:20px"><div style="font-size:13px;font-weight:700">Индивидуальные условия</div></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #F1F3F5"><img src="ref/icons/pdf.svg" alt="" style="width:20px;height:20px"><div style="font-size:13px;font-weight:700">Общие условия договора займа</div></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #F1F3F5"><img src="ref/icons/pdf.svg" alt="" style="width:20px;height:20px"><div style="font-size:13px;font-weight:700">Договор залога криптоактива</div></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #F1F3F5"><img src="ref/icons/pdf.svg" alt="" style="width:20px;height:20px"><div style="font-size:13px;font-weight:700">Условия выпуска и обслуживания карты</div></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:14px 16px"><img src="ref/icons/pdf.svg" alt="" style="width:20px;height:20px"><div style="font-size:13px;font-weight:700">График и порядок платежей</div></div>
+      </div>
+      <div onClick="{{ go.code }}" style="background:#008E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:800;font-size:15px;cursor:pointer">Подписать всё</div>
+    </div>
+    </sc-if>
+
+    <!-- ==================== SCREEN-019 · SMS-код подписания документов · step key: "code" ==================== -->
+    <sc-if value="{{ s.code }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-id="SCREEN-019" data-screen-label="SCREEN-019 code" style="{{ card }}">
+      <div style="font-weight:800;font-size:20px;margin-bottom:6px">Код подписания</div>
+      <div style="font-size:12px;color:#9B9B9B;line-height:1.45;margin-bottom:16px">Простая электронная подпись. Сохраним время, версию документов и способ подписи.</div>
+      <div style="display:flex;gap:10px;margin-bottom:18px">
+        <div style="width:44px;height:52px;border-radius:12px;background:#F5F5F5;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px">9</div>
+        <div style="width:44px;height:52px;border-radius:12px;background:#F5F5F5;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px">0</div>
+        <div style="width:44px;height:52px;border-radius:12px;background:#F5F5F5;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px">4</div>
+        <div style="width:44px;height:52px;border-radius:12px;background:#F5F5F5;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px">2</div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;font-size:12px;margin-bottom:16px"><span style="color:#9B9B9B">Новый код через 00:42</span><span style="font-weight:700;color:#008E7F">Код не пришёл</span></div>
+      <div style="background:#F5F5F5;border-radius:14px;padding:14px;font-size:11.5px;line-height:1.6;color:#495057;margin-bottom:16px">
+        При подписании сохраняются: точное время, версия каждого документа, способ подписи, идентификатор устройства и IP. Это подтверждает вашу подпись, если условия придётся сверять.
+      </div>
+      <div onClick="{{ go.card }}" style="background:#008E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:800;font-size:15px;cursor:pointer">Подписать</div>
+    </div>
+    </sc-if>
+
+    <!-- ==================== SCREEN-022 · Карта выпущена, статус INACTIVE · step key: "card" ==================== -->
+    <sc-if value="{{ s.card }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-id="SCREEN-022" data-screen-label="SCREEN-022 card" style="{{ card }}">
+      <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:4px">
+        <div style="font-weight:800;font-size:20px">Карта выпущена</div>
+        <div style="background:#DDF8D6;color:#004447;border-radius:999px;padding:5px 11px;font-size:11px;font-weight:800;white-space:nowrap">Готова к активации</div>
+      </div>
+      <div style="font-size:12px;color:#9B9B9B;line-height:1.45;margin-bottom:16px">Виртуальная карта выпущена банком-партнёром на ваше имя. Тратить по ней можно после открытия линии.</div>
+
+      <div style="position:relative;aspect-ratio:1.586;border-radius:16px;background:#008E7F;background-image:linear-gradient(115deg,rgba(255,255,255,.10) 0%,rgba(255,255,255,0) 42%),linear-gradient(0deg,rgba(0,0,0,.14),rgba(0,0,0,0) 55%);box-shadow:0 18px 34px -18px rgba(0,68,71,.55);overflow:hidden;color:#fff;margin-bottom:10px">
+        <div style="position:absolute;top:-70px;right:-50px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.06)"></div>
+        <div style="position:absolute;bottom:-90px;right:20px;width:190px;height:190px;border-radius:50%;background:rgba(255,255,255,.04)"></div>
+
+        <div style="position:absolute;inset:0;padding:6.4% 7%;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between">
+            <div>
+              <div style="font-weight:800;font-size:16px;line-height:1">FinFresh</div>
+              <div style="font-size:8.5px;opacity:.75;margin-top:4px;letter-spacing:.14em;text-transform:uppercase">Кредитная линия</div>
+            </div>
+            <div style="font-size:8.5px;letter-spacing:.14em;text-transform:uppercase;background:rgba(255,255,255,.16);border-radius:5px;padding:4px 7px;font-weight:700">Virtual</div>
+          </div>
+
+          <div style="display:flex;align-items:center;gap:12px">
+            <div style="width:15%;min-width:38px;aspect-ratio:1.32;border-radius:5px;background:#E7CE8C;background-image:linear-gradient(160deg,rgba(255,255,255,.55),rgba(255,255,255,0) 60%);position:relative;overflow:hidden">
+              <div style="position:absolute;left:0;right:0;top:32%;height:1px;background:rgba(140,110,40,.55)"></div>
+              <div style="position:absolute;left:0;right:0;top:65%;height:1px;background:rgba(140,110,40,.55)"></div>
+              <div style="position:absolute;top:0;bottom:0;left:34%;width:1px;background:rgba(140,110,40,.55)"></div>
+              <div style="position:absolute;top:18%;bottom:18%;left:60%;width:1px;background:rgba(140,110,40,.4)"></div>
+            </div>
+            <svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="opacity:.85;transform:rotate(90deg)">
+              <path d="M4 6a9 9 0 010 8" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M8 4.5a12 12 0 010 11" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
+              <path d="M12 3a15 15 0 010 14" stroke="#fff" stroke-width="1.6" stroke-linecap="round"/>
+            </svg>
+          </div>
+
+          <div style="display:flex;align-items:baseline;gap:12px;font-weight:600;font-size:19px;letter-spacing:.02em;font-variant-numeric:tabular-nums">
+            <span style="letter-spacing:.16em">••••</span>
+            <span style="letter-spacing:.16em">••••</span>
+            <span style="letter-spacing:.16em">••••</span>
+            <span style="font-weight:700;letter-spacing:.1em">4416</span>
+          </div>
+
+          <div style="display:flex;align-items:flex-end;justify-content:space-between;gap:12px">
+            <div style="display:flex;gap:22px">
+              <div>
+                <div style="font-size:7.5px;opacity:.7;letter-spacing:.12em;text-transform:uppercase;line-height:1.3">Card<br>holder</div>
+                <div style="font-size:12px;font-weight:700;margin-top:4px;letter-spacing:.06em">IVAN IVANOV</div>
+              </div>
+              <div>
+                <div style="font-size:7.5px;opacity:.7;letter-spacing:.12em;text-transform:uppercase;line-height:1.3">Valid<br>thru</div>
+                <div style="font-size:12px;font-weight:700;margin-top:4px;letter-spacing:.06em">08 / 29</div>
+              </div>
+            </div>
+            <div style="display:flex;align-items:center;gap:3px;background:rgba(255,255,255,.14);border-radius:6px;padding:5px 9px">
+              <span style="font-weight:800;font-size:12px;letter-spacing:.12em">МИР</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div style="display:flex;justify-content:space-between;align-items:center;font-size:11px;color:#9B9B9B;margin-bottom:16px">
+        <span>Реквизиты откроются после активации</span>
+        <span style="font-weight:700;color:#8A5A12;background:#FFF4E0;border-radius:6px;padding:3px 8px">Статус: неактивна</span>
+      </div>
+
+      <div style="border:1px solid #F1F3F5;border-radius:16px;overflow:hidden;margin-bottom:14px">
+        <div style="display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="color:#9B9B9B">Лимит после открытия</span><span style="font-weight:700">{{ limitFmt }} ₽</span></div>
+        <div style="display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="color:#9B9B9B">Платёжная система</span><span style="font-weight:700"><span style="background:#DCF8D6;border-bottom:1px dashed #008E7F;border-radius:3px;padding:0 3px">МИР</span></span></div>
+        <div style="display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="color:#9B9B9B">Эмитент</span><span style="font-weight:700"><span style="background:#DCF8D6;border-bottom:1px dashed #008E7F;border-radius:3px;padding:0 3px">банк-партнёр</span></span></div>
+        <div style="display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="color:#9B9B9B">Валюта операций</span><span style="font-weight:700">Рубли ₽</span></div>
+        <div style="display:flex;justify-content:space-between;padding:12px 16px;font-size:13px"><span style="color:#9B9B9B">Обслуживание</span><span style="font-weight:700">0 ₽ в месяц</span></div>
+      </div>
+
+      <div style="font-weight:800;font-size:14px;margin-bottom:10px">Что можно и что нельзя</div>
+      <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:16px">
+        <div style="display:flex;gap:10px;align-items:flex-start"><div style="flex:0 0 18px;height:18px;border-radius:50%;background:#DDF8D6;color:#008E7F;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center">✓</div><div style="font-size:12px;line-height:1.45">Покупки в магазинах и интернете — с льготным периодом</div></div>
+        <div style="display:flex;gap:10px;align-items:flex-start"><div style="flex:0 0 18px;height:18px;border-radius:50%;background:#DDF8D6;color:#008E7F;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center">✓</div><div style="font-size:12px;line-height:1.45">Оплата подписок и привязка к кошелькам телефона</div></div>
+        <div style="display:flex;gap:10px;align-items:flex-start"><div style="flex:0 0 18px;height:18px;border-radius:50%;background:#F5F5F5;color:#777D92;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center">—</div><div style="font-size:12px;line-height:1.45;color:#495057">Снятие наличных, переводы и покупка криптовалюты — без льготного периода, проценты с первого дня</div></div>
+      </div>
+
+      <div style="background:#FFF4E0;border-radius:12px;padding:12px;font-size:12px;line-height:1.5;color:#8A5A12;margin-bottom:16px">Карта не расходная до открытия линии. Осталось два шага: перевести обеспечение и дождаться периода охлаждения.</div>
+
+      <div onClick="{{ go.deposit }}" style="background:#008E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:800;font-size:15px;cursor:pointer">Внести обеспечение</div>
+      <div style="text-align:center;font-size:12px;font-weight:700;color:#008E7F;padding:12px 0 0">Как работает карта кредитной линии</div>
+    </div>
+    </sc-if>
+
+    <!-- ==================== SCREEN-026 · Адрес депозита, состояние 026-B (транзакция найдена) · step key: "deposit" ==================== -->
+    <sc-if value="{{ s.deposit }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-id="SCREEN-026" data-screen-label="SCREEN-026 deposit" style="{{ card }}">
+      <div style="font-weight:800;font-size:20px;margin-bottom:12px">Перевод залога</div>
+      <div style="background:#FFF4E0;border-radius:12px;padding:10px 12px;font-size:12px;line-height:1.45;color:#8A5A12;margin-bottom:12px">Только <b>{{ token }}</b> и только сеть <b>{{ network }}</b>. Другой актив или сеть не зачтутся в залог.</div>
+      <div style="background:#F5F5F5;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px;align-items:center;margin-bottom:12px">
+        <div style="width:140px;height:140px;background:#fff;border-radius:12px;padding:10px;box-sizing:border-box"><div style="width:100%;height:100%;background-image:repeating-conic-gradient(#212529 0% 25%,#fff 0% 50%);background-size:14px 14px"></div></div>
+        <div style="width:100%;background:#fff;border-radius:10px;padding:10px;font-family:ui-monospace,monospace;font-size:11px;word-break:break-all;line-height:1.4">TJ8kL2mQ9xVb7Rn4pW6sZaCd3EfGh5Kj1M</div>
+        <div style="display:flex;gap:8px;width:100%">
+          <div style="flex:1;background:#fff;border:1.5px solid #008E7F;color:#008E7F;border-radius:10px;padding:10px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;font-weight:700"><img src="ref/icons/file_copy.svg" alt="" style="width:14px;height:14px">Адрес</div>
+          <div style="flex:1;background:#fff;border:1.5px solid #008E7F;color:#008E7F;border-radius:10px;padding:10px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;font-weight:700"><img src="ref/icons/file_copy.svg" alt="" style="width:14px;height:14px">Сумму</div>
+        </div>
+      </div>
+      <div style="border:1px solid #F1F3F5;border-radius:16px;overflow:hidden;margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;padding:11px 14px;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="color:#9B9B9B">Нужно перевести</span><span style="font-weight:700">{{ recommended }} {{ token }}</span></div>
+        <div style="display:flex;justify-content:space-between;padding:11px 14px;font-size:13px"><span style="color:#9B9B9B">Подтверждений</span><span style="font-weight:700"><span style="background:#DCF8D6;border-bottom:1px dashed #008E7F;border-radius:3px;padding:0 3px">12</span></span></div>
+      </div>
+      <div style="background:#DFF1EF;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px;margin-bottom:14px">
+        <div style="display:flex;align-items:center;gap:8px"><div style="background:#008E7F;color:#fff;border-radius:999px;padding:4px 10px;font-size:11px;font-weight:800">Транзакция найдена</div><span style="font-size:12px;color:#044448">7 из 12 подтверждений</span></div>
+        <div style="height:6px;border-radius:3px;background:#fff;overflow:hidden"><div style="width:58%;height:100%;background:#008E7F"></div></div>
+      </div>
+      <div onClick="{{ go.accepted }}" style="background:#008E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:800;font-size:15px;cursor:pointer">Дальше (залог принят)</div>
+    </div>
+    </sc-if>
+
+    <!-- ==================== SCREEN-031 · Обеспечение принято · step key: "accepted" ==================== -->
+    <sc-if value="{{ s.accepted }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-id="SCREEN-031" data-screen-label="SCREEN-031 accepted" style="{{ card }}">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+        <div style="flex:0 0 44px;height:44px;border-radius:50%;background:#DDF8D6;color:#008E7F;font-size:22px;display:flex;align-items:center;justify-content:center">✓</div>
+        <div>
+          <div style="font-weight:800;font-size:20px;line-height:1.15">Залог принят</div>
+          <div style="font-size:12px;color:#9B9B9B;margin-top:2px">Заблокирован в обеспечение · 25.08.2026, 15:52</div>
+        </div>
+      </div>
+
+      <div style="background:#F5F5F5;border-radius:16px;padding:18px;margin-bottom:12px">
+        <div style="font-size:12px;color:#777D92">В обеспечении</div>
+        <div style="font-weight:800;font-size:26px;margin:2px 0 4px">{{ recommended }} {{ token }}</div>
+        <div style="font-size:13px;color:#495057">Оценка {{ collateralRub }} ₽ · рыночная {{ marketRub }} ₽</div>
+        <div style="height:1px;background:#E3E7EA;margin:14px 0"></div>
+        <div style="display:flex;justify-content:space-between;align-items:baseline;margin-bottom:8px"><span style="font-size:12px;color:#777D92">Загрузка залога</span><span style="font-weight:800;font-size:15px">0 %</span></div>
+        <div style="position:relative;height:8px;border-radius:4px;background:linear-gradient(90deg,#008E7F 0 60%,#E8A33D 60% 75%,#C64141 75% 100%)">
+          <div style="position:absolute;left:0;top:-4px;width:4px;height:16px;border-radius:2px;background:#212529"></div>
+        </div>
+        <div style="display:flex;justify-content:space-between;font-size:10.5px;color:#9B9B9B;margin-top:6px"><span>сейчас 0 %</span><span>пополним при 70 %</span><span>продадим при 80 %</span></div>
+      </div>
+
+      <div style="border:1px solid #F1F3F5;border-radius:16px;overflow:hidden;margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;padding:11px 15px;border-bottom:1px solid #F1F3F5;font-size:12.5px"><span style="color:#9B9B9B">Актив и сеть</span><span style="font-weight:700">{{ token }} · {{ network }}</span></div>
+        <div style="display:flex;justify-content:space-between;padding:11px 15px;border-bottom:1px solid #F1F3F5;font-size:12.5px"><span style="color:#9B9B9B">Курс на момент приёма</span><span style="font-weight:700">{{ priceFmt }} ₽</span></div>
+        <div style="display:flex;justify-content:space-between;padding:11px 15px;border-bottom:1px solid #F1F3F5;font-size:12.5px"><span style="color:#9B9B9B">Коэффициент учёта</span><span style="font-weight:700"><span style="background:#DCF8D6;border-bottom:1px dashed #008E7F;border-radius:3px;padding:0 3px">0,95</span></span></div>
+        <div style="display:flex;justify-content:space-between;padding:11px 15px;border-bottom:1px solid #F1F3F5;font-size:12.5px"><span style="color:#9B9B9B">Подтверждений сети</span><span style="font-weight:700">12 из 12</span></div>
+        <div style="display:flex;justify-content:space-between;padding:11px 15px;border-bottom:1px solid #F1F3F5;font-size:12.5px"><span style="color:#9B9B9B">Проверка происхождения</span><span style="font-weight:700;color:#008E7F">Пройдена</span></div>
+        <div style="display:flex;justify-content:space-between;padding:11px 15px;font-size:12.5px"><span style="color:#9B9B9B">Транзакция</span><span style="font-weight:700;color:#008E7F">0x7f3a…c1a4</span></div>
+      </div>
+
+      <div style="font-weight:800;font-size:14px;margin-bottom:10px">Что дальше</div>
+      <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:14px">
+        <div style="display:flex;gap:10px;align-items:flex-start"><div style="flex:0 0 18px;height:18px;border-radius:50%;background:#DDF8D6;color:#008E7F;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center">1</div><div style="font-size:12px;line-height:1.45">Период охлаждения — обязательная пауза перед доступом к деньгам</div></div>
+        <div style="display:flex;gap:10px;align-items:flex-start"><div style="flex:0 0 18px;height:18px;border-radius:50%;background:#DDF8D6;color:#008E7F;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center">2</div><div style="font-size:12px;line-height:1.45">Открытие линии — подтверждение и активация карты</div></div>
+        <div style="display:flex;gap:10px;align-items:flex-start"><div style="flex:0 0 18px;height:18px;border-radius:50%;background:#DDF8D6;color:#008E7F;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center">3</div><div style="font-size:12px;line-height:1.45">Первая покупка картой — с этого момента договор вступает в силу</div></div>
+      </div>
+
+      <div style="background:#DFF1EF;border-radius:12px;padding:12px;font-size:12px;line-height:1.5;color:#044448;margin-bottom:16px">Криптовалюта остаётся вашей. Вернём её на указанный адрес после закрытия линии и погашения долга. Частичный вывод при активном долге недоступен.</div>
+
+      <div onClick="{{ go.ready }}" style="background:#008E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:800;font-size:15px;cursor:pointer">Дальше</div>
+    </div>
+    </sc-if>
+
+    <!-- ==================== SCREEN-032 · Готовность линии: чеклист 4 условий + период охлаждения (SCREEN-033) · step key: "ready" ==================== -->
+    <sc-if value="{{ s.ready }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-id="SCREEN-032" data-screen-label="SCREEN-032 ready" style="{{ card }}">
+      <div style="font-weight:800;font-size:20px;margin-bottom:4px">Почти готово</div>
+      <div style="font-size:12px;color:#9B9B9B;margin-bottom:14px">Осталось дождаться окончания обязательного периода ожидания</div>
+      <div style="border:1px solid #F1F3F5;border-radius:16px;overflow:hidden;margin-bottom:14px">
+        <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #F1F3F5"><div style="width:22px;height:22px;border-radius:50%;background:#008E7F;color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center">✓</div><div style="font-size:13px;font-weight:700">Документы подписаны</div></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #F1F3F5"><div style="width:22px;height:22px;border-radius:50%;background:#008E7F;color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center">✓</div><div style="font-size:13px;font-weight:700">Карта выпущена</div></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #F1F3F5"><div style="width:22px;height:22px;border-radius:50%;background:#008E7F;color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center">✓</div><div style="font-size:13px;font-weight:700">Залог принят<span style="color:#9B9B9B;font-weight:400"> — {{ recommended }} {{ token }}</span></div></div>
+        <div style="display:flex;align-items:center;gap:12px;padding:14px 16px"><img src="ref/icons/clock.svg" alt="" style="width:20px;height:20px"><div style="flex:1;font-size:13px;font-weight:700">Период охлаждения</div><div style="font-weight:800;font-size:13px;color:#E8A33D">03:41:12</div></div>
+      </div>
+      <div style="background:#F5F5F5;border-radius:14px;padding:14px;margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:8px"><span style="color:#9B9B9B">Охлаждение закончится</span><span style="font-weight:700">26.08.2026, 18:14 (MSK)</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:12.5px"><span style="color:#9B9B9B">Решение действует до</span><span style="font-weight:700">27.08.2026, 15:44</span></div>
+      </div>
+      <div style="background:#FFF4E0;border-radius:12px;padding:12px;font-size:12px;line-height:1.5;color:#8A5A12;margin-bottom:12px">Если за это время курс {{ token }} заметно упадёт, перед открытием мы попросим пополнить залог — сумма и кнопка появятся здесь же.</div>
+      <div style="background:#DFF1EF;border-radius:12px;padding:12px;font-size:12px;line-height:1.5;color:#044448;margin-bottom:14px">После открытия линии карта станет активной, и вы сможете тратить до {{ limitFmt }} ₽. Договор считается заключённым с момента первого использования лимита.</div>
+      <div onClick="{{ go.open }}" style="background:#008E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:800;font-size:15px;cursor:pointer">Открыть линию</div>
+    </div>
+    </sc-if>
+
+    <!-- ==================== SCREEN-036 · Открытие линии: волеизъявление, чекбокс гейтит CTA · step key: "open" ==================== -->
+    <sc-if value="{{ s.open }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-id="SCREEN-036" data-screen-label="SCREEN-036 open" style="{{ card }}">
+      <div style="font-weight:800;font-size:20px;margin-bottom:14px">Открыть кредитную линию</div>
+      <div style="background:#F5F5F5;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+        <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Лимит</span><span style="font-weight:700">{{ limitFmt }} ₽</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Залог</span><span style="font-weight:700">{{ recommended }} {{ token }}</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Первая выписка</span><span style="font-weight:700">05.09.2026</span></div>
+      </div>
+      <div onClick="{{ toggleWill }}" style="display:flex;gap:10px;background:#F5F5F5;border-radius:14px;padding:14px;cursor:pointer;margin-bottom:14px">
+        <div style="{{ willBox }}">✓</div>
+        <div style="font-size:12px;line-height:1.5">Я подтверждаю намерение получить денежные средства в рамках кредитного лимита и прошу открыть доступ к лимиту на условиях подписанных документов.</div>
+      </div>
+      <div onClick="{{ confirmOpen }}" style="{{ willCta }}">Подтвердить и открыть</div>
+      <div style="font-size:11px;color:#9B9B9B;text-align:center;line-height:1.45;margin-top:10px">Договор считается заключённым с момента первого использования лимита.</div>
+    </div>
+    </sc-if>
+
+    <!-- ==================== SCREEN-037 · Код подтверждения открытия (второй фактор, ТЗ 4.5) · step key: "opencode" ==================== -->
+    <sc-if value="{{ s.opencode }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-id="SCREEN-037" data-screen-label="SCREEN-037 opencode" style="{{ card }}">
+      <div style="font-weight:800;font-size:20px;margin-bottom:6px">Подтвердите открытие линии</div>
+      <div style="font-size:12px;color:#9B9B9B;line-height:1.5;margin-bottom:16px">Код подтверждает ваше распоряжение открыть доступ к лимиту. Это второй фактор — без него линия не откроется.</div>
+      <div style="display:flex;gap:10px;margin-bottom:10px">
+        <div style="width:44px;height:52px;border-radius:12px;background:#F5F5F5;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px">5</div>
+        <div style="width:44px;height:52px;border-radius:12px;background:#F5F5F5;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px">1</div>
+        <div style="width:44px;height:52px;border-radius:12px;background:#F5F5F5;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px">8</div>
+        <div style="width:44px;height:52px;border-radius:12px;background:#fff;border:1.5px solid #008E7F"></div>
+      </div>
+      <div style="display:flex;align-items:center;justify-content:space-between;font-size:12px;margin-bottom:16px"><span style="color:#9B9B9B">Новый код через 00:38</span><span style="font-weight:700;color:#008E7F">Код не пришёл</span></div>
+      <div style="background:#F5F5F5;border-radius:14px;padding:14px;margin-bottom:16px">
+        <div style="font-weight:800;font-size:13px;margin-bottom:10px">Что вы подтверждаете</div>
+        <div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:7px"><span style="color:#9B9B9B">Лимит</span><span style="font-weight:700">{{ limitFmt }} ₽</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:12.5px;margin-bottom:7px"><span style="color:#9B9B9B">Залог в обеспечении</span><span style="font-weight:700">{{ recommended }} {{ token }}</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:12.5px"><span style="color:#9B9B9B">Ставка</span><span style="font-weight:700"><span style="background:#DCF8D6;border-bottom:1px dashed #008E7F;border-radius:3px;padding:0 3px">36 % годовых</span></span></div>
+      </div>
+      <div onClick="{{ go.opened }}" style="background:#008E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:800;font-size:15px;cursor:pointer">Подтвердить</div>
+      <div style="font-size:11px;color:#9B9B9B;text-align:center;line-height:1.45;margin-top:10px">Сохраним время, способ подтверждения, устройство и точный текст согласия.</div>
+    </div>
+    </sc-if>
+
+    <!-- ==================== SCREEN-038 · Линия открыта, карта активна · step key: "opened" ==================== -->
+    <sc-if value="{{ s.opened }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-id="SCREEN-038" data-screen-label="SCREEN-038 opened" style="{{ card }}">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:16px">
+        <div style="flex:0 0 44px;height:44px;border-radius:50%;background:#DDF8D6;color:#008E7F;font-size:22px;display:flex;align-items:center;justify-content:center">✓</div>
+        <div>
+          <div style="font-weight:800;font-size:20px;line-height:1.15">Линия открыта</div>
+          <div style="font-size:12px;color:#9B9B9B;margin-top:2px">Карта активна · 26.08.2026, 18:15</div>
+        </div>
+      </div>
+
+      <div style="position:relative;aspect-ratio:1.586;border-radius:16px;background:#008E7F;background-image:linear-gradient(115deg,rgba(255,255,255,.10) 0%,rgba(255,255,255,0) 42%),linear-gradient(0deg,rgba(0,0,0,.14),rgba(0,0,0,0) 55%);box-shadow:0 18px 34px -18px rgba(0,68,71,.55);overflow:hidden;color:#fff;margin-bottom:14px">
+        <div style="position:absolute;top:-70px;right:-50px;width:220px;height:220px;border-radius:50%;background:rgba(255,255,255,.06)"></div>
+        <div style="position:absolute;inset:0;padding:6.4% 7%;box-sizing:border-box;display:flex;flex-direction:column;justify-content:space-between">
+          <div style="display:flex;align-items:flex-start;justify-content:space-between">
+            <div><div style="font-weight:800;font-size:16px;line-height:1">FinFresh</div><div style="font-size:8.5px;opacity:.75;margin-top:4px;letter-spacing:.14em;text-transform:uppercase">Кредитная линия</div></div>
+            <div style="font-size:8.5px;letter-spacing:.12em;text-transform:uppercase;background:#DDF8D6;color:#004447;border-radius:5px;padding:4px 8px;font-weight:800">Активна</div>
+          </div>
+          <div style="font-weight:600;font-size:19px;letter-spacing:.1em">•••• •••• •••• <span style="font-weight:700">4416</span></div>
+          <div style="display:flex;align-items:flex-end;justify-content:space-between">
+            <div><div style="font-size:7.5px;opacity:.7;letter-spacing:.12em;text-transform:uppercase">Доступно</div><div style="font-size:16px;font-weight:800;margin-top:3px">{{ limitFmt }} ₽</div></div>
+            <span style="font-weight:800;font-size:12px;letter-spacing:.12em;background:rgba(255,255,255,.14);border-radius:6px;padding:5px 9px">МИР</span>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:flex;gap:8px;margin-bottom:14px">
+        <div style="flex:1;background:#008E7F;color:#fff;border-radius:12px;padding:13px;text-align:center;font-weight:700;font-size:13px">Реквизиты карты</div>
+        <div style="flex:1;background:#fff;border:1.5px solid #008E7F;color:#008E7F;border-radius:12px;padding:13px;text-align:center;font-weight:700;font-size:13px">Добавить в Кошелёк</div>
+      </div>
+
+      <div style="font-weight:800;font-size:14px;margin-bottom:10px">Как это работает дальше</div>
+      <div style="display:flex;flex-direction:column;gap:9px;margin-bottom:14px">
+        <div style="display:flex;gap:10px;align-items:flex-start"><div style="flex:0 0 18px;height:18px;border-radius:50%;background:#DDF8D6;color:#008E7F;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center">✓</div><div style="font-size:12px;line-height:1.45">Платите картой в пределах {{ limitFmt }} ₽ — проценты только на потраченное</div></div>
+        <div style="display:flex;gap:10px;align-items:flex-start"><div style="flex:0 0 18px;height:18px;border-radius:50%;background:#DDF8D6;color:#008E7F;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center">✓</div><div style="font-size:12px;line-height:1.45">Первая выписка 05.09, минимальный платёж — через 20 дней после неё</div></div>
+        <div style="display:flex;gap:10px;align-items:flex-start"><div style="flex:0 0 18px;height:18px;border-radius:50%;background:#DDF8D6;color:#008E7F;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center">✓</div><div style="font-size:12px;line-height:1.45">Погашаете основной долг — лимит восстанавливается и доступен снова</div></div>
+      </div>
+      <div style="background:#DFF1EF;border-radius:12px;padding:12px;font-size:12px;line-height:1.5;color:#044448;margin-bottom:16px">Договор вступит в силу с первой оплаты картой. До неё долга и процентов нет.</div>
+      <div onClick="{{ go.cabinet }}" style="background:#008E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:800;font-size:15px;cursor:pointer">В кабинет линии</div>
+    </div>
+    </sc-if>
+
+    <!-- ==================== SCREEN-039-A · Кабинет активной линии + льготный период (050) и выписка (049) · step key: "cabinet" ==================== -->
+    <sc-if value="{{ s.cabinet }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-id="SCREEN-039-A" data-screen-label="SCREEN-039-A cabinet" style="{{ card }}">
+      <div style="font-size:13px;color:#9B9B9B">Доступно</div>
+      <div style="font-weight:800;font-size:36px;line-height:1.1">{{ availableFmt }} ₽</div>
+      <div style="font-size:13px;color:#9B9B9B;margin-bottom:14px">из {{ limitFmt }} ₽</div>
+      <div style="background:#008E7F;border-radius:16px;padding:14px;color:#fff;display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+        <div><div style="font-weight:700;font-size:14px;letter-spacing:.06em">•••• 4416</div><div style="font-size:11px;opacity:.85;margin-top:4px">Виртуальная карта</div></div>
+        <div style="display:flex;align-items:center;gap:10px"><span style="background:#DDF8D6;color:#004447;border-radius:999px;padding:4px 9px;font-size:10px;font-weight:800">АКТИВНА</span><span style="font-size:11px;font-weight:700;text-decoration:underline">Реквизиты</span></div>
+      </div>
+      <div style="background:#F5F5F5;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:8px;margin-bottom:12px">
+        <div style="font-weight:800;font-size:15px">Задолженность</div>
+        <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Основной долг</span><span style="font-weight:700">{{ principalFmt }} ₽</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Проценты</span><span style="font-weight:700">340 ₽</span></div>
+        <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Заморожено по операциям</span><span style="font-weight:700">3 060 ₽</span></div>
+        <div style="height:1px;background:#E3E7EA;margin:4px 0"></div>
+        <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Минимальный платёж</span><span style="font-weight:800">5 780 ₽ · до 25.09</span></div>
+        <div onClick="{{ go.pay }}" style="background:#008E7F;color:#fff;border-radius:12px;padding:13px;text-align:center;font-weight:700;font-size:14px;cursor:pointer;margin-top:4px">Погасить 5 780 ₽</div>
+      </div>
+      <div style="background:#F5F5F5;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px;margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-weight:800;font-size:15px">Обеспечение</span><span style="font-size:12px;color:#9B9B9B">≈ 336 000 ₽</span></div>
+        <div style="font-weight:800;font-size:17px">{{ recommended }} {{ token }}</div>
+        <div style="position:relative;height:8px;border-radius:4px;background:linear-gradient(90deg,#008E7F 0 60%,#E8A33D 60% 75%,#C64141 75% 100%)"><div style="position:absolute;left:30%;top:-4px;width:4px;height:16px;border-radius:2px;background:#212529"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:#9B9B9B"><span>Загрузка залога 30 %</span><span>пополним при 70 % · продадим при 80 %</span></div>
+      </div>
+      <div style="background:#DDF8D6;border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:8px;margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-weight:800;font-size:13px;color:#044448">Льготный период</span><span style="font-size:11px;font-weight:700;color:#044448">до 25.09</span></div>
+        <div style="font-size:12px;color:#044448;line-height:1.45">Внесите 96 500 ₽ до 25.09, чтобы не платить проценты за период</div>
+        <div style="height:6px;border-radius:3px;background:#fff;overflow:hidden"><div style="width:22%;height:100%;background:#008E7F"></div></div>
+        <div style="display:flex;justify-content:space-between;font-size:11px;color:#044448"><span>внесено 21 000 ₽</span><span>осталось 75 500 ₽</span></div>
+      </div>
+      <div style="font-weight:800;font-size:15px;margin-bottom:4px">Последние операции</div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid #F1F3F5"><div><div style="font-size:13px;font-weight:700">Пятёрочка</div><div style="font-size:11px;color:#9B9B9B">Заморожено · 24.08</div></div><div style="font-weight:700;font-size:13px">−1 240 ₽</div></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid #F1F3F5"><div><div style="font-size:13px;font-weight:700">Ozon</div><div style="font-size:11px;color:#9B9B9B">Списано · 23.08</div></div><div style="font-weight:700;font-size:13px">−7 890 ₽</div></div>
+      <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 0"><div><div style="font-size:13px;font-weight:700">Яндекс Такси</div><div style="font-size:11px;color:#9B9B9B">Списано · 23.08</div></div><div style="font-weight:700;font-size:13px">−540 ₽</div></div>
+      <div style="font-size:12px;font-weight:700;color:#008E7F;padding:10px 0 14px">Все операции</div>
+      <div style="border:1px solid #F1F3F5;border-radius:16px;overflow:hidden;margin-bottom:12px">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 15px;border-bottom:1px solid #F1F3F5"><div style="display:flex;align-items:center;gap:10px"><img src="ref/icons/pdf.svg" alt="" style="width:18px;height:18px"><div><div style="font-size:13px;font-weight:700">Выписка за август</div><div style="font-size:11px;color:#9B9B9B">Минимальный платёж 5 780 ₽ до 25.09</div></div></div><span style="color:#9B9B9B">›</span></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 15px;border-bottom:1px solid #F1F3F5"><div><div style="font-size:13px;font-weight:700;color:#008E7F">Увеличить лимит</div><div style="font-size:11px;color:#9B9B9B">Доступно до <span style="background:#DCF8D6;border-bottom:1px dashed #008E7F;border-radius:3px;padding:0 3px">220 000 ₽</span> при пополнении залога</div></div><span style="color:#9B9B9B">›</span></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 15px;border-bottom:1px solid #F1F3F5"><div><div style="font-size:13px;font-weight:700">Пополнить залог</div><div style="font-size:11px;color:#9B9B9B">Снизит загрузку залога и риск margin call</div></div><span style="color:#9B9B9B">›</span></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 15px"><div><div style="font-size:13px;font-weight:700">Условия, документы и закрытие линии</div><div style="font-size:11px;color:#9B9B9B">5 документов · возврат залога</div></div><span style="color:#9B9B9B">›</span></div>
+      </div>
+      <div onClick="{{ go.calc }}" style="text-align:center;font-size:12px;font-weight:700;color:#008E7F;padding:14px 0 0;cursor:pointer">↺ Начать прототип заново</div>
+    </div>
+    </sc-if>
+
+    <!-- ==================== SCREEN-051 · Погашение · step key: "pay" ==================== -->
+    <sc-if value="{{ s.pay }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-id="SCREEN-051" data-screen-label="SCREEN-051 pay" style="{{ card }}">
+      <div style="font-weight:800;font-size:20px;margin-bottom:14px">Погашение</div>
+      <div style="display:flex;gap:8px;margin-bottom:12px">
+        <div onClick="{{ pickMin }}" style="{{ payTab1 }}">Минимальный<br>5 780 ₽</div>
+        <div onClick="{{ pickFull }}" style="{{ payTab2 }}">Без процентов<br>96 500 ₽</div>
+        <div onClick="{{ pickOwn }}" style="{{ payTab3 }}">Своя<br>сумма</div>
+      </div>
+      <div style="background:#F5F5F5;border-radius:16px;padding:16px;margin-bottom:12px">
+        <div style="font-size:13px;color:#9B9B9B">Сумма платежа</div>
+        <div style="font-weight:800;font-size:28px">{{ payAmount }} ₽</div>
+      </div>
+      <div style="border:1px solid #F1F3F5;border-radius:16px;overflow:hidden;margin-bottom:12px">
+        <div style="display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="color:#9B9B9B">Сначала — проценты</span><span style="font-weight:700">340 ₽</span></div>
+        <div style="display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="color:#9B9B9B">Затем — основной долг</span><span style="font-weight:700">{{ payPrincipal }} ₽</span></div>
+        <div style="display:flex;justify-content:space-between;padding:12px 16px;font-size:13px"><span style="color:#9B9B9B">Лимит восстановится на</span><span style="font-weight:800;color:#008E7F">{{ payPrincipal }} ₽</span></div>
+      </div>
+      <div style="border:1px solid #F1F3F5;border-radius:16px;overflow:hidden;margin-bottom:12px">
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 15px;border-bottom:1px solid #F1F3F5"><div style="display:flex;align-items:center;gap:10px"><div style="width:34px;height:22px;border-radius:4px;background:#008E7F"></div><div><div style="font-size:13px;font-weight:700">Карта •••• 7308</div><div style="font-size:11px;color:#9B9B9B">Основная</div></div></div><div style="width:18px;height:18px;border-radius:50%;border:5px solid #008E7F"></div></div>
+        <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 15px"><div style="display:flex;align-items:center;gap:10px"><div style="width:34px;height:22px;border-radius:4px;background:#777D92"></div><div><div style="font-size:13px;font-weight:700">Карта •••• 1142</div><div style="font-size:11px;color:#9B9B9B">Добавлена 12.08</div></div></div><div style="width:18px;height:18px;border-radius:50%;border:2px solid #DEE2E6"></div></div>
+      </div>
+      <div style="font-size:12px;font-weight:700;color:#008E7F;margin-bottom:16px">Добавить другую карту</div>
+      <div onClick="{{ go.paid }}" style="background:#008E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:800;font-size:15px;cursor:pointer">Оплатить {{ payAmount }} ₽</div>
+      <div style="font-size:11px;color:#9B9B9B;text-align:center;line-height:1.45;margin-top:10px">Платёж зачтётся сегодня. Сначала закрываются проценты, затем основной долг — лимит восстанавливается только на сумму основного долга.</div>
+    </div>
+    </sc-if>
+
+    <!-- ==================== SCREEN-056 · Платёж внесён, лимит восстановлен · step key: "paid" ==================== -->
+    <sc-if value="{{ s.paid }}" hint-placeholder-val="{{ false }}">
+    <div data-screen-id="SCREEN-056" data-screen-label="SCREEN-056 paid" style="{{ card }}">
+      <div style="display:flex;flex-direction:column;align-items:center;gap:12px">
+        <div style="width:56px;height:56px;border-radius:50%;background:#DDF8D6;color:#008E7F;font-size:26px;display:flex;align-items:center;justify-content:center">✓</div>
+        <div style="font-weight:800;font-size:20px">Платёж внесён</div>
+        <div style="font-weight:800;font-size:28px;color:#008E7F">{{ payAmount }} ₽</div>
+        <div style="background:#F5F5F5;border-radius:16px;padding:16px;width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:8px">
+          <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Проценты закрыты</span><span style="font-weight:700">340 ₽</span></div>
+          <div style="display:flex;justify-content:space-between;font-size:14px"><span style="font-weight:800">Лимит восстановлен на</span><span style="font-weight:800;color:#008E7F">{{ payPrincipal }} ₽</span></div>
+        </div>
+        <div onClick="{{ go.cabinet }}" style="background:#008E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:800;font-size:15px;cursor:pointer;width:100%;box-sizing:border-box">В кабинет</div>
+      </div>
+    </div>
+    </sc-if>
+
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;variant&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;mobile&quot;,&quot;desktop&quot;],&quot;default&quot;:&quot;mobile&quot;,&quot;tsType&quot;:&quot;string&quot;}}">
+const STEPS = ['calc','reg','form','check','decision','docs','code','card','deposit','accepted','ready','open','opencode','opened','cabinet','pay','paid'];
+const LABELS = {
+  calc:'Калькулятор', reg:'Регистрация', form:'Анкета', check:'Проверка', decision:'Решение',
+  docs:'Документы', code:'Подпись', card:'Карта', deposit:'Залог', accepted:'Залог принят',
+  ready:'Готовность', open:'Открытие линии', opencode:'Код открытия', opened:'Линия открыта', cabinet:'Кредитная линия', pay:'Погашение', paid:'Платёж внесён'
+};
+const TOKENS = { USDT:{price:92,dec:2,net:'TRC-20'}, BTC:{price:6200000,dec:6,net:'Bitcoin'}, ETH:{price:310000,dec:4,net:'ERC-20'} };
+const nf = n => n.toLocaleString('ru-RU');
+
+class Component extends DCLogic {
+  state = { step: 'calc', product: 'line', limit: 150000, token: 'USDT', will: false, pay: 'min' };
+
+  renderVals() {
+    const desk = this.props.variant === 'desktop';
+    const st = this.state.step;
+    const s = {}; STEPS.forEach(k => { s[k] = st === k; });
+    const go = {}; STEPS.forEach(k => { go[k] = () => this.setState({ step: k, will: false }); });
+
+    const t = TOKENS[this.state.token];
+    const req = this.state.limit / (0.5 * 0.95 * t.price);
+    const rec = req * 1.12;
+    const fmtT = n => n.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: t.dec });
+
+    const tok = code => 'display:flex;align-items:center;gap:6px;border-radius:999px;padding:8px 12px;font-size:13px;font-weight:800;white-space:nowrap;cursor:pointer;' +
+      (this.state.token === code ? 'background:#008E7F;color:#fff' : 'color:#212529');
+    const gly = code => 'flex:0 0 18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;' +
+      (this.state.token === code ? 'background:rgba(255,255,255,.28);color:#fff' : 'background:#E9F5F2;color:#008E7F');
+    const prodTab = on => 'flex:1;border-radius:9px;padding:10px;text-align:center;font-size:12px;font-weight:800;cursor:pointer;' +
+      (on ? 'background:#008E7F;color:#fff' : 'background:#fff;color:#212529');
+    const payTab = on => 'flex:1;padding:10px;border-radius:12px;font-size:12px;font-weight:700;text-align:center;line-height:1.3;cursor:pointer;' +
+      (on ? 'background:#008E7F;color:#fff' : 'background:#F5F5F5;color:#212529');
+
+    const payTotal = this.state.pay === 'min' ? 5780 : this.state.pay === 'own' ? 20000 : 96840;
+    const onCalc = st === 'calc';
+
+    return {
+      s, go, isDesk: desk, isMob: !desk,
+      stepLabel: LABELS[st],
+      rootStyle: 'display:flex;flex-direction:column;min-height:100%;background:' + (desk && onCalc ? '#004447' : desk ? '#EFF3F2' : '#fff'),
+      pageStyle: desk
+        ? 'flex:1;display:flex;justify-content:center;padding:' + (onCalc ? '28px' : '32px') + ';box-sizing:border-box'
+        : 'flex:1;padding:16px 16px 40px;box-sizing:border-box',
+      calcRow: desk ? 'display:flex;gap:28px;align-items:flex-start;width:100%;max-width:800px' : 'display:block',
+      calcCard: desk ? 'flex:0 0 340px;background:#fff;border-radius:18px;padding:20px' : 'display:block',
+      card: desk ? 'width:440px;background:#fff;border-radius:18px;padding:24px;box-sizing:border-box;height:fit-content' : 'display:block',
+
+      isLoan: this.state.product === 'loan',
+      isLine: this.state.product === 'line',
+      setLoan: () => this.setState({ product: 'loan' }),
+      setLine: () => this.setState({ product: 'line' }),
+      tabLoan: prodTab(this.state.product === 'loan'),
+      tabLine: prodTab(this.state.product === 'line'),
+
+      limit: this.state.limit, limitFmt: nf(this.state.limit),
+      onLimit: e => this.setState({ limit: Number(e.target.value) }),
+      token: this.state.token, network: t.net,
+      required: fmtT(req), recommended: fmtT(rec),
+      marketRub: nf(Math.round(rec * t.price)),
+      collateralRub: nf(Math.round(rec * t.price * 0.95)),
+      priceFmt: nf(t.price),
+      pickUsdt: () => this.setState({ token: 'USDT' }),
+      pickBtc: () => this.setState({ token: 'BTC' }),
+      pickEth: () => this.setState({ token: 'ETH' }),
+      tokUsdt: tok('USDT'), tokBtc: tok('BTC'), tokEth: tok('ETH'),
+      glyUsdt: gly('USDT'), glyBtc: gly('BTC'), glyEth: gly('ETH'),
+
+      availableFmt: nf(Math.max(0, this.state.limit - 96500 - 3060)),
+      principalFmt: nf(96500),
+
+      toggleWill: () => this.setState(x => ({ will: !x.will })),
+      confirmOpen: () => { if (this.state.will) this.setState({ step: 'opencode' }); },
+      willBox: 'flex:0 0 20px;height:20px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;' +
+        (this.state.will ? 'background:#008E7F;color:#fff' : 'background:#fff;border:1.5px solid #DEE2E6;color:transparent'),
+      willCta: 'border-radius:12px;padding:15px;text-align:center;font-weight:800;font-size:15px;cursor:pointer;color:#fff;' +
+        (this.state.will ? 'background:#008E7F' : 'background:#9BCFCA'),
+
+      pickMin: () => this.setState({ pay: 'min' }),
+      pickFull: () => this.setState({ pay: 'full' }),
+      pickOwn: () => this.setState({ pay: 'own' }),
+      payTab1: payTab(this.state.pay === 'min'), payTab2: payTab(this.state.pay === 'full'), payTab3: payTab(this.state.pay === 'own'),
+      payAmount: nf(payTotal), payPrincipal: nf(payTotal - 340)
+    };
+  }
+}
+
+</script>
+</body>
+</html>

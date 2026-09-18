@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,400;0,6..12,600;0,6..12,700;0,6..12,800&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;font-family:'Nunito Sans',system-ui,sans-serif;background:#EEF1F3;color:#212529;-webkit-font-smoothing:antialiased}
+  a{color:#028E7F}
+  a:hover{color:#044448}
+  input[type=range]{-webkit-appearance:none;appearance:none;background:transparent;height:20px;width:100%;margin:0}
+  input[type=range]::-webkit-slider-runnable-track{height:4px;border-radius:2px;background:#DCF8D6}
+  input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;height:16px;width:16px;margin-top:-6px;border-radius:50%;background:#fff;border:4px solid #028E7F;cursor:pointer}
+</style>
+</helmet>
+
+<div style="min-height:100vh">
+
+  <div style="position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:16px;padding:12px 20px;background:#044448;color:#fff;flex-wrap:wrap">
+    <div style="display:flex;align-items:baseline;gap:8px">
+      <span style="font-weight:800;font-size:15px">FinFresh</span>
+      <span style="font-size:12px;color:#9BCFCA">Кредитная линия под криптообеспечение · <span style="background:rgba(220,248,214,.25);border-bottom:1px dashed #9BCFCA;padding:0 3px">так помечены значения-заглушки</span></span>
+    </div>
+    <div style="display:flex;gap:2px;background:rgba(255,255,255,.12);border-radius:10px;padding:3px;margin-left:auto">
+      <div onClick="{{ setProto }}" style="{{ tabProto }}">Прототип</div>
+      <div onClick="{{ setBoard }}" style="{{ tabBoard }}">Флоу-борд</div>
+      <div onClick="{{ setDesk }}" style="{{ tabDesk }}">Desktop</div>
+      <div onClick="{{ setEntry }}" style="{{ tabEntry }}">Точка входа</div>
+    </div>
+    <select onChange="{{ onPick }}" value="{{ cur }}" style="background:#0A5A5C;color:#fff;border:1px solid rgba(255,255,255,.2);border-radius:8px;padding:7px 10px;font-family:inherit;font-size:12px;max-width:280px">
+      <sc-for list="{{ screens }}" as="s" hint-placeholder-count="3">
+        <option value="{{ s.id }}">{{ s.label }}</option>
+      </sc-for>
+    </select>
+  </div>
+
+  <div style="{{ wrapStyle }}">
+
+    <sc-if value="{{ v.S001 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">A · SCREEN-001 · Витрина продуктов</div>
+      <div style="background:#fff;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden">
+        <div style="display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid #F1F3F5"><span style="display:flex"><svg width="16" height="13" viewBox="0 0 18 15" fill="none" style="display:block"><path d="M0.292892 6.65685C-0.0976315 7.04737 -0.0976315 7.68054 0.292892 8.07106L6.65685 14.435C7.04738 14.8255 7.68054 14.8255 8.07107 14.435C8.46159 14.0445 8.46159 13.4113 8.07107 13.0208L2.41421 7.36395L8.07107 1.7071C8.46159 1.31657 8.46159 0.683409 8.07107 0.292885C7.68054 -0.0976396 7.04738 -0.0976396 6.65685 0.292885L0.292892 6.65685ZM18 7.36395L18 6.36395L1 6.36395L1 7.36395L1 8.36395L18 8.36395L18 7.36395Z" fill="#028E7F"></path></svg></span><span style="font-weight:800;font-size:17px">Получить деньги</span></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:12px">
+          <div style="font-size:13px;color:#9B9B9B">Выберите продукт. Условия и требования отличаются.</div>
+          <div onClick="{{ go.S002 }}" style="background:#F5F5F5;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:6px;cursor:default">
+            <div style="font-weight:800;font-size:16px">Займ</div>
+            <div style="font-size:13px;color:#9B9B9B">Разовая сумма на срок до 30 дней</div>
+            <div style="font-weight:800;font-size:15px;color:#028E7F">до 30 000 ₽</div>
+          </div>
+          <div onClick="{{ go.S002 }}" style="background:#F5F5F5;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:6px;border:1.5px solid #028E7F;cursor:pointer">
+            <div style="display:flex;align-items:center;gap:8px">
+              <div style="font-weight:800;font-size:16px">Кредитная линия под криптовалюту</div>
+              <div style="background:#7AD5E1;color:#044448;border-radius:6px;padding:2px 7px;font-size:10px;font-weight:800">НОВОЕ</div>
+            </div>
+            <div style="font-size:13px;color:#9B9B9B">Возобновляемый лимит и карта. Криптовалюта остаётся вашей.</div>
+            <div style="font-weight:800;font-size:15px;color:#028E7F">до 500 000 ₽</div>
+          </div>
+          <div style="text-align:center;font-size:13px;font-weight:700;color:#028E7F;padding:8px">Чем отличается от займа?</div>
+          <sc-if value="{{ showDA }}" hint-placeholder-val="{{ true }}"><div style="background:#DCF8D6;color:#044448;border-radius:10px;padding:10px;font-size:11px;line-height:1.45"><b>[DESIGN ASSUMPTION]</b> Одна активная линия на клиента (вопрос 6). Проверка при входе и повторно перед созданием заявки — SCREEN-008.</div></sc-if>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S002 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">A · SCREEN-002 · Промо продукта</div>
+      <div style="background:#fff;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden">
+        <div style="display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid #F1F3F5"><span onClick="{{ go.S001 }}" style="cursor:pointer;display:flex"><svg width="16" height="13" viewBox="0 0 18 15" fill="none" style="display:block"><path d="M0.292892 6.65685C-0.0976315 7.04737 -0.0976315 7.68054 0.292892 8.07106L6.65685 14.435C7.04738 14.8255 7.68054 14.8255 8.07107 14.435C8.46159 14.0445 8.46159 13.4113 8.07107 13.0208L2.41421 7.36395L8.07107 1.7071C8.46159 1.31657 8.46159 0.683409 8.07107 0.292885C7.68054 -0.0976396 7.04738 -0.0976396 6.65685 0.292885L0.292892 6.65685ZM18 7.36395L18 6.36395L1 6.36395L1 7.36395L1 8.36395L18 8.36395L18 7.36395Z" fill="#028E7F"></path></svg></span><span style="font-weight:800;font-size:17px">Кредитная линия</span></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:16px">
+          <div>
+            <div style="font-weight:800;font-size:24px;line-height:1.15;text-wrap:pretty">Рубли под залог криптовалюты</div>
+            <div style="font-size:13px;color:#9B9B9B;margin-top:8px;line-height:1.5">Открываем возобновляемый лимит и выпускаем виртуальную карту. Криптовалюта остаётся вашей — мы только держим её в залоге.</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;gap:12px"><div style="flex:0 0 24px;height:24px;border-radius:50%;background:#DCF8D6;color:#044448;font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center">1</div><div style="font-size:13px;line-height:1.45">Выберите лимит и криптовалюту — рассчитаем, сколько нужно внести в залог</div></div>
+            <div style="display:flex;gap:12px"><div style="flex:0 0 24px;height:24px;border-radius:50%;background:#DCF8D6;color:#044448;font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center">2</div><div style="font-size:13px;line-height:1.45">Подпишите документы и переведите криптовалюту на залоговый адрес</div></div>
+            <div style="display:flex;gap:12px"><div style="flex:0 0 24px;height:24px;border-radius:50%;background:#DCF8D6;color:#044448;font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center">3</div><div style="font-size:13px;line-height:1.45">Тратьте рубли картой в пределах лимита</div></div>
+            <div style="display:flex;gap:12px"><div style="flex:0 0 24px;height:24px;border-radius:50%;background:#DCF8D6;color:#044448;font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center">4</div><div style="font-size:13px;line-height:1.45">Погашаете основной долг — лимит восстанавливается и доступен снова</div></div>
+          </div>
+          <div>
+            <div style="font-size:12px;color:#9B9B9B;margin-bottom:8px">Поддерживаемые активы</div>
+            <div style="display:flex;gap:8px;flex-wrap:wrap">
+              <div style="background:#F5F5F5;border-radius:999px;padding:6px 12px;font-size:12px;font-weight:700">USDT</div>
+              <div style="background:#F5F5F5;border-radius:999px;padding:6px 12px;font-size:12px;font-weight:700">USDC</div>
+              <div style="background:#F5F5F5;border-radius:999px;padding:6px 12px;font-size:12px;font-weight:700">BTC</div>
+              <div style="background:#F5F5F5;border-radius:999px;padding:6px 12px;font-size:12px;font-weight:700">ETH</div>
+              <div style="background:#F5F5F5;border-radius:999px;padding:6px 12px;font-size:12px;font-weight:700">XAUT</div>
+            </div>
+          </div>
+          <div style="background:#FFF4E0;border-radius:12px;padding:12px;font-size:12px;line-height:1.5;color:#8A5A12">Если курс криптовалюты упадёт настолько, что залога перестанет хватать, мы попросим пополнить залог или погасить часть долга. Если этого не сделать в срок — залог будет продан полностью. <b style="text-decoration:underline">Подробнее</b></div>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div onClick="{{ go.S005 }}" style="background:#028E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:700;font-size:15px;cursor:pointer">Рассчитать лимит</div>
+            <div style="font-size:11px;color:#9B9B9B;text-align:center;line-height:1.45">Расчёт предварительный. Окончательные условия определяются после проверки.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S005 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">A · SCREEN-005 · Калькулятор (005-B)</div>
+      <div style="background:#fff;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden">
+        <div style="display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid #F1F3F5"><span onClick="{{ go.S002 }}" style="cursor:pointer;display:flex"><svg width="16" height="13" viewBox="0 0 18 15" fill="none" style="display:block"><path d="M0.292892 6.65685C-0.0976315 7.04737 -0.0976315 7.68054 0.292892 8.07106L6.65685 14.435C7.04738 14.8255 7.68054 14.8255 8.07107 14.435C8.46159 14.0445 8.46159 13.4113 8.07107 13.0208L2.41421 7.36395L8.07107 1.7071C8.46159 1.31657 8.46159 0.683409 8.07107 0.292885C7.68054 -0.0976396 7.04738 -0.0976396 6.65685 0.292885L0.292892 6.65685ZM18 7.36395L18 6.36395L1 6.36395L1 7.36395L1 8.36395L18 8.36395L18 7.36395Z" fill="#028E7F"></path></svg></span><span style="font-weight:800;font-size:17px">Кредитная линия</span></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:12px">
+          <div style="background:#F5F5F5;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:6px">
+            <div style="font-size:13px;color:#9B9B9B">Желаемый лимит</div>
+            <div style="font-weight:800;font-size:24px">{{ limitFmt }} ₽</div>
+            <input type="range" min="30000" max="500000" step="10000" value="{{ limit }}" onInput="{{ onLimit }}">
+            <div style="display:flex;justify-content:space-between;font-size:11px;color:#9B9B9B"><span>30 000 ₽</span><span>500 000 ₽</span></div>
+          </div>
+          <div style="border:1px solid #F1F3F5;border-radius:16px;overflow:hidden">
+            <div onClick="{{ go.S004 }}" style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;border-bottom:1px solid #F1F3F5;cursor:pointer"><span style="font-size:14px;color:#9B9B9B">Криптовалюта</span><span style="font-weight:700;font-size:14px">{{ asset }} · Tether ›</span></div>
+            <div onClick="{{ go.S006 }}" style="display:flex;align-items:center;justify-content:space-between;padding:14px 16px;cursor:pointer"><span style="font-size:14px;color:#9B9B9B">Сеть</span><span style="font-weight:700;font-size:14px">TRC-20 ›</span></div>
+          </div>
+          <div style="background:#F5F5F5;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:8px">
+            <div style="font-size:13px;color:#9B9B9B">Нужно внести в залог</div>
+            <div style="font-weight:800;font-size:26px">{{ recommended }} {{ asset }}</div>
+            <div style="font-size:13px">≈ {{ recommendedRub }} ₽ по курсу 92,00 ₽ за 1 {{ asset }}</div>
+            <div style="font-size:12px;color:#9B9B9B;line-height:1.45">Минимально — {{ required }} {{ asset }}. Рекомендуем внести с запасом: курс может измениться.</div>
+            <div style="height:1px;background:#E3E7EA;margin:2px 0"></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Начальный LTV</span><span style="font-weight:700"><span style="background:#DCF8D6;border-bottom:1px dashed #028E7F;border-radius:3px;padding:0 3px">50 %</span></span></div>
+            <div onClick="{{ go.S007 }}" style="font-size:13px;font-weight:700;color:#028E7F;cursor:pointer">Как рассчитано</div>
+          </div>
+          <sc-if value="{{ showDA }}" hint-placeholder-val="{{ true }}"><div style="background:#DCF8D6;color:#044448;border-radius:10px;padding:10px;font-size:11px;line-height:1.45"><b>[DESIGN ASSUMPTION] OQ-03</b> Расчёт по исправленной формуле: RequiredCrypto = Лимит / (InitialLtv × CollateralFactor × Курс), рекомендуемая = +12 % буфер. Формула п. 4.1 ТЗ занижает залог (Противоречие №1).</div></sc-if>
+          <div style="display:flex;flex-direction:column;gap:8px">
+            <div onClick="{{ go.S008 }}" style="background:#028E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:700;font-size:15px;cursor:pointer">Оформить</div>
+            <div style="font-size:11px;color:#9B9B9B;text-align:center;line-height:1.45">Расчёт предварительный. Окончательный лимит, ставка и требуемое обеспечение определяются после проверки.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S004 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">A · SCREEN-004 · Выбор актива (Sheet)</div>
+      <div style="background:#5B6470;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden;padding-top:80px">
+        <div style="background:#fff;border-radius:24px 24px 0 0;padding:12px 16px 16px">
+          <div style="width:36px;height:4px;border-radius:2px;background:#E3E7EA;margin:0 auto 14px"></div>
+          <div style="font-weight:800;font-size:18px;margin-bottom:12px">Криптовалюта в залог</div>
+          <div style="display:flex;flex-direction:column">
+            <div onClick="{{ go.S006 }}" style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid #F1F3F5;cursor:pointer"><div><div style="font-weight:700;font-size:15px">USDT</div><div style="font-size:12px;color:#9B9B9B">Tether · 2 сети</div></div><div style="width:20px;height:20px;border-radius:50%;border:6px solid #028E7F"></div></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid #F1F3F5"><div><div style="font-weight:700;font-size:15px">USDC</div><div style="font-size:12px;color:#9B9B9B">USD Coin · 1 сеть</div></div><div style="width:20px;height:20px;border-radius:50%;border:2px solid #DEE2E6"></div></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid #F1F3F5"><div><div style="font-weight:700;font-size:15px">BTC</div><div style="font-size:12px;color:#9B9B9B">Bitcoin · 1 сеть</div></div><div style="width:20px;height:20px;border-radius:50%;border:2px solid #DEE2E6"></div></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid #F1F3F5"><div><div style="font-weight:700;font-size:15px">ETH</div><div style="font-size:12px;color:#9B9B9B">Ethereum · 1 сеть</div></div><div style="width:20px;height:20px;border-radius:50%;border:2px solid #DEE2E6"></div></div>
+            <div style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;opacity:.45"><div><div style="font-weight:700;font-size:15px">XAUT</div><div style="font-size:12px;color:#9B9B9B">Приём приостановлен</div></div><div style="width:20px;height:20px;border-radius:50%;border:2px solid #DEE2E6"></div></div>
+          </div>
+          <div style="background:#FFF4E0;border-radius:12px;padding:12px;font-size:12px;line-height:1.5;color:#8A5A12;margin-top:14px">Актив закрепляется за линией и не меняется. Смешение активов в одном залоге невозможно.</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S006 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">A · SCREEN-006 · Выбор сети (Sheet)</div>
+      <div style="background:#5B6470;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden;padding-top:110px">
+        <div style="background:#fff;border-radius:24px 24px 0 0;padding:12px 16px 16px">
+          <div style="width:36px;height:4px;border-radius:2px;background:#E3E7EA;margin:0 auto 14px"></div>
+          <div style="font-weight:800;font-size:18px;margin-bottom:12px">Сеть для перевода USDT</div>
+          <div style="background:#FDECEC;border-radius:12px;padding:12px;font-size:12px;line-height:1.5;color:#A33131;margin-bottom:12px">Переводите USDT только в выбранной сети. Перевод в другой сети или другого актива не будет зачтён в залог и потребует ручного разбора.</div>
+          <div onClick="{{ go.S005 }}" style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;border-bottom:1px solid #F1F3F5;cursor:pointer"><div><div style="font-weight:700;font-size:15px">TRC-20 (Tron)</div><div style="font-size:12px;color:#9B9B9B">12 подтверждений · ≈ 3 мин</div></div><div style="width:20px;height:20px;border-radius:50%;border:6px solid #028E7F"></div></div>
+          <div onClick="{{ go.S005 }}" style="display:flex;align-items:center;justify-content:space-between;padding:14px 0;cursor:pointer"><div><div style="font-weight:700;font-size:15px">ERC-20 (Ethereum)</div><div style="font-size:12px;color:#9B9B9B">30 подтверждений · ≈ 8 мин</div></div><div style="width:20px;height:20px;border-radius:50%;border:2px solid #DEE2E6"></div></div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S007 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">A · SCREEN-007 · Как посчитан залог (Sheet)</div>
+      <div style="background:#5B6470;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden;padding-top:70px">
+        <div style="background:#fff;border-radius:24px 24px 0 0;padding:12px 16px 16px">
+          <div style="width:36px;height:4px;border-radius:2px;background:#E3E7EA;margin:0 auto 14px"></div>
+          <div style="font-weight:800;font-size:18px;margin-bottom:12px">Как мы посчитали залог</div>
+          <div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="color:#9B9B9B">Желаемый лимит</span><span style="font-weight:700">{{ limitFmt }} ₽</span></div>
+          <div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="color:#9B9B9B">Начальный LTV</span><span style="font-weight:700"><span style="background:#DCF8D6;border-bottom:1px dashed #028E7F;border-radius:3px;padding:0 3px">50 %</span></span></div>
+          <div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="color:#9B9B9B">Коэффициент учёта актива</span><span style="font-weight:700"><span style="background:#DCF8D6;border-bottom:1px dashed #028E7F;border-radius:3px;padding:0 3px">0,95</span></span></div>
+          <div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="color:#9B9B9B">Курс USDT</span><span style="font-weight:700">92,00 ₽</span></div>
+          <div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="font-weight:700">Минимально нужно</span><span style="font-weight:700">{{ required }} USDT</span></div>
+          <div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="color:#9B9B9B">Запас на изменение курса</span><span style="font-weight:700"><span style="background:#DCF8D6;border-bottom:1px dashed #028E7F;border-radius:3px;padding:0 3px">+12 %</span></span></div>
+          <div style="display:flex;justify-content:space-between;padding:11px 0;font-size:13px"><span style="font-weight:700">Рекомендуем внести</span><span style="font-weight:800;color:#028E7F">{{ recommended }} USDT</span></div>
+          <div style="font-size:12px;color:#9B9B9B;line-height:1.5;margin:10px 0 14px">Если внести ровно минимум, при первом же снижении курса залога перестанет хватать и мы попросим его пополнить. Запас снижает эту вероятность, но не исключает её.</div>
+          <div onClick="{{ go.S005 }}" style="background:#028E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:700;font-size:15px;cursor:pointer">Понятно</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S008 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">A · SCREEN-008 · Подтверждение выбора (Modal)</div>
+      <div style="background:#5B6470;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden;padding:80px 20px;display:flex;align-items:center">
+        <div style="background:#fff;border-radius:20px;padding:20px;width:100%">
+          <div style="font-weight:800;font-size:18px;margin-bottom:10px">Проверьте выбор</div>
+          <div style="font-size:13px;line-height:1.5;color:#495057;margin-bottom:14px">Кредитная линия будет обеспечена только этой криптовалютой в этой сети. Изменить их после оформления заявки нельзя — потребуется закрыть линию и открыть новую.</div>
+          <div style="background:#F5F5F5;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px;margin-bottom:14px">
+            <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Актив и сеть</span><span style="font-weight:700">USDT · TRC-20</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Желаемый лимит</span><span style="font-weight:700">{{ limitFmt }} ₽</span></div>
+          </div>
+          <div onClick="{{ go.S009 }}" style="background:#028E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:700;font-size:15px;cursor:pointer;margin-bottom:8px">Продолжить</div>
+          <div onClick="{{ go.S005 }}" style="text-align:center;font-size:13px;font-weight:700;color:#028E7F;padding:8px;cursor:pointer">Изменить</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S009 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">B · SCREEN-009 · Анкета (REUSE)</div>
+      <div style="background:#fff;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden">
+        <div style="display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid #F1F3F5"><span onClick="{{ go.S005 }}" style="cursor:pointer;display:flex"><svg width="16" height="13" viewBox="0 0 18 15" fill="none" style="display:block"><path d="M0.292892 6.65685C-0.0976315 7.04737 -0.0976315 7.68054 0.292892 8.07106L6.65685 14.435C7.04738 14.8255 7.68054 14.8255 8.07107 14.435C8.46159 14.0445 8.46159 13.4113 8.07107 13.0208L2.41421 7.36395L8.07107 1.7071C8.46159 1.31657 8.46159 0.683409 8.07107 0.292885C7.68054 -0.0976396 7.04738 -0.0976396 6.65685 0.292885L0.292892 6.65685ZM18 7.36395L18 6.36395L1 6.36395L1 7.36395L1 8.36395L18 8.36395L18 7.36395Z" fill="#028E7F"></path></svg></span><span style="font-weight:800;font-size:17px">Заявка</span></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;gap:6px"><div style="flex:1;height:4px;border-radius:2px;background:#028E7F"></div><div style="flex:1;height:4px;border-radius:2px;background:#028E7F"></div><div style="flex:1;height:4px;border-radius:2px;background:#DCF8D6"></div></div>
+          <div style="font-weight:800;font-size:18px">Проверьте данные</div>
+          <div style="font-size:12px;color:#9B9B9B;line-height:1.45">Данные заполнены из вашего профиля FinFresh. Паспорт и адрес подтверждены ранее.</div>
+          <div style="border:1px solid #F1F3F5;border-radius:16px;overflow:hidden">
+            <div style="padding:12px 16px;border-bottom:1px solid #F1F3F5"><div style="font-size:11px;color:#9B9B9B">ФИО</div><div style="font-weight:700;font-size:14px">Иванов Иван Иванович</div></div>
+            <div style="padding:12px 16px;border-bottom:1px solid #F1F3F5"><div style="font-size:11px;color:#9B9B9B">Паспорт</div><div style="font-weight:700;font-size:14px">45 12 №123456</div></div>
+            <div style="padding:12px 16px;border-bottom:1px solid #F1F3F5"><div style="font-size:11px;color:#9B9B9B">Адрес регистрации</div><div style="font-weight:700;font-size:14px">г. Москва, ул. Тверская, 12</div></div>
+            <div style="padding:12px 16px"><div style="font-size:11px;color:#9B9B9B">Среднемесячный доход</div><div style="font-weight:700;font-size:14px">180 000 ₽</div></div>
+          </div>
+          <div onClick="{{ go.S010 }}" style="background:#028E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:700;font-size:15px;cursor:pointer">Далее</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S010 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">B · SCREEN-010 · Согласия (REUSE)</div>
+      <div style="background:#fff;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden">
+        <div style="display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid #F1F3F5"><span onClick="{{ go.S009 }}" style="cursor:pointer;display:flex"><svg width="16" height="13" viewBox="0 0 18 15" fill="none" style="display:block"><path d="M0.292892 6.65685C-0.0976315 7.04737 -0.0976315 7.68054 0.292892 8.07106L6.65685 14.435C7.04738 14.8255 7.68054 14.8255 8.07107 14.435C8.46159 14.0445 8.46159 13.4113 8.07107 13.0208L2.41421 7.36395L8.07107 1.7071C8.46159 1.31657 8.46159 0.683409 8.07107 0.292885C7.68054 -0.0976396 7.04738 -0.0976396 6.65685 0.292885L0.292892 6.65685ZM18 7.36395L18 6.36395L1 6.36395L1 7.36395L1 8.36395L18 8.36395L18 7.36395Z" fill="#028E7F"></path></svg></span><span style="font-weight:800;font-size:17px">Согласия</span></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:14px">
+          <div style="font-size:12px;color:#9B9B9B;line-height:1.45">Без этих согласий мы не можем запустить проверки.</div>
+          <div style="display:flex;gap:10px"><div style="flex:0 0 20px;height:20px;border-radius:6px;background:#028E7F;color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center">✓</div><div style="font-size:13px;line-height:1.45">Обработка персональных данных</div></div>
+          <div style="display:flex;gap:10px"><div style="flex:0 0 20px;height:20px;border-radius:6px;background:#028E7F;color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center">✓</div><div style="font-size:13px;line-height:1.45">Запрос кредитной истории в БКИ</div></div>
+          <div style="display:flex;gap:10px"><div style="flex:0 0 20px;height:20px;border-radius:6px;background:#028E7F;color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center">✓</div><div style="font-size:13px;line-height:1.45">Проверка самозапрета на кредиты через Госуслуги</div></div>
+          <div style="display:flex;gap:10px"><div style="flex:0 0 20px;height:20px;border-radius:6px;background:#028E7F;color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center">✓</div><div style="font-size:13px;line-height:1.45">Передача данных партнёру-эмитенту карты</div></div>
+          <div onClick="{{ go.S011 }}" style="background:#028E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:700;font-size:15px;cursor:pointer">Подписать согласия</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S011 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">B · SCREEN-011 · SMS-код согласий (REUSE)</div>
+      <div style="background:#fff;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden">
+        <div style="display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid #F1F3F5"><span onClick="{{ go.S010 }}" style="cursor:pointer;display:flex"><svg width="16" height="13" viewBox="0 0 18 15" fill="none" style="display:block"><path d="M0.292892 6.65685C-0.0976315 7.04737 -0.0976315 7.68054 0.292892 8.07106L6.65685 14.435C7.04738 14.8255 7.68054 14.8255 8.07107 14.435C8.46159 14.0445 8.46159 13.4113 8.07107 13.0208L2.41421 7.36395L8.07107 1.7071C8.46159 1.31657 8.46159 0.683409 8.07107 0.292885C7.68054 -0.0976396 7.04738 -0.0976396 6.65685 0.292885L0.292892 6.65685ZM18 7.36395L18 6.36395L1 6.36395L1 7.36395L1 8.36395L18 8.36395L18 7.36395Z" fill="#028E7F"></path></svg></span><span style="font-weight:800;font-size:17px">Подтверждение</span></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:16px;align-items:center">
+          <div style="font-weight:800;font-size:18px;text-align:center">Код из SMS</div>
+          <div style="font-size:13px;color:#9B9B9B;text-align:center">Отправили на +7 985 ***-**-14</div>
+          <div style="display:flex;gap:10px">
+            <div style="width:44px;height:52px;border-radius:12px;background:#F5F5F5;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px">3</div>
+            <div style="width:44px;height:52px;border-radius:12px;background:#F5F5F5;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px">7</div>
+            <div style="width:44px;height:52px;border-radius:12px;background:#F5F5F5;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px">1</div>
+            <div style="width:44px;height:52px;border-radius:12px;background:#fff;border:1.5px solid #028E7F"></div>
+          </div>
+          <div style="font-size:12px;color:#9B9B9B">Запросить новый код через 00:42</div>
+          <div onClick="{{ go.S012 }}" style="background:#028E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:700;font-size:15px;cursor:pointer;width:100%;box-sizing:border-box">Подтвердить</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S012 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">B · SCREEN-012 · Проверяем заявку (Process)</div>
+      <div style="background:#fff;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden">
+        <div style="padding:16px;border-bottom:1px solid #F1F3F5;font-weight:800;font-size:17px">Проверяем заявку</div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:14px">
+          <div style="font-size:13px;color:#9B9B9B;line-height:1.45">Обычно занимает до 2 минут. Можно закрыть приложение — пришлём push.</div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:20px;height:20px;border-radius:50%;background:#028E7F;color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center">✓</div><div style="font-size:13px">Проверка документов</div></div>
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:20px;height:20px;border-radius:50%;background:#028E7F;color:#fff;font-size:11px;display:flex;align-items:center;justify-content:center">✓</div><div style="font-size:13px">Самозапрет на кредиты — не установлен</div></div>
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:20px;height:20px;border-radius:50%;border:2px solid #028E7F"></div><div style="font-size:13px;font-weight:700">Кредитная история и скоринг</div></div>
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:20px;height:20px;border-radius:50%;border:2px solid #DEE2E6"></div><div style="font-size:13px;color:#9B9B9B">Расчёт лимита и обеспечения</div></div>
+          </div>
+          <div onClick="{{ go.S013 }}" style="text-align:center;font-size:13px;font-weight:700;color:#028E7F;padding:10px;cursor:pointer">Закрыть — уведомим о решении</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S013 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">B · SCREEN-013 · Кредитное решение (013-A)</div>
+      <div style="background:#fff;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden">
+        <div style="display:flex;align-items:center;justify-content:flex-end;padding:16px;border-bottom:1px solid #F1F3F5"><span style="font-size:13px;font-weight:700;color:#028E7F">Закрыть</span></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:14px">
+          <div style="display:flex;flex-direction:column;align-items:center;gap:8px;padding:8px 0">
+            <div style="width:48px;height:48px;border-radius:50%;background:#DCF8D6;color:#028E7F;font-size:22px;display:flex;align-items:center;justify-content:center">✓</div>
+            <div style="font-weight:800;font-size:20px">Лимит одобрен</div>
+            <div style="font-weight:800;font-size:32px;color:#028E7F">150 000 ₽</div>
+          </div>
+          <div style="background:#F5F5F5;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:8px">
+            <div style="font-size:13px;color:#9B9B9B">Обеспечение</div>
+            <div style="font-weight:800;font-size:20px">3 844,40 USDT</div>
+            <div style="font-size:13px;color:#9B9B9B">≈ 353 685 ₽ · сеть TRC-20 · по курсу на 14:32</div>
+          </div>
+          <div style="border:1px solid #F1F3F5;border-radius:16px;overflow:hidden">
+            <div style="display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="color:#9B9B9B">Ставка</span><span style="font-weight:700"><span style="background:#DCF8D6;border-bottom:1px dashed #028E7F;border-radius:3px;padding:0 3px">36 % годовых</span></span></div>
+            <div style="display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="color:#9B9B9B">Начальный LTV</span><span style="font-weight:700"><span style="background:#DCF8D6;border-bottom:1px dashed #028E7F;border-radius:3px;padding:0 3px">50 %</span></span></div>
+            <div style="display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="color:#9B9B9B">Попросим пополнить залог при</span><span style="font-weight:700"><span style="background:#DCF8D6;border-bottom:1px dashed #028E7F;border-radius:3px;padding:0 3px">70 %</span></span></div>
+            <div style="display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="color:#9B9B9B">Продадим залог при</span><span style="font-weight:700;color:#A33131"><span style="background:#DCF8D6;border-bottom:1px dashed #028E7F;border-radius:3px;padding:0 3px">80 %</span></span></div>
+            <div style="display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="color:#9B9B9B">День выписки</span><span style="font-weight:700"><span style="background:#DCF8D6;border-bottom:1px dashed #028E7F;border-radius:3px;padding:0 3px">5-е число</span></span></div>
+            <div style="display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="color:#9B9B9B">Срок платежа</span><span style="font-weight:700"><span style="background:#DCF8D6;border-bottom:1px dashed #028E7F;border-radius:3px;padding:0 3px">20 дней</span></span></div>
+            <div style="display:flex;justify-content:space-between;padding:12px 16px;font-size:13px"><span style="color:#9B9B9B">Льготный период</span><span style="font-weight:700"><span style="background:#DCF8D6;border-bottom:1px dashed #028E7F;border-radius:3px;padding:0 3px">до 55 дней</span></span></div>
+          </div>
+          <div style="background:#DFF1EF;border-radius:12px;padding:12px;font-size:12px;line-height:1.5;color:#044448">Решение действует до 27.08.2026 14:32. После этой даты потребуется повторная проверка.</div>
+          <div style="font-size:13px;font-weight:700;color:#028E7F">Все условия, ПСК и ПДН</div>
+          <div onClick="{{ go.S016 }}" style="background:#028E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:700;font-size:15px;cursor:pointer">Подписать документы</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S016 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">C · SCREEN-016 · Пакет документов</div>
+      <div style="background:#fff;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden">
+        <div style="display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid #F1F3F5"><span onClick="{{ go.S013 }}" style="cursor:pointer;display:flex"><svg width="16" height="13" viewBox="0 0 18 15" fill="none" style="display:block"><path d="M0.292892 6.65685C-0.0976315 7.04737 -0.0976315 7.68054 0.292892 8.07106L6.65685 14.435C7.04738 14.8255 7.68054 14.8255 8.07107 14.435C8.46159 14.0445 8.46159 13.4113 8.07107 13.0208L2.41421 7.36395L8.07107 1.7071C8.46159 1.31657 8.46159 0.683409 8.07107 0.292885C7.68054 -0.0976396 7.04738 -0.0976396 6.65685 0.292885L0.292892 6.65685ZM18 7.36395L18 6.36395L1 6.36395L1 7.36395L1 8.36395L18 8.36395L18 7.36395Z" fill="#028E7F"></path></svg></span><span style="font-weight:800;font-size:17px">Документы</span></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:12px">
+          <div style="font-size:12px;color:#9B9B9B;line-height:1.45">Подписываются одним кодом. Подписание не означает заключение договора.</div>
+          <div style="border:1px solid #F1F3F5;border-radius:16px;overflow:hidden">
+            <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #F1F3F5"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex:0 0 20px"><path d="M7 10.5H8V8.5H9C9.28333 8.5 9.52083 8.40417 9.7125 8.2125C9.90417 8.02083 10 7.78333 10 7.5V6.5C10 6.21667 9.90417 5.97917 9.7125 5.7875C9.52083 5.59583 9.28333 5.5 9 5.5H7V10.5ZM8 7.5V6.5H9V7.5H8ZM11 10.5H13C13.2833 10.5 13.5208 10.4042 13.7125 10.2125C13.9042 10.0208 14 9.78333 14 9.5V6.5C14 6.21667 13.9042 5.97917 13.7125 5.7875C13.5208 5.59583 13.2833 5.5 13 5.5H11V10.5ZM12 9.5V6.5H13V9.5H12ZM15 10.5H16V8.5H17V7.5H16V6.5H17V5.5H15V10.5ZM6 16C5.45 16 4.97917 15.8042 4.5875 15.4125C4.19583 15.0208 4 14.55 4 14V2C4 1.45 4.19583 0.979167 4.5875 0.5875C4.97917 0.195833 5.45 0 6 0H18C18.55 0 19.0208 0.195833 19.4125 0.5875C19.8042 0.979167 20 1.45 20 2V14C20 14.55 19.8042 15.0208 19.4125 15.4125C19.0208 15.8042 18.55 16 18 16H6ZM6 14H18V2H6V14ZM2 20C1.45 20 0.979167 19.8042 0.5875 19.4125C0.195833 19.0208 0 18.55 0 18V4H2V18H16V20H2Z" fill="#555555"></path></svg><div style="flex:1;font-size:13px;font-weight:700">Индивидуальные условия</div></div>
+            <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #F1F3F5"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex:0 0 20px"><path d="M7 10.5H8V8.5H9C9.28333 8.5 9.52083 8.40417 9.7125 8.2125C9.90417 8.02083 10 7.78333 10 7.5V6.5C10 6.21667 9.90417 5.97917 9.7125 5.7875C9.52083 5.59583 9.28333 5.5 9 5.5H7V10.5ZM8 7.5V6.5H9V7.5H8ZM11 10.5H13C13.2833 10.5 13.5208 10.4042 13.7125 10.2125C13.9042 10.0208 14 9.78333 14 9.5V6.5C14 6.21667 13.9042 5.97917 13.7125 5.7875C13.5208 5.59583 13.2833 5.5 13 5.5H11V10.5ZM12 9.5V6.5H13V9.5H12ZM15 10.5H16V8.5H17V7.5H16V6.5H17V5.5H15V10.5ZM6 16C5.45 16 4.97917 15.8042 4.5875 15.4125C4.19583 15.0208 4 14.55 4 14V2C4 1.45 4.19583 0.979167 4.5875 0.5875C4.97917 0.195833 5.45 0 6 0H18C18.55 0 19.0208 0.195833 19.4125 0.5875C19.8042 0.979167 20 1.45 20 2V14C20 14.55 19.8042 15.0208 19.4125 15.4125C19.0208 15.8042 18.55 16 18 16H6ZM6 14H18V2H6V14ZM2 20C1.45 20 0.979167 19.8042 0.5875 19.4125C0.195833 19.0208 0 18.55 0 18V4H2V18H16V20H2Z" fill="#555555"></path></svg><div style="flex:1;font-size:13px;font-weight:700">Общие условия договора займа</div></div>
+            <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #F1F3F5"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex:0 0 20px"><path d="M7 10.5H8V8.5H9C9.28333 8.5 9.52083 8.40417 9.7125 8.2125C9.90417 8.02083 10 7.78333 10 7.5V6.5C10 6.21667 9.90417 5.97917 9.7125 5.7875C9.52083 5.59583 9.28333 5.5 9 5.5H7V10.5ZM8 7.5V6.5H9V7.5H8ZM11 10.5H13C13.2833 10.5 13.5208 10.4042 13.7125 10.2125C13.9042 10.0208 14 9.78333 14 9.5V6.5C14 6.21667 13.9042 5.97917 13.7125 5.7875C13.5208 5.59583 13.2833 5.5 13 5.5H11V10.5ZM12 9.5V6.5H13V9.5H12ZM15 10.5H16V8.5H17V7.5H16V6.5H17V5.5H15V10.5ZM6 16C5.45 16 4.97917 15.8042 4.5875 15.4125C4.19583 15.0208 4 14.55 4 14V2C4 1.45 4.19583 0.979167 4.5875 0.5875C4.97917 0.195833 5.45 0 6 0H18C18.55 0 19.0208 0.195833 19.4125 0.5875C19.8042 0.979167 20 1.45 20 2V14C20 14.55 19.8042 15.0208 19.4125 15.4125C19.0208 15.8042 18.55 16 18 16H6ZM6 14H18V2H6V14ZM2 20C1.45 20 0.979167 19.8042 0.5875 19.4125C0.195833 19.0208 0 18.55 0 18V4H2V18H16V20H2Z" fill="#555555"></path></svg><div style="flex:1;font-size:13px;font-weight:700">Договор залога криптоактива</div></div>
+            <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #F1F3F5"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex:0 0 20px"><path d="M7 10.5H8V8.5H9C9.28333 8.5 9.52083 8.40417 9.7125 8.2125C9.90417 8.02083 10 7.78333 10 7.5V6.5C10 6.21667 9.90417 5.97917 9.7125 5.7875C9.52083 5.59583 9.28333 5.5 9 5.5H7V10.5ZM8 7.5V6.5H9V7.5H8ZM11 10.5H13C13.2833 10.5 13.5208 10.4042 13.7125 10.2125C13.9042 10.0208 14 9.78333 14 9.5V6.5C14 6.21667 13.9042 5.97917 13.7125 5.7875C13.5208 5.59583 13.2833 5.5 13 5.5H11V10.5ZM12 9.5V6.5H13V9.5H12ZM15 10.5H16V8.5H17V7.5H16V6.5H17V5.5H15V10.5ZM6 16C5.45 16 4.97917 15.8042 4.5875 15.4125C4.19583 15.0208 4 14.55 4 14V2C4 1.45 4.19583 0.979167 4.5875 0.5875C4.97917 0.195833 5.45 0 6 0H18C18.55 0 19.0208 0.195833 19.4125 0.5875C19.8042 0.979167 20 1.45 20 2V14C20 14.55 19.8042 15.0208 19.4125 15.4125C19.0208 15.8042 18.55 16 18 16H6ZM6 14H18V2H6V14ZM2 20C1.45 20 0.979167 19.8042 0.5875 19.4125C0.195833 19.0208 0 18.55 0 18V4H2V18H16V20H2Z" fill="#555555"></path></svg><div style="flex:1;font-size:13px;font-weight:700">Условия выпуска и обслуживания карты</div></div>
+            <div style="display:flex;align-items:center;gap:12px;padding:14px 16px"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex:0 0 20px"><path d="M7 10.5H8V8.5H9C9.28333 8.5 9.52083 8.40417 9.7125 8.2125C9.90417 8.02083 10 7.78333 10 7.5V6.5C10 6.21667 9.90417 5.97917 9.7125 5.7875C9.52083 5.59583 9.28333 5.5 9 5.5H7V10.5ZM8 7.5V6.5H9V7.5H8ZM11 10.5H13C13.2833 10.5 13.5208 10.4042 13.7125 10.2125C13.9042 10.0208 14 9.78333 14 9.5V6.5C14 6.21667 13.9042 5.97917 13.7125 5.7875C13.5208 5.59583 13.2833 5.5 13 5.5H11V10.5ZM12 9.5V6.5H13V9.5H12ZM15 10.5H16V8.5H17V7.5H16V6.5H17V5.5H15V10.5ZM6 16C5.45 16 4.97917 15.8042 4.5875 15.4125C4.19583 15.0208 4 14.55 4 14V2C4 1.45 4.19583 0.979167 4.5875 0.5875C4.97917 0.195833 5.45 0 6 0H18C18.55 0 19.0208 0.195833 19.4125 0.5875C19.8042 0.979167 20 1.45 20 2V14C20 14.55 19.8042 15.0208 19.4125 15.4125C19.0208 15.8042 18.55 16 18 16H6ZM6 14H18V2H6V14ZM2 20C1.45 20 0.979167 19.8042 0.5875 19.4125C0.195833 19.0208 0 18.55 0 18V4H2V18H16V20H2Z" fill="#555555"></path></svg><div style="flex:1;font-size:13px;font-weight:700">График и порядок платежей</div></div>
+          </div>
+          <div onClick="{{ go.S018 }}" style="background:#028E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:700;font-size:15px;cursor:pointer">Подписать всё</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S018 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">C · SCREEN-018 · Подтверждение подписания (Sheet)</div>
+      <div style="background:#5B6470;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden;padding-top:140px">
+        <div style="background:#fff;border-radius:24px 24px 0 0;padding:12px 16px 16px">
+          <div style="width:36px;height:4px;border-radius:2px;background:#E3E7EA;margin:0 auto 14px"></div>
+          <div style="font-weight:800;font-size:18px;margin-bottom:10px">Подписать 5 документов</div>
+          <div style="font-size:13px;line-height:1.5;color:#495057;margin-bottom:14px">Подписание фиксирует ваше согласие с условиями. Договор считается заключённым с момента первого использования лимита.</div>
+          <div onClick="{{ go.S019 }}" style="background:#028E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:700;font-size:15px;cursor:pointer">Получить код</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S019 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">C · SCREEN-019 · SMS-код подписания</div>
+      <div style="background:#fff;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden">
+        <div style="display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid #F1F3F5"><span onClick="{{ go.S016 }}" style="cursor:pointer;display:flex"><svg width="16" height="13" viewBox="0 0 18 15" fill="none" style="display:block"><path d="M0.292892 6.65685C-0.0976315 7.04737 -0.0976315 7.68054 0.292892 8.07106L6.65685 14.435C7.04738 14.8255 7.68054 14.8255 8.07107 14.435C8.46159 14.0445 8.46159 13.4113 8.07107 13.0208L2.41421 7.36395L8.07107 1.7071C8.46159 1.31657 8.46159 0.683409 8.07107 0.292885C7.68054 -0.0976396 7.04738 -0.0976396 6.65685 0.292885L0.292892 6.65685ZM18 7.36395L18 6.36395L1 6.36395L1 7.36395L1 8.36395L18 8.36395L18 7.36395Z" fill="#028E7F"></path></svg></span><span style="font-weight:800;font-size:17px">Подпись документов</span></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:16px;align-items:center">
+          <div style="font-size:13px;color:#9B9B9B;text-align:center;line-height:1.45">Код — простая электронная подпись. Сохраним время, версию документов и способ подписи.</div>
+          <div style="display:flex;gap:10px">
+            <div style="width:44px;height:52px;border-radius:12px;background:#F5F5F5;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px">9</div>
+            <div style="width:44px;height:52px;border-radius:12px;background:#F5F5F5;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px">0</div>
+            <div style="width:44px;height:52px;border-radius:12px;background:#F5F5F5;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px">4</div>
+            <div style="width:44px;height:52px;border-radius:12px;background:#F5F5F5;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px">2</div>
+          </div>
+          <div onClick="{{ go.S020 }}" style="background:#028E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:700;font-size:15px;cursor:pointer;width:100%;box-sizing:border-box">Подписать</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S020 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">C · SCREEN-020 · Документы подписаны</div>
+      <div style="background:#fff;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden">
+        <div style="padding:24px 16px 16px;display:flex;flex-direction:column;gap:14px;align-items:center">
+          <div style="width:56px;height:56px;border-radius:50%;background:#DCF8D6;color:#028E7F;font-size:26px;display:flex;align-items:center;justify-content:center">✓</div>
+          <div style="font-weight:800;font-size:20px;text-align:center">Документы подписаны</div>
+          <div style="font-size:13px;color:#9B9B9B;text-align:center;line-height:1.5">Договор будет считаться заключённым с момента первого использования лимита. Сейчас выпустим карту.</div>
+          <sc-if value="{{ showDA }}" hint-placeholder-val="{{ true }}"><div style="background:#DCF8D6;color:#044448;border-radius:10px;padding:10px;font-size:11px;line-height:1.45;width:100%;box-sizing:border-box"><b>BR-04</b> Формулировка не говорит «договор заключён» — подписание не создаёт договор (ТЗ 1.3).</div></sc-if>
+          <div onClick="{{ go.S021 }}" style="background:#028E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:700;font-size:15px;cursor:pointer;width:100%;box-sizing:border-box">Продолжить</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S021 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">D · SCREEN-021 · Выпускаем карту (Process)</div>
+      <div style="background:#fff;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden">
+        <div style="padding:16px;border-bottom:1px solid #F1F3F5;font-weight:800;font-size:17px">Выпускаем карту</div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:14px">
+          <div style="background:#F5F5F5;border-radius:16px;height:120px;display:flex;align-items:center;justify-content:center;color:#9B9B9B;font-size:12px">Иллюстрация выпуска карты</div>
+          <div style="font-size:13px;color:#9B9B9B;line-height:1.45">Заказали карту у партнёра-эмитента. Обычно занимает до минуты, действий от вас не требуется.</div>
+          <div onClick="{{ go.S022 }}" style="text-align:center;font-size:13px;font-weight:700;color:#028E7F;padding:10px;cursor:pointer">Закрыть — уведомим, когда будет готова</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S022 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">D · SCREEN-022 · Карта готова</div>
+      <div style="background:#fff;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden">
+        <div style="padding:24px 16px 16px;display:flex;flex-direction:column;gap:14px">
+          <div style="font-weight:800;font-size:20px">Карта выпущена</div>
+          <div style="background:#028E7F;border-radius:18px;padding:18px;color:#fff;display:flex;flex-direction:column;gap:28px">
+            <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-weight:800;font-size:14px">FinFresh</span><span style="background:rgba(255,255,255,.18);border-radius:999px;padding:4px 10px;font-size:10px;font-weight:800">НЕАКТИВНА</span></div>
+            <div><div style="font-weight:700;font-size:17px;letter-spacing:.08em">•••• •••• •••• 4416</div><div style="font-size:11px;opacity:.8;margin-top:6px">Виртуальная · до 08/29</div></div>
+          </div>
+          <div style="font-size:13px;color:#9B9B9B;line-height:1.5">Карта станет расходной после открытия линии. Реквизиты будут доступны там же.</div>
+          <div onClick="{{ go.S025 }}" style="background:#028E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:700;font-size:15px;cursor:pointer">Внести обеспечение</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S025 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">E · SCREEN-025 · Как внести обеспечение</div>
+      <div style="background:#fff;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden">
+        <div style="display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid #F1F3F5"><span onClick="{{ go.S022 }}" style="cursor:pointer;display:flex"><svg width="16" height="13" viewBox="0 0 18 15" fill="none" style="display:block"><path d="M0.292892 6.65685C-0.0976315 7.04737 -0.0976315 7.68054 0.292892 8.07106L6.65685 14.435C7.04738 14.8255 7.68054 14.8255 8.07107 14.435C8.46159 14.0445 8.46159 13.4113 8.07107 13.0208L2.41421 7.36395L8.07107 1.7071C8.46159 1.31657 8.46159 0.683409 8.07107 0.292885C7.68054 -0.0976396 7.04738 -0.0976396 6.65685 0.292885L0.292892 6.65685ZM18 7.36395L18 6.36395L1 6.36395L1 7.36395L1 8.36395L18 8.36395L18 7.36395Z" fill="#028E7F"></path></svg></span><span style="font-weight:800;font-size:17px">Обеспечение</span></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:14px">
+          <div style="font-weight:800;font-size:18px">Как внести залог</div>
+          <div style="display:flex;flex-direction:column;gap:12px">
+            <div style="display:flex;gap:12px"><div style="flex:0 0 24px;height:24px;border-radius:50%;background:#DCF8D6;color:#044448;font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center">1</div><div style="font-size:13px;line-height:1.45">Скопируйте адрес или отсканируйте QR в своём кошельке</div></div>
+            <div style="display:flex;gap:12px"><div style="flex:0 0 24px;height:24px;border-radius:50%;background:#DCF8D6;color:#044448;font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center">2</div><div style="font-size:13px;line-height:1.45">Переведите 3 844,40 USDT в сети TRC-20</div></div>
+            <div style="display:flex;gap:12px"><div style="flex:0 0 24px;height:24px;border-radius:50%;background:#DCF8D6;color:#044448;font-weight:800;font-size:12px;display:flex;align-items:center;justify-content:center">3</div><div style="font-size:13px;line-height:1.45">Дождитесь 12 подтверждений сети и проверки</div></div>
+          </div>
+          <div style="background:#FDECEC;border-radius:12px;padding:12px;font-size:12px;line-height:1.5;color:#A33131">Только USDT и только сеть TRC-20. Другой актив или сеть не будут зачтены в залог и потребуют ручного разбора.</div>
+          <div onClick="{{ go.S026 }}" style="background:#028E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:700;font-size:15px;cursor:pointer">Получить адрес</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S026 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">E · SCREEN-026 · Адрес депозита (026-B) · NEW-05</div>
+      <div style="background:#fff;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:16px;border-bottom:1px solid #F1F3F5"><span style="font-weight:800;font-size:17px">Перевод залога</span><span style="font-size:13px;font-weight:700;color:#028E7F">Закрыть</span></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:12px">
+          <div style="background:#FFF4E0;border-radius:12px;padding:10px 12px;font-size:12px;line-height:1.45;color:#8A5A12"><b>USDT</b> · сеть <b>TRC-20</b>. Другой актив или сеть не зачтутся.</div>
+          <div style="background:#F5F5F5;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px;align-items:center">
+            <div style="width:140px;height:140px;background:#fff;border-radius:12px;padding:10px;box-sizing:border-box"><div style="width:100%;height:100%;background-image:repeating-conic-gradient(#212529 0% 25%,#fff 0% 50%);background-size:14px 14px"></div></div>
+            <div style="width:100%;background:#fff;border-radius:10px;padding:10px;font-family:ui-monospace,monospace;font-size:11px;word-break:break-all;line-height:1.4">TJ8kL2mQ9xVb7Rn4pW6sZaCd3EfGh5Kj1M</div>
+            <div style="display:flex;gap:8px;width:100%">
+              <div style="flex:1;background:#fff;border:1.5px solid #028E7F;color:#028E7F;border-radius:10px;padding:10px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;font-weight:700"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="flex:0 0 14px"><path d="M19 19H8C7.45 19 6.97917 18.8042 6.5875 18.4125C6.19583 18.0208 6 17.55 6 17V3C6 2.45 6.19583 1.97917 6.5875 1.5875C6.97917 1.19583 7.45 1 8 1H15L21 7V17C21 17.55 20.8042 18.0208 20.4125 18.4125C20.0208 18.8042 19.55 19 19 19ZM14 8V3H8V17H19V8H14ZM4 23C3.45 23 2.97917 22.8042 2.5875 22.4125C2.19583 22.0208 2 21.55 2 21V7H4V21H15V23H4Z" fill="#028E7F"></path></svg>Адрес</div>
+              <div style="flex:1;background:#fff;border:1.5px solid #028E7F;color:#028E7F;border-radius:10px;padding:10px;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px;font-weight:700"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" style="flex:0 0 14px"><path d="M19 19H8C7.45 19 6.97917 18.8042 6.5875 18.4125C6.19583 18.0208 6 17.55 6 17V3C6 2.45 6.19583 1.97917 6.5875 1.5875C6.97917 1.19583 7.45 1 8 1H15L21 7V17C21 17.55 20.8042 18.0208 20.4125 18.4125C20.0208 18.8042 19.55 19 19 19ZM14 8V3H8V17H19V8H14ZM4 23C3.45 23 2.97917 22.8042 2.5875 22.4125C2.19583 22.0208 2 21.55 2 21V7H4V21H15V23H4Z" fill="#028E7F"></path></svg>Сумму</div>
+            </div>
+          </div>
+          <div style="border:1px solid #F1F3F5;border-radius:16px;overflow:hidden">
+            <div style="display:flex;justify-content:space-between;padding:11px 14px;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="color:#9B9B9B">Нужно перевести</span><span style="font-weight:700">3 844,40 USDT</span></div>
+            <div style="display:flex;justify-content:space-between;padding:11px 14px;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="color:#9B9B9B">Минимум</span><span style="font-weight:700"><span style="background:#DCF8D6;border-bottom:1px dashed #028E7F;border-radius:3px;padding:0 3px">10 USDT</span></span></div>
+            <div style="display:flex;justify-content:space-between;padding:11px 14px;font-size:13px"><span style="color:#9B9B9B">Подтверждений</span><span style="font-weight:700"><span style="background:#DCF8D6;border-bottom:1px dashed #028E7F;border-radius:3px;padding:0 3px">12</span></span></div>
+          </div>
+          <div style="background:#DFF1EF;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:center;gap:8px"><div style="background:#028E7F;color:#fff;border-radius:999px;padding:4px 10px;font-size:11px;font-weight:800">Транзакция найдена</div><span style="font-size:12px;color:#044448">7 из 12 подтверждений</span></div>
+            <div style="height:6px;border-radius:3px;background:#fff;overflow:hidden"><div style="width:58%;height:100%;background:#028E7F"></div></div>
+            <div style="font-size:12px;color:#044448">Внесено 3 844,40 / 3 844,40 USDT</div>
+          </div>
+          <div onClick="{{ go.S031 }}" style="text-align:center;font-size:13px;font-weight:700;color:#028E7F;padding:8px;cursor:pointer">Закрыть — уведомим, когда придёт</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S031 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">E · SCREEN-031 · Обеспечение принято</div>
+      <div style="background:#fff;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden">
+        <div style="padding:24px 16px 16px;display:flex;flex-direction:column;gap:14px;align-items:center">
+          <div style="width:56px;height:56px;border-radius:50%;background:#DCF8D6;color:#028E7F;font-size:26px;display:flex;align-items:center;justify-content:center">✓</div>
+          <div style="font-weight:800;font-size:20px;text-align:center">Залог принят</div>
+          <div style="background:#F5F5F5;border-radius:16px;padding:16px;width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Принято</span><span style="font-weight:700">3 844,40 USDT</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Оценка</span><span style="font-weight:700">≈ 336 000 ₽</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Загрузка залога</span><span style="font-weight:700">0 %</span></div>
+          </div>
+          <div onClick="{{ go.S032 }}" style="background:#028E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:700;font-size:15px;cursor:pointer;width:100%;box-sizing:border-box">Дальше</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S032 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">F · SCREEN-032 · Готовность (032-A) · NEW-07</div>
+      <div style="background:#fff;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:16px;border-bottom:1px solid #F1F3F5"><span style="font-weight:800;font-size:17px">Кредитная линия</span><span style="font-size:13px;font-weight:700;color:#028E7F">Закрыть</span></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:14px">
+          <div><div style="font-weight:800;font-size:20px">Почти готово</div><div style="font-size:13px;color:#9B9B9B;margin-top:6px">Осталось дождаться окончания обязательного периода ожидания</div></div>
+          <div style="border:1px solid #F1F3F5;border-radius:16px;overflow:hidden">
+            <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #F1F3F5"><div style="width:22px;height:22px;border-radius:50%;background:#028E7F;color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center">✓</div><div style="flex:1;font-size:13px;font-weight:700">Документы подписаны</div></div>
+            <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #F1F3F5"><div style="width:22px;height:22px;border-radius:50%;background:#028E7F;color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center">✓</div><div style="flex:1;font-size:13px;font-weight:700">Карта выпущена</div></div>
+            <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #F1F3F5"><div style="width:22px;height:22px;border-radius:50%;background:#028E7F;color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center">✓</div><div style="flex:1;font-size:13px;font-weight:700">Залог принят<span style="color:#9B9B9B;font-weight:400"> — 3 844,40 USDT</span></div></div>
+            <div onClick="{{ go.S033 }}" style="display:flex;align-items:center;gap:12px;padding:14px 16px;cursor:pointer"><div style="width:22px;height:22px;border-radius:50%;border:2px solid #E8A33D"></div><div style="flex:1;display:flex;align-items:center;gap:8px;font-size:13px;font-weight:700"><svg width="16" height="16" viewBox="0 0 38 38" fill="none" style="flex:0 0 16px"><path d="M18.9855 3.16602C10.2455 3.16602 3.16797 10.2593 3.16797 18.9993C3.16797 27.7393 10.2455 34.8327 18.9855 34.8327C27.7413 34.8327 34.8346 27.7393 34.8346 18.9993C34.8346 10.2593 27.7413 3.16602 18.9855 3.16602ZM19.0013 31.666C12.003 31.666 6.33464 25.9977 6.33464 18.9993C6.33464 12.001 12.003 6.33268 19.0013 6.33268C25.9996 6.33268 31.668 12.001 31.668 18.9993C31.668 25.9977 25.9996 31.666 19.0013 31.666Z" fill="#E8A33D"></path><path d="M19.793 11.084H17.418V20.584L25.7305 25.5715L26.918 23.624L19.793 19.3965V11.084Z" fill="#E8A33D"></path></svg>Период охлаждения</div><div style="font-weight:800;font-size:13px;color:#E8A33D">03:41:12</div></div>
+          </div>
+          <div style="background:#DFF1EF;border-radius:12px;padding:12px;font-size:12px;line-height:1.5;color:#044448">После открытия линии карта станет активной, и вы сможете тратить до 150 000 ₽. Договор считается заключённым с момента первого использования лимита.</div>
+          <div style="background:#9BCFCA;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:700;font-size:15px">Открыть линию</div>
+          <div onClick="{{ go.S036 }}" style="text-align:center;font-size:12px;font-weight:700;color:#028E7F;cursor:pointer">→ 032-B: охлаждение завершено, CTA активен</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S033 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">F · SCREEN-033 · Период охлаждения</div>
+      <div style="background:#fff;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden">
+        <div style="display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid #F1F3F5"><span onClick="{{ go.S032 }}" style="cursor:pointer;display:flex"><svg width="16" height="13" viewBox="0 0 18 15" fill="none" style="display:block"><path d="M0.292892 6.65685C-0.0976315 7.04737 -0.0976315 7.68054 0.292892 8.07106L6.65685 14.435C7.04738 14.8255 7.68054 14.8255 8.07107 14.435C8.46159 14.0445 8.46159 13.4113 8.07107 13.0208L2.41421 7.36395L8.07107 1.7071C8.46159 1.31657 8.46159 0.683409 8.07107 0.292885C7.68054 -0.0976396 7.04738 -0.0976396 6.65685 0.292885L0.292892 6.65685ZM18 7.36395L18 6.36395L1 6.36395L1 7.36395L1 8.36395L18 8.36395L18 7.36395Z" fill="#028E7F"></path></svg></span><span style="font-weight:800;font-size:17px">Период охлаждения</span></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:14px">
+          <div style="background:#F5F5F5;border-radius:16px;padding:20px;text-align:center"><div style="font-size:12px;color:#9B9B9B">Осталось</div><div style="font-weight:800;font-size:32px;margin-top:4px">03:41:12</div><div style="font-size:12px;color:#9B9B9B;margin-top:4px">до 26.08.2026 18:14 (MSK)</div></div>
+          <div style="font-size:13px;line-height:1.55;color:#495057">Это обязательная пауза между подписанием документов и открытием доступа к деньгам. Она даёт возможность отказаться от продукта без последствий. Залог в это время уже заблокирован, карта ещё не активна.</div>
+          <div style="background:#DFF1EF;border-radius:12px;padding:12px;font-size:12px;line-height:1.5;color:#044448">Пришлём push, как только период закончится — приложение можно закрыть.</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S036 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">F · SCREEN-036 · Открыть линию (ключевой экран)</div>
+      <div style="background:#fff;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden">
+        <div style="display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid #F1F3F5"><span onClick="{{ go.S032 }}" style="cursor:pointer;display:flex"><svg width="16" height="13" viewBox="0 0 18 15" fill="none" style="display:block"><path d="M0.292892 6.65685C-0.0976315 7.04737 -0.0976315 7.68054 0.292892 8.07106L6.65685 14.435C7.04738 14.8255 7.68054 14.8255 8.07107 14.435C8.46159 14.0445 8.46159 13.4113 8.07107 13.0208L2.41421 7.36395L8.07107 1.7071C8.46159 1.31657 8.46159 0.683409 8.07107 0.292885C7.68054 -0.0976396 7.04738 -0.0976396 6.65685 0.292885L0.292892 6.65685ZM18 7.36395L18 6.36395L1 6.36395L1 7.36395L1 8.36395L18 8.36395L18 7.36395Z" fill="#028E7F"></path></svg></span><span style="font-weight:800;font-size:17px">Открытие линии</span></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:14px">
+          <div style="font-weight:800;font-size:20px">Открыть кредитную линию</div>
+          <div style="background:#F5F5F5;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Лимит</span><span style="font-weight:700">150 000 ₽</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Ставка</span><span style="font-weight:700"><span style="background:#DCF8D6;border-bottom:1px dashed #028E7F;border-radius:3px;padding:0 3px">36 % годовых</span></span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Залог</span><span style="font-weight:700">3 844,40 USDT</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Первая выписка</span><span style="font-weight:700">05.09.2026</span></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:20px;height:20px;border-radius:50%;background:#DCF8D6;color:#028E7F;font-size:11px;display:flex;align-items:center;justify-content:center">1</div><div style="font-size:13px">Карта станет активной</div></div>
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:20px;height:20px;border-radius:50%;background:#DCF8D6;color:#028E7F;font-size:11px;display:flex;align-items:center;justify-content:center">2</div><div style="font-size:13px">Станут доступны реквизиты карты</div></div>
+            <div style="display:flex;align-items:center;gap:10px"><div style="width:20px;height:20px;border-radius:50%;background:#DCF8D6;color:#028E7F;font-size:11px;display:flex;align-items:center;justify-content:center">3</div><div style="font-size:13px">Вы сможете тратить до 150 000 ₽</div></div>
+          </div>
+          <div onClick="{{ toggleWill }}" style="display:flex;gap:10px;background:#F5F5F5;border-radius:14px;padding:14px;cursor:pointer">
+            <div style="{{ willBox }}">✓</div>
+            <div style="font-size:12px;line-height:1.5;color:#212529">Я подтверждаю намерение получить денежные средства в рамках кредитного лимита и прошу открыть доступ к лимиту на условиях подписанных документов.</div>
+          </div>
+          <sc-if value="{{ showDA }}" hint-placeholder-val="{{ true }}"><div style="background:#DCF8D6;color:#044448;border-radius:10px;padding:10px;font-size:11px;line-height:1.45"><b>[DESIGN ASSUMPTION]</b> Разрешает Противоречие №3 «карта ↔ первый транш»: явное волеизъявление + SMS. Текст согласия утверждает юрист, сокращать нельзя (ТЗ 4.5).</div></sc-if>
+          <div onClick="{{ go.S037 }}" style="{{ willCta }}">Подтвердить</div>
+          <div style="font-size:11px;color:#9B9B9B;text-align:center;line-height:1.45">Договор считается заключённым с момента первого использования лимита.</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S037 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">F · SCREEN-037 · Код подтверждения открытия</div>
+      <div style="background:#fff;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden">
+        <div style="display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid #F1F3F5"><span onClick="{{ go.S036 }}" style="cursor:pointer;display:flex"><svg width="16" height="13" viewBox="0 0 18 15" fill="none" style="display:block"><path d="M0.292892 6.65685C-0.0976315 7.04737 -0.0976315 7.68054 0.292892 8.07106L6.65685 14.435C7.04738 14.8255 7.68054 14.8255 8.07107 14.435C8.46159 14.0445 8.46159 13.4113 8.07107 13.0208L2.41421 7.36395L8.07107 1.7071C8.46159 1.31657 8.46159 0.683409 8.07107 0.292885C7.68054 -0.0976396 7.04738 -0.0976396 6.65685 0.292885L0.292892 6.65685ZM18 7.36395L18 6.36395L1 6.36395L1 7.36395L1 8.36395L18 8.36395L18 7.36395Z" fill="#028E7F"></path></svg></span><span style="font-weight:800;font-size:17px">Открытие линии</span></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:16px;align-items:center">
+          <div style="font-size:13px;color:#9B9B9B;text-align:center;line-height:1.45">Код подтверждает ваше распоряжение открыть доступ к лимиту</div>
+          <div style="display:flex;gap:10px">
+            <div style="width:44px;height:52px;border-radius:12px;background:#F5F5F5;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px">5</div>
+            <div style="width:44px;height:52px;border-radius:12px;background:#F5F5F5;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px">1</div>
+            <div style="width:44px;height:52px;border-radius:12px;background:#F5F5F5;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px">8</div>
+            <div style="width:44px;height:52px;border-radius:12px;background:#F5F5F5;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px">3</div>
+          </div>
+          <div onClick="{{ go.S038 }}" style="background:#028E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:700;font-size:15px;cursor:pointer;width:100%;box-sizing:border-box">Подтвердить</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S038 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">F · SCREEN-038 · Линия открыта, карта активна</div>
+      <div style="background:#fff;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden">
+        <div style="padding:24px 16px 16px;display:flex;flex-direction:column;gap:14px">
+          <div style="font-weight:800;font-size:22px">Линия открыта</div>
+          <div style="background:#028E7F;border-radius:18px;padding:18px;color:#fff;display:flex;flex-direction:column;gap:28px">
+            <div style="display:flex;justify-content:space-between;align-items:center"><span style="font-weight:800;font-size:14px">FinFresh</span><span style="background:#DCF8D6;color:#044448;border-radius:999px;padding:4px 10px;font-size:10px;font-weight:800">АКТИВНА</span></div>
+            <div><div style="font-weight:700;font-size:17px;letter-spacing:.08em">•••• •••• •••• 4416</div><div style="font-size:11px;opacity:.8;margin-top:6px">Доступно 150 000 ₽</div></div>
+          </div>
+          <div style="font-size:13px;line-height:1.55;color:#495057">Оплачивайте картой в пределах лимита. Договор вступит в силу с первой оплаты. Проценты начисляются только на потраченное.</div>
+          <div onClick="{{ go.S039 }}" style="background:#028E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:700;font-size:15px;cursor:pointer">В кабинет линии</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S039 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">G · SCREEN-039 · Кабинет линии (039-A)</div>
+      <div style="background:#fff;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden">
+        <div style="display:flex;align-items:center;justify-content:space-between;padding:16px;border-bottom:1px solid #F1F3F5"><span style="font-weight:800;font-size:17px">Кредитная линия</span><div style="display:flex;align-items:center;gap:14px"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="display:block"><path d="M12 1L21.05 6.4C21.35 6.58333 21.5833 6.83333 21.75 7.15C21.9167 7.46667 22 7.8 22 8.15V19C22 19.55 21.8042 20.0208 21.4125 20.4125C21.0208 20.8042 20.55 21 20 21H4C3.45 21 2.97917 20.8042 2.5875 20.4125C2.19583 20.0208 2 19.55 2 19V8.15C2 7.8 2.08333 7.46667 2.25 7.15C2.41667 6.83333 2.65 6.58333 2.95 6.4L12 1ZM12 12.65L19.8 8L12 3.35L4.2 8L12 12.65ZM12 15L4 10.2V19H20V10.2L12 15Z" fill="#028E7F"></path></svg><span style="font-size:13px;font-weight:700;color:#028E7F">Настройки</span></div></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:12px">
+          <div>
+            <div style="font-size:13px;color:#9B9B9B">Доступно</div>
+            <div style="font-weight:800;font-size:36px;line-height:1.1">50 440 ₽</div>
+            <div onClick="{{ go.S041 }}" style="font-size:13px;color:#9B9B9B;cursor:pointer">из 150 000 ₽ <span style="display:inline-flex;width:16px;height:16px;border-radius:50%;background:#DFF1EF;color:#028E7F;font-size:10px;align-items:center;justify-content:center;vertical-align:middle;font-weight:800">i</span></div>
+          </div>
+          <div onClick="{{ go.S040 }}" style="background:#028E7F;border-radius:16px;padding:14px;color:#fff;display:flex;align-items:center;justify-content:space-between;cursor:pointer">
+            <div><div style="font-weight:700;font-size:14px;letter-spacing:.06em">•••• 4416</div><div style="font-size:11px;opacity:.8;margin-top:4px">Виртуальная карта</div></div>
+            <div style="display:flex;align-items:center;gap:10px"><span style="background:#DCF8D6;color:#044448;border-radius:999px;padding:4px 9px;font-size:10px;font-weight:800">АКТИВНА</span><span style="font-size:11px;font-weight:700;text-decoration:underline">Реквизиты</span></div>
+          </div>
+          <div style="background:#F5F5F5;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:8px">
+            <div style="font-weight:800;font-size:15px">Задолженность</div>
+            <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Основной долг</span><span style="font-weight:700">96 500 ₽</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Проценты</span><span style="font-weight:700">340 ₽</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Заморожено по операциям <span style="display:inline-flex;width:14px;height:14px;border-radius:50%;background:#DFF1EF;color:#028E7F;font-size:9px;align-items:center;justify-content:center;font-weight:800">i</span></span><span style="font-weight:700">3 060 ₽</span></div>
+            <div style="height:1px;background:#E3E7EA;margin:4px 0"></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Минимальный платёж</span><span style="font-weight:800">5 780 ₽ · до 25.09</span></div>
+            <div onClick="{{ go.S051 }}" style="background:#028E7F;color:#fff;border-radius:12px;padding:13px;text-align:center;font-weight:700;font-size:14px;cursor:pointer;margin-top:4px">Погасить 5 780 ₽</div>
+          </div>
+          <div onClick="{{ go.S050 }}" style="background:#DCF8D6;border-radius:16px;padding:14px;display:flex;flex-direction:column;gap:8px;cursor:pointer">
+            <div style="font-size:12px;color:#044448;line-height:1.45"><b>Льготный период.</b> Внесите 96 500 ₽ до 25.09, чтобы не платить проценты</div>
+            <div style="height:6px;border-radius:3px;background:#fff;overflow:hidden"><div style="width:22%;height:100%;background:#028E7F"></div></div>
+          </div>
+          <div onClick="{{ go.S058 }}" style="background:#F5F5F5;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px;cursor:pointer">
+            <div style="display:flex;justify-content:space-between;align-items:baseline"><span style="font-weight:800;font-size:15px">Обеспечение</span><span style="font-size:12px;color:#9B9B9B">≈ 336 000 ₽</span></div>
+            <div style="font-weight:800;font-size:17px">3 844,40 USDT</div>
+            <div style="position:relative;height:8px;border-radius:4px;background:linear-gradient(90deg,#028E7F 0 60%,#E8A33D 60% 75%,#C64141 75% 100%)">
+              <div style="position:absolute;left:30%;top:-4px;width:4px;height:16px;border-radius:2px;background:#212529"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:11px;color:#9B9B9B"><span>Загрузка залога 30 %</span><span>пополним при 70 % · продадим при 80 %</span></div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:2px">
+            <div style="font-weight:800;font-size:15px;margin-bottom:6px">Последние операции</div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid #F1F3F5"><div><div style="font-size:13px;font-weight:700">Пятёрочка</div><div style="font-size:11px;color:#9B9B9B">Заморожено · 24.08</div></div><div style="font-weight:700;font-size:13px">−1 240 ₽</div></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 0;border-bottom:1px solid #F1F3F5"><div><div style="font-size:13px;font-weight:700">Ozon</div><div style="font-size:11px;color:#9B9B9B">Списано · 23.08</div></div><div style="font-weight:700;font-size:13px">−7 890 ₽</div></div>
+            <div style="display:flex;justify-content:space-between;align-items:center;padding:11px 0"><div><div style="font-size:13px;font-weight:700">Яндекс Такси</div><div style="font-size:11px;color:#9B9B9B">Списано · 23.08</div></div><div style="font-weight:700;font-size:13px">−540 ₽</div></div>
+            <div style="font-size:13px;font-weight:700;color:#028E7F;padding-top:8px">Все операции</div>
+          </div>
+          <div onClick="{{ go.S049 }}" style="display:flex;justify-content:space-between;padding:13px 0;border-top:1px solid #F1F3F5;font-size:13px;cursor:pointer"><span style="font-weight:700">Выписка за август</span><span style="color:#9B9B9B">›</span></div>
+          <div onClick="{{ go.S071 }}" style="display:flex;justify-content:space-between;padding:13px 0;border-top:1px solid #F1F3F5;font-size:13px;cursor:pointer"><span style="font-weight:700;color:#028E7F">Увеличить лимит</span><span style="color:#9B9B9B">›</span></div>
+          <div onClick="{{ go.S077 }}" style="display:flex;justify-content:space-between;padding:13px 0;border-top:1px solid #F1F3F5;font-size:13px;cursor:pointer"><span style="font-weight:700">Условия, документы и закрытие</span><span style="color:#9B9B9B">›</span></div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S041 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">G · SCREEN-041 · Как считается доступная сумма</div>
+      <div style="background:#5B6470;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden;padding-top:90px">
+        <div style="background:#fff;border-radius:24px 24px 0 0;padding:12px 16px 16px">
+          <div style="width:36px;height:4px;border-radius:2px;background:#E3E7EA;margin:0 auto 14px"></div>
+          <div style="font-weight:800;font-size:18px;margin-bottom:12px">Как считается доступная сумма</div>
+          <div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="color:#9B9B9B">Кредитный лимит</span><span style="font-weight:700">150 000 ₽</span></div>
+          <div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="color:#9B9B9B">− Основной долг</span><span style="font-weight:700">96 500 ₽</span></div>
+          <div style="display:flex;justify-content:space-between;padding:11px 0;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="color:#9B9B9B">− Заморожено по операциям</span><span style="font-weight:700">3 060 ₽</span></div>
+          <div style="display:flex;justify-content:space-between;padding:11px 0;font-size:15px"><span style="font-weight:800">Доступно</span><span style="font-weight:800;color:#028E7F">50 440 ₽</span></div>
+          <div style="font-size:12px;color:#9B9B9B;line-height:1.5;margin:10px 0 14px">Строка «Ограничение по залогу» появляется, только если залог стал связывающим ограничением — тогда рядом будет кнопка «Пополнить залог».</div>
+          <sc-if value="{{ showDA }}" hint-placeholder-val="{{ true }}"><div style="background:#DCF8D6;color:#044448;border-radius:10px;padding:10px;font-size:11px;line-height:1.45;margin-bottom:14px"><b>[DESIGN ASSUMPTION] OQ-04</b> Формула 5.1 ТЗ вычитает авторизационные резервы трижды. Дизайн исходит из исправленной: AvailableLimit = MIN(ContractAvailable, CollateralLimit − SecuredExposure). Цифра приходит с бэкенда, фронт не считает.</div></sc-if>
+          <div onClick="{{ go.S039 }}" style="background:#028E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:700;font-size:15px;cursor:pointer">Понятно</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S040 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">G · SCREEN-040 · Реквизиты карты (Sheet)</div>
+      <div style="background:#5B6470;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden;padding-top:110px">
+        <div style="background:#fff;border-radius:24px 24px 0 0;padding:12px 16px 16px">
+          <div style="width:36px;height:4px;border-radius:2px;background:#E3E7EA;margin:0 auto 14px"></div>
+          <div style="font-weight:800;font-size:18px;margin-bottom:12px">Реквизиты карты</div>
+          <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="color:#9B9B9B">Номер</span><span style="font-weight:700">4416 5500 1234 9012</span></div>
+          <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="color:#9B9B9B">Срок действия</span><span style="font-weight:700">08 / 29</span></div>
+          <div style="display:flex;justify-content:space-between;padding:12px 0;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="color:#9B9B9B">CVV</span><span style="font-weight:700;color:#028E7F">Показать CVV</span></div>
+          <div style="display:flex;justify-content:space-between;padding:12px 0;font-size:13px"><span style="color:#9B9B9B">Держатель</span><span style="font-weight:700">IVAN IVANOV</span></div>
+          <div style="background:#DFF1EF;border-radius:12px;padding:12px;font-size:12px;line-height:1.5;color:#044448;margin:12px 0">Не передавайте реквизиты третьим лицам. Сотрудники FinFresh никогда их не спрашивают. Скриншот заблокирован.</div>
+          <div onClick="{{ go.S039 }}" style="background:#028E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:700;font-size:15px;cursor:pointer">Закрыть</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S050 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">G · SCREEN-050 · Льготный период (Sheet)</div>
+      <div style="background:#5B6470;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden;padding-top:100px">
+        <div style="background:#fff;border-radius:24px 24px 0 0;padding:12px 16px 16px">
+          <div style="width:36px;height:4px;border-radius:2px;background:#E3E7EA;margin:0 auto 14px"></div>
+          <div style="font-weight:800;font-size:18px;margin-bottom:6px">Льготный период</div>
+          <div style="font-size:13px;color:#9B9B9B;line-height:1.5;margin-bottom:12px">Внесите 96 500 ₽ до 25.09.2026 — проценты за период не начислим.</div>
+          <div style="background:#F5F5F5;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px;margin-bottom:12px">
+            <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Внесено</span><span style="font-weight:700">21 000 ₽</span></div>
+            <div style="height:6px;border-radius:3px;background:#fff;overflow:hidden"><div style="width:22%;height:100%;background:#028E7F"></div></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Осталось внести</span><span style="font-weight:800">75 500 ₽</span></div>
+          </div>
+          <div style="font-size:12px;color:#9B9B9B;line-height:1.5;margin-bottom:12px">Льгота действует только на покупки. Снятие наличных, переводы и покупка криптовалюты в льготу не входят — по ним проценты начисляются с первого дня.</div>
+          <div onClick="{{ go.S051 }}" style="background:#028E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:700;font-size:15px;cursor:pointer">Погасить полностью</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S049 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">G · SCREEN-049 · Выписка</div>
+      <div style="background:#fff;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden">
+        <div style="display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid #F1F3F5"><span onClick="{{ go.S039 }}" style="cursor:pointer;display:flex"><svg width="16" height="13" viewBox="0 0 18 15" fill="none" style="display:block"><path d="M0.292892 6.65685C-0.0976315 7.04737 -0.0976315 7.68054 0.292892 8.07106L6.65685 14.435C7.04738 14.8255 7.68054 14.8255 8.07107 14.435C8.46159 14.0445 8.46159 13.4113 8.07107 13.0208L2.41421 7.36395L8.07107 1.7071C8.46159 1.31657 8.46159 0.683409 8.07107 0.292885C7.68054 -0.0976396 7.04738 -0.0976396 6.65685 0.292885L0.292892 6.65685ZM18 7.36395L18 6.36395L1 6.36395L1 7.36395L1 8.36395L18 8.36395L18 7.36395Z" fill="#028E7F"></path></svg></span><span style="font-weight:800;font-size:17px">Выписка за август</span></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:12px">
+          <div style="background:#F5F5F5;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Использование лимита</span><span style="font-weight:700">96 500 ₽</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Проценты за период</span><span style="font-weight:700">340 ₽</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Платежи</span><span style="font-weight:700">21 000 ₽</span></div>
+            <div style="height:1px;background:#E3E7EA;margin:2px 0"></div>
+            <div style="display:flex;justify-content:space-between;font-size:14px"><span style="font-weight:800">Минимальный платёж</span><span style="font-weight:800">5 780 ₽</span></div>
+            <div style="font-size:12px;color:#9B9B9B">до 25.09.2026</div>
+          </div>
+          <div style="display:flex;align-items:center;gap:12px;padding:14px;border:1px solid #F1F3F5;border-radius:14px"><svg width="20" height="20" viewBox="0 0 20 20" fill="none" style="flex:0 0 20px"><path d="M7 10.5H8V8.5H9C9.28333 8.5 9.52083 8.40417 9.7125 8.2125C9.90417 8.02083 10 7.78333 10 7.5V6.5C10 6.21667 9.90417 5.97917 9.7125 5.7875C9.52083 5.59583 9.28333 5.5 9 5.5H7V10.5ZM8 7.5V6.5H9V7.5H8ZM11 10.5H13C13.2833 10.5 13.5208 10.4042 13.7125 10.2125C13.9042 10.0208 14 9.78333 14 9.5V6.5C14 6.21667 13.9042 5.97917 13.7125 5.7875C13.5208 5.59583 13.2833 5.5 13 5.5H11V10.5ZM12 9.5V6.5H13V9.5H12ZM15 10.5H16V8.5H17V7.5H16V6.5H17V5.5H15V10.5ZM6 16C5.45 16 4.97917 15.8042 4.5875 15.4125C4.19583 15.0208 4 14.55 4 14V2C4 1.45 4.19583 0.979167 4.5875 0.5875C4.97917 0.195833 5.45 0 6 0H18C18.55 0 19.0208 0.195833 19.4125 0.5875C19.8042 0.979167 20 1.45 20 2V14C20 14.55 19.8042 15.0208 19.4125 15.4125C19.0208 15.8042 18.55 16 18 16H6ZM6 14H18V2H6V14ZM2 20C1.45 20 0.979167 19.8042 0.5875 19.4125C0.195833 19.0208 0 18.55 0 18V4H2V18H16V20H2Z" fill="#555555"></path></svg><div style="flex:1;font-size:13px;font-weight:700">Выписка 08.2026</div><span style="color:#028E7F;font-size:12px;font-weight:700">Скачать</span></div>
+          <div style="font-size:12px;color:#9B9B9B;line-height:1.5">Термин «транш» клиенту не показывается — использование лимита отражается операциями по карте.</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S051 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">H · SCREEN-051 · Погашение</div>
+      <div style="background:#fff;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden">
+        <div style="display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid #F1F3F5"><span onClick="{{ go.S039 }}" style="cursor:pointer;display:flex"><svg width="16" height="13" viewBox="0 0 18 15" fill="none" style="display:block"><path d="M0.292892 6.65685C-0.0976315 7.04737 -0.0976315 7.68054 0.292892 8.07106L6.65685 14.435C7.04738 14.8255 7.68054 14.8255 8.07107 14.435C8.46159 14.0445 8.46159 13.4113 8.07107 13.0208L2.41421 7.36395L8.07107 1.7071C8.46159 1.31657 8.46159 0.683409 8.07107 0.292885C7.68054 -0.0976396 7.04738 -0.0976396 6.65685 0.292885L0.292892 6.65685ZM18 7.36395L18 6.36395L1 6.36395L1 7.36395L1 8.36395L18 8.36395L18 7.36395Z" fill="#028E7F"></path></svg></span><span style="font-weight:800;font-size:17px">Погашение</span></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:12px">
+          <div style="display:flex;gap:8px">
+            <div onClick="{{ pickMin }}" style="{{ payTab1 }}">Минимальный<br>5 780 ₽</div>
+            <div onClick="{{ pickFull }}" style="{{ payTab2 }}">Без процентов<br>96 500 ₽</div>
+            <div onClick="{{ pickOwn }}" style="{{ payTab3 }}">Своя<br>сумма</div>
+          </div>
+          <div style="background:#F5F5F5;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:6px">
+            <div style="font-size:13px;color:#9B9B9B">Сумма платежа</div>
+            <div style="font-weight:800;font-size:28px">{{ payAmount }} ₽</div>
+          </div>
+          <div style="border:1px solid #F1F3F5;border-radius:16px;overflow:hidden">
+            <div style="display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="color:#9B9B9B">Сначала — проценты</span><span style="font-weight:700">340 ₽</span></div>
+            <div style="display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="color:#9B9B9B">Затем — основной долг</span><span style="font-weight:700">{{ payPrincipal }} ₽</span></div>
+            <div style="display:flex;justify-content:space-between;padding:12px 16px;font-size:13px"><span style="color:#9B9B9B">Лимит восстановится на</span><span style="font-weight:800;color:#028E7F">{{ payPrincipal }} ₽</span></div>
+          </div>
+          <div style="display:flex;align-items:center;justify-content:space-between;padding:14px;border:1px solid #F1F3F5;border-radius:14px"><span style="font-size:13px;font-weight:700">Карта •••• 7308</span><span style="font-size:12px;color:#028E7F;font-weight:700">Изменить</span></div>
+          <sc-if value="{{ showDA }}" hint-placeholder-val="{{ true }}"><div style="background:#DCF8D6;color:#044448;border-radius:10px;padding:10px;font-size:11px;line-height:1.45"><b>BR-06</b> Лимит восстанавливает только основной долг. Проценты лимит не восстанавливают — это показано отдельной строкой.</div></sc-if>
+          <div onClick="{{ go.S056 }}" style="background:#028E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:700;font-size:15px;cursor:pointer">Оплатить {{ payAmount }} ₽</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S056 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">H · SCREEN-056 · Платёж внесён</div>
+      <div style="background:#fff;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden">
+        <div style="padding:24px 16px 16px;display:flex;flex-direction:column;gap:14px;align-items:center">
+          <div style="width:56px;height:56px;border-radius:50%;background:#DCF8D6;color:#028E7F;font-size:26px;display:flex;align-items:center;justify-content:center">✓</div>
+          <div style="font-weight:800;font-size:20px">Платёж внесён</div>
+          <div style="font-weight:800;font-size:28px;color:#028E7F">{{ payAmount }} ₽</div>
+          <div style="background:#F5F5F5;border-radius:16px;padding:16px;width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Проценты закрыты</span><span style="font-weight:700">340 ₽</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Основной долг уменьшен</span><span style="font-weight:700">{{ payPrincipal }} ₽</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:14px"><span style="font-weight:800">Лимит восстановлен на</span><span style="font-weight:800;color:#028E7F">{{ payPrincipal }} ₽</span></div>
+          </div>
+          <div onClick="{{ go.S039 }}" style="background:#028E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:700;font-size:15px;cursor:pointer;width:100%;box-sizing:border-box">В кабинет</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S058 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">I · SCREEN-058 · Обеспечение · NEW-03 LtvGauge</div>
+      <div style="background:#fff;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden">
+        <div style="display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid #F1F3F5"><span onClick="{{ go.S039 }}" style="cursor:pointer;display:flex"><svg width="16" height="13" viewBox="0 0 18 15" fill="none" style="display:block"><path d="M0.292892 6.65685C-0.0976315 7.04737 -0.0976315 7.68054 0.292892 8.07106L6.65685 14.435C7.04738 14.8255 7.68054 14.8255 8.07107 14.435C8.46159 14.0445 8.46159 13.4113 8.07107 13.0208L2.41421 7.36395L8.07107 1.7071C8.46159 1.31657 8.46159 0.683409 8.07107 0.292885C7.68054 -0.0976396 7.04738 -0.0976396 6.65685 0.292885L0.292892 6.65685ZM18 7.36395L18 6.36395L1 6.36395L1 7.36395L1 8.36395L18 8.36395L18 7.36395Z" fill="#028E7F"></path></svg></span><span style="font-weight:800;font-size:17px">Обеспечение</span></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:14px">
+          <div style="background:#F5F5F5;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:12px">
+            <div style="font-weight:800;font-size:22px">3 844,40 USDT</div>
+            <div style="font-size:13px;color:#9B9B9B">≈ 336 000 ₽ · курс 92,00 ₽ на 14:32</div>
+            <div style="position:relative;height:10px;border-radius:5px;background:linear-gradient(90deg,#028E7F 0 60%,#E8A33D 60% 75%,#C64141 75% 100%)">
+              <div style="position:absolute;left:30%;top:-5px;width:4px;height:20px;border-radius:2px;background:#212529"></div>
+            </div>
+            <div style="display:flex;justify-content:space-between;font-size:11px;color:#9B9B9B"><span>0 %</span><span><span style="background:#DCF8D6;border-bottom:1px dashed #028E7F;border-radius:3px;padding:0 3px">70 %</span></span><span><span style="background:#DCF8D6;border-bottom:1px dashed #028E7F;border-radius:3px;padding:0 3px">80 %</span></span></div>
+            <div style="font-weight:800;font-size:15px">Загрузка залога 30 %</div>
+            <div style="font-size:12px;color:#9B9B9B;line-height:1.5">Показывает, какую часть стоимости залога занимает ваш долг. При 70 % попросим пополнить залог, при 80 % — продадим его.</div>
+          </div>
+          <div style="border:1px solid #F1F3F5;border-radius:16px;overflow:hidden">
+            <div style="display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="color:#9B9B9B">Актив и сеть</span><span style="font-weight:700">USDT · TRC-20</span></div>
+            <div style="display:flex;justify-content:space-between;padding:12px 16px;border-bottom:1px solid #F1F3F5;font-size:13px"><span style="color:#9B9B9B">Депозитов</span><span style="font-weight:700">1</span></div>
+            <div style="display:flex;justify-content:space-between;padding:12px 16px;font-size:13px"><span style="color:#9B9B9B">Источник котировки</span><span style="font-weight:700"><span style="background:#DCF8D6;border-bottom:1px dashed #028E7F;border-radius:3px;padding:0 3px">Основной · TTL 60 с</span></span></div>
+          </div>
+          <sc-if value="{{ showDA }}" hint-placeholder-val="{{ true }}"><div style="background:#DCF8D6;color:#044448;border-radius:10px;padding:10px;font-size:11px;line-height:1.45"><b>[DESIGN ASSUMPTION] OQ-06 / вопрос 16</b> Warning LTV в AssetPolicy может отсутствовать — шкала деградирует до двух порогов. Термин «LTV» вынесен в скобки, основной — «Загрузка залога».</div></sc-if>
+          <div style="display:flex;gap:8px">
+            <div style="flex:1;background:#028E7F;color:#fff;border-radius:12px;padding:14px;text-align:center;font-weight:700;font-size:14px">Пополнить залог</div>
+            <div style="flex:1;background:#fff;border:1.5px solid #028E7F;color:#028E7F;border-radius:12px;padding:14px;text-align:center;font-weight:700;font-size:14px">История</div>
+          </div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S071 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">K · SCREEN-071/075 · Увеличение лимита</div>
+      <div style="background:#fff;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden">
+        <div style="display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid #F1F3F5"><span onClick="{{ go.S039 }}" style="cursor:pointer;display:flex"><svg width="16" height="13" viewBox="0 0 18 15" fill="none" style="display:block"><path d="M0.292892 6.65685C-0.0976315 7.04737 -0.0976315 7.68054 0.292892 8.07106L6.65685 14.435C7.04738 14.8255 7.68054 14.8255 8.07107 14.435C8.46159 14.0445 8.46159 13.4113 8.07107 13.0208L2.41421 7.36395L8.07107 1.7071C8.46159 1.31657 8.46159 0.683409 8.07107 0.292885C7.68054 -0.0976396 7.04738 -0.0976396 6.65685 0.292885L0.292892 6.65685ZM18 7.36395L18 6.36395L1 6.36395L1 7.36395L1 8.36395L18 8.36395L18 7.36395Z" fill="#028E7F"></path></svg></span><span style="font-weight:800;font-size:17px">Увеличить лимит</span></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:12px">
+          <div style="background:#F5F5F5;border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:8px">
+            <div style="font-size:13px;color:#9B9B9B">Новый лимит</div>
+            <div style="font-weight:800;font-size:26px">220 000 ₽</div>
+            <div style="font-size:13px">Нужно дополнительно внести <b>1 794,00 USDT</b></div>
+          </div>
+          <div style="background:#DFF1EF;border-radius:14px;padding:14px;display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#044448">Доступно сейчас</span><span style="font-weight:800">50 440 ₽</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#044448">Станет доступно 18:14 27.08</span><span style="font-weight:800">70 000 ₽</span></div>
+          </div>
+          <sc-if value="{{ showDA }}" hint-placeholder-val="{{ true }}"><div style="background:#DCF8D6;color:#044448;border-radius:10px;padding:10px;font-size:11px;line-height:1.45"><b>BR-15</b> Увеличенная часть лимита недоступна до конца охлаждения, прежняя часть работает — поэтому два числа, а не одно.</div></sc-if>
+          <div onClick="{{ go.S039 }}" style="background:#028E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:700;font-size:15px;cursor:pointer">Подтвердить увеличение</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S077 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">L · SCREEN-077 · Закрытие линии</div>
+      <div style="background:#fff;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden">
+        <div style="display:flex;align-items:center;gap:12px;padding:16px;border-bottom:1px solid #F1F3F5"><span onClick="{{ go.S039 }}" style="cursor:pointer;display:flex"><svg width="16" height="13" viewBox="0 0 18 15" fill="none" style="display:block"><path d="M0.292892 6.65685C-0.0976315 7.04737 -0.0976315 7.68054 0.292892 8.07106L6.65685 14.435C7.04738 14.8255 7.68054 14.8255 8.07107 14.435C8.46159 14.0445 8.46159 13.4113 8.07107 13.0208L2.41421 7.36395L8.07107 1.7071C8.46159 1.31657 8.46159 0.683409 8.07107 0.292885C7.68054 -0.0976396 7.04738 -0.0976396 6.65685 0.292885L0.292892 6.65685ZM18 7.36395L18 6.36395L1 6.36395L1 7.36395L1 8.36395L18 8.36395L18 7.36395Z" fill="#028E7F"></path></svg></span><span style="font-weight:800;font-size:17px">Закрытие линии</span></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:14px">
+          <div style="font-size:13px;color:#9B9B9B;line-height:1.5">Чтобы закрыть линию и вернуть криптовалюту, должны выполниться все условия.</div>
+          <div style="border:1px solid #F1F3F5;border-radius:16px;overflow:hidden">
+            <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #F1F3F5"><div style="width:22px;height:22px;border-radius:50%;background:#028E7F;color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center">✓</div><div style="flex:1;font-size:13px;font-weight:700">Основной долг и проценты погашены</div></div>
+            <div style="display:flex;align-items:center;gap:12px;padding:14px 16px;border-bottom:1px solid #F1F3F5"><div style="width:22px;height:22px;border-radius:50%;background:#028E7F;color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center">✓</div><div style="flex:1;font-size:13px;font-weight:700">Нет незавершённого клиринга</div></div>
+            <div style="display:flex;align-items:center;gap:12px;padding:14px 16px"><div style="width:22px;height:22px;border-radius:50%;background:#028E7F;color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center">✓</div><div style="flex:1;font-size:13px;font-weight:700">Авторизационные резервы сняты</div></div>
+          </div>
+          <div style="background:#FFF4E0;border-radius:12px;padding:12px;font-size:12px;line-height:1.5;color:#8A5A12">Карта будет закрыта безвозвратно. Залог вернём на указанный вами адрес после закрытия карты и линии.</div>
+          <div onClick="{{ go.S083 }}" style="background:#028E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:700;font-size:15px;cursor:pointer">Закрыть линию</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.S083 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">L · SCREEN-083 · Линия закрыта</div>
+      <div style="background:#fff;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden">
+        <div style="padding:24px 16px 16px;display:flex;flex-direction:column;gap:14px;align-items:center">
+          <div style="width:56px;height:56px;border-radius:50%;background:#DCF8D6;color:#028E7F;font-size:26px;display:flex;align-items:center;justify-content:center">✓</div>
+          <div style="font-weight:800;font-size:20px;text-align:center">Линия закрыта</div>
+          <div style="background:#F5F5F5;border-radius:16px;padding:16px;width:100%;box-sizing:border-box;display:flex;flex-direction:column;gap:8px">
+            <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Возвращено</span><span style="font-weight:700">3 844,40 USDT</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Сеть</span><span style="font-weight:700">TRC-20</span></div>
+            <div style="display:flex;justify-content:space-between;font-size:13px"><span style="color:#9B9B9B">Хэш транзакции</span><span style="font-weight:700;color:#028E7F">0x7f…c1a4</span></div>
+          </div>
+          <div onClick="{{ go.S001 }}" style="background:#028E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:700;font-size:15px;cursor:pointer;width:100%;box-sizing:border-box">На главную</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ v.R001 }}" hint-placeholder-val="{{ true }}">
+    <div style="width:390px;flex:0 0 auto">
+      <div style="font-size:11px;font-weight:700;color:#777D92;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px">Шаг 2 · R001 · Регистрация (один экран)</div>
+      <div style="background:#fff;border-radius:24px;border:1px solid #E3E7EA;overflow:hidden">
+        <div style="background:#DDF8D6;padding:14px 16px;display:flex;align-items:center;justify-content:space-between"><img src="ref/logo.svg" alt="FinFresh" style="height:22px;display:block"><span style="font-size:12px;font-weight:700;color:#004447">Регистрация</span></div>
+        <div style="padding:16px;display:flex;flex-direction:column;gap:14px">
+          <div style="font-weight:800;font-size:20px">Вход или регистрация</div>
+          <div style="background:#DFF1EF;border-radius:12px;padding:12px;font-size:12px;line-height:1.5;color:#044448">Расчёт сохранён: лимит {{ limitFmt }} ₽, обеспечение {{ recommended }} USDT · сеть TRC-20. Он подставится в заявку.</div>
+          <div style="background:#F5F5F5;border-radius:14px;padding:14px"><div style="font-size:12px;color:#9B9B9B">Телефон</div><div style="font-weight:800;font-size:18px;margin-top:2px">+7 985 123-45-14</div></div>
+          <div>
+            <div style="font-size:12px;color:#9B9B9B;margin-bottom:8px">Код из SMS</div>
+            <div style="display:flex;gap:10px">
+              <div style="width:44px;height:52px;border-radius:12px;background:#F5F5F5;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px">8</div>
+              <div style="width:44px;height:52px;border-radius:12px;background:#F5F5F5;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px">2</div>
+              <div style="width:44px;height:52px;border-radius:12px;background:#F5F5F5;display:flex;align-items:center;justify-content:center;font-weight:800;font-size:20px">6</div>
+              <div style="width:44px;height:52px;border-radius:12px;background:#fff;border:1.5px solid #008E7F"></div>
+            </div>
+            <div style="font-size:11px;color:#9B9B9B;margin-top:8px">Новый код через 00:42</div>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px;padding-top:4px;border-top:1px solid #F1F3F5">
+            <div style="display:flex;gap:10px"><div style="flex:0 0 20px;height:20px;border-radius:6px;background:#008E7F;color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center">✓</div><div style="font-size:12px;line-height:1.45">Согласие на обработку персональных данных</div></div>
+            <div style="display:flex;gap:10px"><div style="flex:0 0 20px;height:20px;border-radius:6px;background:#008E7F;color:#fff;font-size:12px;display:flex;align-items:center;justify-content:center">✓</div><div style="font-size:12px;line-height:1.45">Запрос кредитной истории в БКИ и проверка самозапрета</div></div>
+          </div>
+          <div onClick="{{ go.S009 }}" style="background:#008E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:800;font-size:15px;cursor:pointer">Зарегистрироваться и продолжить</div>
+          <div style="font-size:11px;color:#9B9B9B;text-align:center;line-height:1.45">Дальше — анкета с паспортом и доходом, затем автоматическая проверка и кредитное решение.</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isEntry }}" hint-placeholder-val="{{ false }}">
+    <div style="width:100%;max-width:1000px;margin:0 auto;display:flex;flex-direction:column;gap:28px">
+
+      <div style="background:#fff;border-radius:12px;padding:20px 24px;font-size:13px;line-height:1.6;color:#495057">
+        <b style="font-size:15px">Шаг 1 — точка входа</b><br>
+        Публичный сайт, карточка калькулятора. Переключатель «Займ / Кредитная линия» рабочий: поля меняются на месте. У линии нет срока, поэтому «Срок кредитования», «Включительно до» и «Вы возвращаете» уходят, а появляются «Сеть перевода» и «минимально X USDT».
+      </div>
+
+      <div style="background:#004447;border-radius:16px;overflow:hidden">
+        <div style="background:#008E7F;padding:14px 32px;display:flex;justify-content:flex-end;align-items:center;gap:12px;color:#fff;font-size:14px;font-weight:700"><span>Обговления Тест</span><div style="width:30px;height:30px;border-radius:50%;background:#004447;color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center">ОТ</div></div>
+        <div style="background:#DDF8D6;padding:16px 32px;display:flex;align-items:center;justify-content:space-between;gap:20px"><img src="ref/logo.svg" alt="FinFresh" style="height:24px;display:block"><div style="display:flex;gap:20px;font-size:13px;font-weight:700;color:#004447"><div style="display:flex;align-items:center;gap:7px"><img src="ref/icons/nav-how.png" alt="" style="width:17px;height:17px;display:block">Как это работает</div><div style="display:flex;align-items:center;gap:7px"><img src="ref/icons/nav-faq.png" alt="" style="width:17px;height:17px;display:block">FAQ</div><div style="display:flex;align-items:center;gap:7px"><img src="ref/icons/nav-news.png" alt="" style="width:17px;height:17px;display:block">Новости</div><div style="display:flex;align-items:center;gap:7px"><img src="ref/icons/nav-issues.png" alt="" style="width:17px;height:17px;display:block">Проблемы и предложения</div></div></div>
+        <div style="padding:28px;display:flex;gap:28px">
+          <div style="flex:1 1 220px;display:flex;flex-direction:column;gap:20px">
+            <div style="font-weight:800;font-size:30px;color:#fff;line-height:1.15;text-wrap:pretty">Рубли из крипты без обменников</div>
+            <div style="background:#fff;border-radius:14px;padding:16px;font-size:12px;line-height:1.55"><div style="font-weight:800;color:#008E7F;margin-bottom:6px">Кредитная линия</div>Возобновляемый лимит и виртуальная карта. Криптовалюта остаётся в залоге, проценты — только на потраченное, срока у линии нет.</div>
+            <img src="ref/hero-frog.png" alt="FinFresh" style="width:100%;aspect-ratio:1;border-radius:50%;display:block;object-fit:cover">
+          </div>
+          <div style="flex:0 0 340px;background:#fff;border-radius:18px;padding:20px">
+            <div style="display:flex;gap:2px;background:#F5F5F5;border-radius:12px;padding:4px;margin-bottom:16px">
+              <div onClick="{{ setLoan }}" style="{{ entTabLoan }}">Займ</div>
+              <div onClick="{{ setLine }}" style="{{ entTabLine }}">Кредитная линия</div>
+            </div>
+            <sc-if value="{{ isLoanEntry }}" hint-placeholder-val="{{ false }}">
+                  <div style="font-weight:800;font-size:17px;text-align:center;margin-bottom:16px">Какая сумма Вам необходима?</div>
+                  <div style="background:#F5F5F5;border-radius:12px;padding:14px;margin-bottom:14px">
+                    <div style="font-size:12px;color:#777D92">Сумма займа, ₽</div>
+                    <div style="font-weight:800;font-size:20px;margin:2px 0 10px">50 000 ₽</div>
+                    <div style="display:flex;justify-content:space-between;font-size:11px;color:#9B9B9B;margin-bottom:6px"><span>30 000 ₽</span><span>150 000 ₽</span></div>
+                    <div style="height:5px;border-radius:3px;background:#DDF8D6;position:relative"><div style="width:16%;height:5px;border-radius:3px;background:#008E7F"></div><div style="position:absolute;left:16%;top:-6px;width:17px;height:17px;border-radius:50%;background:#008E7F;border:4px solid #fff;box-sizing:border-box;box-shadow:0 0 0 1px #008E7F"></div></div>
+                    <div style="font-weight:800;font-size:14px;color:#008E7F;margin-top:12px">697.2918 USDT*</div>
+                  </div>
+                  <div style="font-weight:800;font-size:13px;margin-bottom:10px">Выберите токен обеспечения</div>
+                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><div style="display:flex;align-items:center;gap:2px;background:#F5F5F5;border-radius:999px;padding:4px"><div style="display:flex;align-items:center;gap:6px;border-radius:999px;padding:8px 12px;font-size:13px;font-weight:800;white-space:nowrap;background:#008E7F;color:#fff"><span style="flex:0 0 18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;background:rgba(255,255,255,.28);color:#fff">₮</span>USDT</div><div style="display:flex;align-items:center;gap:6px;border-radius:999px;padding:8px 12px;font-size:13px;font-weight:800;white-space:nowrap;color:#212529"><span style="flex:0 0 18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;background:#E9F5F2;color:#008E7F">₿</span>BTC</div><div style="display:flex;align-items:center;gap:6px;border-radius:999px;padding:8px 12px;font-size:13px;font-weight:800;white-space:nowrap;color:#212529"><span style="flex:0 0 18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;background:#E9F5F2;color:#008E7F">◆</span>ETH</div></div><div style="display:flex;align-items:center;gap:5px;background:#fff;border:1px solid #E3E7EA;border-radius:999px;padding:8px 11px;font-size:12px;font-weight:800;white-space:nowrap">Ещё <span style="background:#DDF8D6;color:#004447;border-radius:999px;padding:1px 6px;font-size:11px">7</span> ⌄</div></div>
+                  <div style="font-size:13px;margin-bottom:2px">Необходимо внести <b style="color:#008E7F">697.2918 USDT</b></div>
+                  <div style="font-size:11px;color:#9B9B9B;margin-bottom:14px">Курсы обновлены в 15:44</div>
+                  <div style="background:#F5F5F5;border-radius:12px;padding:14px;margin-bottom:12px">
+                    <div style="font-size:12px;color:#777D92">Срок кредитования</div>
+                    <div style="font-weight:800;font-size:20px;margin:2px 0 10px">1 день</div>
+                    <div style="height:5px;border-radius:3px;background:#DDF8D6;position:relative"><div style="position:absolute;left:0;top:-6px;width:17px;height:17px;border-radius:50%;background:#008E7F;border:4px solid #fff;box-sizing:border-box;box-shadow:0 0 0 1px #008E7F"></div></div>
+                    <div style="display:flex;justify-content:space-between;font-size:11px;color:#9B9B9B;margin-top:10px"><span>1 день</span><span>21 день</span></div>
+                  </div>
+                  <div style="background:#F5F5F5;border-radius:12px;padding:14px;margin-bottom:14px">
+                    <div style="display:flex;justify-content:space-between;gap:12px;margin-bottom:12px"><div><div style="font-size:12px;color:#777D92">Вы берете:</div><div style="font-weight:800;font-size:17px">50 000 ₽</div></div><div style="text-align:right"><div style="font-size:12px;color:#777D92">Включительно до:</div><div style="font-weight:800;font-size:17px">26.08.2026</div></div></div>
+                    <div style="padding-top:12px;border-top:1px solid #E3E7EA"><div style="font-size:12px;color:#777D92">Вы возвращаете:</div><div style="display:flex;align-items:center;gap:8px"><div style="font-weight:800;font-size:19px">50 075 ₽</div><div style="background:#7AD5E1;color:#044448;border-radius:6px;padding:2px 8px;font-size:12px;font-weight:800">0.15%</div></div><div style="font-size:11px;color:#9B9B9B;margin-top:4px">Если погасите платеж до 26.08.2026</div></div>
+                  </div>
+                  <div style="background:#008E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:800;font-size:15px">Получить рубли</div>
+                  <div style="font-size:11px;color:#777D92;margin-top:12px">* Приблизительный расчет обеспечения USDT</div>
+            </sc-if>
+            <sc-if value="{{ isLineEntry }}" hint-placeholder-val="{{ true }}">
+                  <div style="font-weight:800;font-size:17px;text-align:center;margin-bottom:16px">Какой лимит Вам необходим?</div>
+                  <div style="background:#F5F5F5;border-radius:12px;padding:14px;margin-bottom:14px">
+                    <div style="font-size:12px;color:#777D92">Кредитный лимит, ₽</div>
+                    <div style="font-weight:800;font-size:20px;margin:2px 0 10px">{{ limitFmt }} ₽</div>
+                    <div style="display:flex;justify-content:space-between;font-size:11px;color:#9B9B9B;margin-bottom:2px"><span>30 000 ₽</span><span><span style="background:#DCF8D6;border-bottom:1px dashed #028E7F;border-radius:3px;padding:0 3px">500 000 ₽</span></span></div>
+                    <input type="range" min="30000" max="500000" step="10000" value="{{ limit }}" onInput="{{ onLimit }}">
+                    <div style="font-weight:800;font-size:14px;color:#008E7F;margin-top:8px">{{ recommended }} USDT*</div>
+                  </div>
+                  <div style="font-weight:800;font-size:13px;margin-bottom:10px">Выберите токен обеспечения</div>
+                  <div style="display:flex;align-items:center;gap:8px;margin-bottom:12px"><div style="display:flex;align-items:center;gap:2px;background:#F5F5F5;border-radius:999px;padding:4px"><div style="display:flex;align-items:center;gap:6px;border-radius:999px;padding:8px 12px;font-size:13px;font-weight:800;white-space:nowrap;background:#008E7F;color:#fff"><span style="flex:0 0 18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;background:rgba(255,255,255,.28);color:#fff">₮</span>USDT</div><div style="display:flex;align-items:center;gap:6px;border-radius:999px;padding:8px 12px;font-size:13px;font-weight:800;white-space:nowrap;color:#212529"><span style="flex:0 0 18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;background:#E9F5F2;color:#008E7F">₿</span>BTC</div><div style="display:flex;align-items:center;gap:6px;border-radius:999px;padding:8px 12px;font-size:13px;font-weight:800;white-space:nowrap;color:#212529"><span style="flex:0 0 18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:800;background:#E9F5F2;color:#008E7F">◆</span>ETH</div></div><div style="display:flex;align-items:center;gap:5px;background:#fff;border:1px solid #E3E7EA;border-radius:999px;padding:8px 11px;font-size:12px;font-weight:800;white-space:nowrap">Ещё <span style="background:#DDF8D6;color:#004447;border-radius:999px;padding:1px 6px;font-size:11px">2</span> ⌄</div></div>
+                  <div style="background:#F5F5F5;border-radius:12px;padding:12px 14px;margin-bottom:12px;display:flex;justify-content:space-between;align-items:center"><span style="font-size:12px;color:#777D92">Сеть перевода</span><span style="font-weight:800;font-size:13px">TRC-20 ⌄</span></div>
+                  <div style="font-size:13px;margin-bottom:2px">Необходимо внести <b style="color:#008E7F">{{ recommended }} USDT</b></div>
+                  <div style="font-size:11px;color:#9B9B9B;margin-bottom:14px">Курсы обновлены в 15:44 · минимально {{ required }} USDT</div>
+                  <div style="background:#F5F5F5;border-radius:12px;padding:14px;margin-bottom:14px">
+                    <div style="display:flex;justify-content:space-between;gap:12px;margin-bottom:12px"><div><div style="font-size:12px;color:#777D92">Лимит:</div><div style="font-weight:800;font-size:17px">{{ limitFmt }} ₽</div></div><div style="text-align:right"><div style="font-size:12px;color:#777D92">Обеспечение:</div><div style="font-weight:800;font-size:17px;color:#008E7F">{{ recommended }} USDT</div></div></div>
+                    <div style="display:flex;justify-content:space-between;gap:12px;padding-top:12px;border-top:1px solid #E3E7EA"><div><div style="font-size:12px;color:#777D92">Ставка:</div><div style="font-weight:800;font-size:17px"><span style="background:#DCF8D6;border-bottom:1px dashed #028E7F;border-radius:3px;padding:0 3px">36 % годовых</span></div></div><div style="text-align:right"><div style="font-size:12px;color:#777D92">Срок линии:</div><div style="font-weight:800;font-size:17px"><span style="background:#DCF8D6;border-bottom:1px dashed #028E7F;border-radius:3px;padding:0 3px">до закрытия</span></div></div></div>
+                    <div style="padding-top:12px;margin-top:12px;border-top:1px solid #E3E7EA"><div style="font-size:12px;color:#777D92">Проценты:</div><div style="font-weight:800;font-size:15px">Только на потраченное</div><div style="font-size:11px;color:#9B9B9B;margin-top:4px">Льготный период — <span style="background:#DCF8D6;border-bottom:1px dashed #028E7F;border-radius:3px;padding:0 3px">до 55 дней</span> на покупки</div></div>
+                  </div>
+                  <div onClick="{{ go.R001 }}" style="background:#008E7F;color:#fff;border-radius:12px;padding:15px;text-align:center;font-weight:800;font-size:15px;cursor:pointer">Открыть кредитную линию</div>
+                  <div style="font-size:11px;color:#777D92;margin-top:12px">* Приблизительный расчёт обеспечения. Окончательные условия — после проверки.</div>
+            </sc-if>
+          </div>
+        </div>
+      </div>
+
+      <div style="background:#fff;border-radius:12px;padding:20px 24px;font-size:13px;line-height:1.7;color:#495057">
+        <b style="font-size:15px">Что дальше</b>
+        <div style="display:flex;gap:10px;flex-wrap:wrap;margin-top:12px;align-items:center">
+          <div style="background:#008E7F;color:#fff;border-radius:10px;padding:9px 14px;font-size:12px;font-weight:800">1 · Калькулятор</div>
+          <span style="color:#9B9B9B">→</span>
+          <div onClick="{{ go.R001 }}" style="background:#DDF8D6;color:#044448;border-radius:10px;padding:9px 14px;font-size:12px;font-weight:800;cursor:pointer">2 · Регистрация (R001)</div>
+          <span style="color:#9B9B9B">→</span>
+          <div onClick="{{ go.S009 }}" style="background:#F5F5F5;border-radius:10px;padding:9px 14px;font-size:12px;font-weight:800;cursor:pointer">3 · Анкета (009)</div>
+          <span style="color:#9B9B9B">→</span>
+          <div onClick="{{ go.S012 }}" style="background:#F5F5F5;border-radius:10px;padding:9px 14px;font-size:12px;font-weight:800;cursor:pointer">4 · Проверка (012)</div>
+          <span style="color:#9B9B9B">→</span>
+          <div onClick="{{ go.S013 }}" style="background:#F5F5F5;border-radius:10px;padding:9px 14px;font-size:12px;font-weight:800;cursor:pointer">5 · Решение (013)</div>
+          <span style="color:#9B9B9B">→</span>
+          <div onClick="{{ go.S016 }}" style="background:#F5F5F5;border-radius:10px;padding:9px 14px;font-size:12px;font-weight:800;cursor:pointer">6 · Документы (016)</div>
+        </div>
+        <div style="margin-top:14px;background:#DCF8D6;color:#044448;border-radius:10px;padding:12px;font-size:12px;line-height:1.5">Регистрация собрана в один экран: телефон, код из SMS и согласия сразу. Расчёт из калькулятора переносится в заявку, повторно вводить лимит и актив не нужно.</div>
+      </div>
+
+    </div>
+    </sc-if>
+
+    <sc-if value="{{ isDesk }}" hint-placeholder-val="{{ false }}">
+    <div style="width:100%">
+      <div style="background:#fff;border-radius:20px;border:1px solid #E3E7EA;overflow:hidden;max-width:1280px;margin:0 auto">
+        <div style="background:#028E7F;padding:14px 32px;display:flex;justify-content:flex-end;align-items:center;gap:12px;color:#fff;font-size:14px"><span>Иван Иванов</span><div style="width:28px;height:28px;border-radius:50%;background:#D9D9D9"></div></div>
+        <div style="background:#DCF8D6;padding:14px 32px;display:flex;justify-content:space-between;align-items:center">
+          <img src="ref/logo.svg" alt="FinFresh" style="height:27px;display:block">
+          <div style="display:flex;align-items:center;gap:8px;font-size:14px;font-weight:700;color:#044448"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" style="display:block"><path d="M12 1L21.05 6.4C21.35 6.58333 21.5833 6.83333 21.75 7.15C21.9167 7.46667 22 7.8 22 8.15V19C22 19.55 21.8042 20.0208 21.4125 20.4125C21.0208 20.8042 20.55 21 20 21H4C3.45 21 2.97917 20.8042 2.5875 20.4125C2.19583 20.0208 2 19.55 2 19V8.15C2 7.8 2.08333 7.46667 2.25 7.15C2.41667 6.83333 2.65 6.58333 2.95 6.4L12 1ZM12 12.65L19.8 8L12 3.35L4.2 8L12 12.65ZM12 15L4 10.2V19H20V10.2L12 15Z" fill="#028E7F"></path></svg>Проблемы и предложения</div>
+        </div>
+        <div style="padding:32px">
+          <div style="font-weight:800;font-size:28px;margin-bottom:20px">Личный кабинет</div>
+          <div style="display:flex;gap:12px;margin-bottom:24px;flex-wrap:wrap">
+            <div style="background:#777D92;color:#fff;border-radius:10px;padding:12px 28px;font-size:14px;font-weight:700">Мои займы</div>
+            <div style="background:#028E7F;color:#fff;border-radius:10px;padding:12px 28px;font-size:14px;font-weight:700">Кредитная линия</div>
+            <div style="background:#777D92;color:#fff;border-radius:10px;padding:12px 28px;font-size:14px;font-weight:700">Личная информация</div>
+            <div style="background:#777D92;color:#fff;border-radius:10px;padding:12px 28px;font-size:14px;font-weight:700">Справки и документы</div>
+          </div>
+          <div style="background:#F5F5F5;border-radius:20px;padding:28px;display:flex;flex-direction:column;gap:24px">
+            <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+              <div style="font-weight:800;font-size:19px">Кредитная линия №2210043</div>
+              <div style="background:#028E7F;color:#fff;border-radius:999px;padding:6px 14px;font-size:13px;font-weight:700">• Активная</div>
+              <div style="background:#028E7F;color:#fff;border-radius:999px;padding:6px 14px;font-size:13px;font-weight:700">• Обеспечение получено</div>
+            </div>
+            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:24px">
+              <div><div style="font-size:14px;color:#9B9B9B;margin-bottom:6px">Доступно</div><div style="font-weight:800;font-size:26px">50 440 ₽</div><div style="font-size:12px;color:#9B9B9B;margin-top:4px">из 150 000 ₽</div></div>
+              <div><div style="font-size:14px;color:#9B9B9B;margin-bottom:6px">Основной долг</div><div style="font-weight:800;font-size:20px">96 500 ₽</div><div style="font-size:12px;color:#9B9B9B;margin-top:4px">проценты 340 ₽</div></div>
+              <div><div style="font-size:14px;color:#9B9B9B;margin-bottom:6px">Минимальный платёж</div><div style="font-weight:800;font-size:20px">5 780 ₽ <span style="background:#7AD5E1;color:#044448;border-radius:6px;padding:2px 7px;font-size:12px">0%</span></div><div style="font-size:12px;color:#9B9B9B;margin-top:4px">до 25.09.2026</div></div>
+              <div><div style="font-size:14px;color:#9B9B9B;margin-bottom:6px">Загрузка залога</div><div style="font-weight:800;font-size:20px">30 %</div><div style="font-size:12px;color:#9B9B9B;margin-top:4px">3 844,40 USDT ≈ 336 000 ₽</div></div>
+            </div>
+            <div style="position:relative;height:10px;border-radius:5px;background:linear-gradient(90deg,#028E7F 0 60%,#E8A33D 60% 75%,#C64141 75% 100%);max-width:640px"><div style="position:absolute;left:30%;top:-5px;width:4px;height:20px;border-radius:2px;background:#212529"></div></div>
+            <div style="display:flex;gap:16px;flex-wrap:wrap">
+              <div onClick="{{ go.S051 }}" style="background:#028E7F;color:#fff;border-radius:12px;padding:16px 40px;font-weight:700;font-size:15px;cursor:pointer">Погасить</div>
+              <div style="background:#fff;border:1.5px solid #028E7F;color:#028E7F;border-radius:12px;padding:16px 40px;font-weight:700;font-size:15px">Реквизиты карты</div>
+              <div style="background:#fff;border:1.5px solid #028E7F;color:#028E7F;border-radius:12px;padding:16px 40px;font-weight:700;font-size:15px">Пополнить залог</div>
+              <div style="background:#9BCFCA;color:#fff;border-radius:12px;padding:16px 40px;font-weight:700;font-size:15px">Вернуть обеспечение</div>
+            </div>
+          </div>
+          <div style="font-size:12px;color:#9B9B9B;margin-top:16px;line-height:1.5">Desktop-раскладка повторяет существующий «Личный кабинет» FinFresh: та же сетка вкладок, серая карточка продукта, порядок и стиль кнопок. Новый продукт добавлен как отдельная вкладка, займы не смешиваются с линией (BR-20).</div>
+        </div>
+      </div>
+    </div>
+    </sc-if>
+
+  </div>
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;showAssumptions&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;,&quot;section&quot;:&quot;Прототип&quot;},&quot;assetCode&quot;:{&quot;editor&quot;:&quot;enum&quot;,&quot;options&quot;:[&quot;USDT&quot;,&quot;USDC&quot;,&quot;BTC&quot;,&quot;ETH&quot;,&quot;XAUT&quot;],&quot;default&quot;:&quot;USDT&quot;,&quot;tsType&quot;:&quot;string&quot;,&quot;section&quot;:&quot;Данные&quot;}}">
+const ORDER = [
+  ['S001','A · 001 Витрина продуктов'],
+  ['S002','A · 002 Промо продукта'],
+  ['S004','A · 004 Выбор актива'],
+  ['S005','A · 005 Калькулятор'],
+  ['S006','A · 006 Выбор сети'],
+  ['S007','A · 007 Как посчитан залог'],
+  ['S008','A · 008 Подтверждение выбора'],
+  ['S009','B · 009 Анкета'],
+  ['S010','B · 010 Согласия'],
+  ['S011','B · 011 SMS согласий'],
+  ['S012','B · 012 Проверяем заявку'],
+  ['S013','B · 013 Кредитное решение'],
+  ['S016','C · 016 Пакет документов'],
+  ['S018','C · 018 Подтверждение подписания'],
+  ['S019','C · 019 SMS подписания'],
+  ['S020','C · 020 Документы подписаны'],
+  ['S021','D · 021 Выпускаем карту'],
+  ['S022','D · 022 Карта готова'],
+  ['S025','E · 025 Как внести обеспечение'],
+  ['S026','E · 026 Адрес депозита'],
+  ['S031','E · 031 Обеспечение принято'],
+  ['S032','F · 032 Готовность линии'],
+  ['S033','F · 033 Период охлаждения'],
+  ['S036','F · 036 Открыть линию'],
+  ['S037','F · 037 Код открытия'],
+  ['S038','F · 038 Линия открыта'],
+  ['S039','G · 039 Кабинет линии'],
+  ['S041','G · 041 Детализация «Доступно»'],
+  ['S040','G · 040 Реквизиты карты'],
+  ['S050','G · 050 Льготный период'],
+  ['S049','G · 049 Выписка'],
+  ['S051','H · 051 Погашение'],
+  ['S056','H · 056 Платёж внесён'],
+  ['S058','I · 058 Обеспечение и LTV'],
+  ['S071','K · 071 Увеличение лимита'],
+  ['S077','L · 077 Закрытие линии'],
+  ['S083','L · 083 Линия закрыта'],
+  ['R001','Шаг 2 · R001 Регистрация (один экран)']
+];
+const nf = n => n.toLocaleString('ru-RU');
+
+class Component extends DCLogic {
+  state = { cur: 'S039', mode: 'proto', limit: 150000, will: false, pay: 'min', entryProduct: 'line' };
+
+  renderVals() {
+    const { cur, mode } = this.state;
+    const board = mode === 'board';
+    const v = {}; ORDER.forEach(([id]) => { v[id] = board || (mode === 'proto' && cur === id); });
+    const go = {}; ORDER.forEach(([id]) => { go[id] = () => this.setState({ mode: 'proto', cur: id }); });
+
+    const price = 92, ltv = 0.5, cf = 0.95, buf = 1.12;
+    const req = this.state.limit / (ltv * cf * price);
+    const rec = req * buf;
+    const fmt2 = n => n.toLocaleString('ru-RU', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+    const tab = on => 'padding:6px 12px;border-radius:8px;font-size:12px;font-weight:700;cursor:pointer;' +
+      (on ? 'background:#fff;color:#044448' : 'color:#9BCFCA');
+    const payTab = on => 'flex:1;padding:10px;border-radius:12px;font-size:12px;font-weight:700;text-align:center;line-height:1.3;cursor:pointer;' +
+      (on ? 'background:#028E7F;color:#fff' : 'background:#F5F5F5;color:#212529');
+
+    const payTotal = this.state.pay === 'min' ? 5780 : this.state.pay === 'full' ? 96840 : 20000;
+
+    return {
+      v, go,
+      screens: ORDER.map(([id, label]) => ({ id, label })),
+      cur, isDesk: mode === 'desk', isEntry: mode === 'entry',
+      showDA: this.props.showAssumptions ?? true,
+      tabProto: tab(mode === 'proto'), tabBoard: tab(board), tabDesk: tab(mode === 'desk'), tabEntry: tab(mode === 'entry'),
+      setProto: () => this.setState({ mode: 'proto' }),
+      setBoard: () => this.setState({ mode: 'board' }),
+      setDesk: () => this.setState({ mode: 'desk' }),
+      setEntry: () => this.setState({ mode: 'entry' }),
+      isLoanEntry: this.state.entryProduct === 'loan',
+      isLineEntry: this.state.entryProduct === 'line',
+      setLoan: () => this.setState({ entryProduct: 'loan' }),
+      setLine: () => this.setState({ entryProduct: 'line' }),
+      entTabLoan: 'flex:1;border-radius:9px;padding:10px;text-align:center;font-size:12px;font-weight:800;cursor:pointer;' +
+        (this.state.entryProduct === 'loan' ? 'background:#008E7F;color:#fff' : 'background:#fff;color:#212529'),
+      entTabLine: 'flex:1;border-radius:9px;padding:10px;text-align:center;font-size:12px;font-weight:800;cursor:pointer;' +
+        (this.state.entryProduct === 'line' ? 'background:#008E7F;color:#fff' : 'background:#fff;color:#212529'),
+      onPick: e => this.setState({ mode: 'proto', cur: e.target.value }),
+      wrapStyle: board
+        ? 'display:flex;flex-wrap:wrap;gap:32px;align-items:flex-start;padding:32px'
+        : mode === 'entry'
+          ? 'display:block;padding:32px'
+          : 'display:flex;justify-content:center;padding:32px',
+      limit: this.state.limit, limitFmt: nf(this.state.limit),
+      onLimit: e => this.setState({ limit: Number(e.target.value) }),
+      asset: this.props.assetCode ?? 'USDT',
+      required: fmt2(req), recommended: fmt2(rec), recommendedRub: nf(Math.round(rec * price)),
+      toggleWill: () => this.setState(s => ({ will: !s.will })),
+      willBox: 'flex:0 0 20px;height:20px;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:12px;' +
+        (this.state.will ? 'background:#028E7F;color:#fff' : 'background:#fff;border:1.5px solid #DEE2E6;color:transparent'),
+      willCta: 'border-radius:12px;padding:15px;text-align:center;font-weight:700;font-size:15px;cursor:pointer;color:#fff;' +
+        (this.state.will ? 'background:#028E7F' : 'background:#9BCFCA'),
+      pickMin: () => this.setState({ pay: 'min' }),
+      pickFull: () => this.setState({ pay: 'full' }),
+      pickOwn: () => this.setState({ pay: 'own' }),
+      payTab1: payTab(this.state.pay === 'min'), payTab2: payTab(this.state.pay === 'full'), payTab3: payTab(this.state.pay === 'own'),
+      payAmount: nf(payTotal), payPrincipal: nf(payTotal - 340)
+    };
+  }
+}
+
+</script>
+</body>
+</html>

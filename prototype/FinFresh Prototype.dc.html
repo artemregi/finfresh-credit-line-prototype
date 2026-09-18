@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<meta name="design_doc_mode" content="canvas">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nunito+Sans:opsz,wght@6..12,400;6..12,700;6..12,800&display=swap" rel="stylesheet">
+<style>
+  body{margin:0;font-family:'Nunito Sans',system-ui,sans-serif;background:#E7ECEA;color:#212529;-webkit-font-smoothing:antialiased}
+  a{color:#008E7F}
+  a:hover{color:#004447}
+</style>
+</helmet>
+
+<div style="min-height:100vh;padding:48px 40px 64px;box-sizing:border-box;display:flex;gap:64px;justify-content:flex-start;align-items:flex-start;flex-wrap:nowrap;width:max-content;margin:0 auto">
+
+  <div style="display:flex;flex-direction:column;gap:14px;align-items:center;flex:0 0 auto">
+    <div style="font-size:12px;font-weight:800;color:#004447;letter-spacing:.06em;text-transform:uppercase">iPhone · 402 × 874</div>
+    <x-import component-from-global-scope="IOSDevice" from="./ios-frame.jsx" width="{{ phoneW }}" height="{{ phoneH }}" hint-size="402px,874px">
+      <dc-import name="Flow Screen" variant="mobile" hint-size="100%,100%"></dc-import>
+    </x-import>
+    <div style="font-size:12px;color:#5A6B6B;max-width:380px;text-align:center;line-height:1.5">Начните с калькулятора: выберите «Кредитную линию», лимит и токен — дальше весь путь по нажатиям.</div>
+  </div>
+
+  <div style="display:flex;flex-direction:column;gap:14px;align-items:center;flex:0 0 auto">
+    <div style="font-size:12px;font-weight:800;color:#004447;letter-spacing:.06em;text-transform:uppercase">Ноутбук · 1120 × 760</div>
+    <x-import component-from-global-scope="ChromeWindow" from="./browser-window.jsx" width="{{ w }}" height="{{ h }}" url="fin-fresh.ru" tabs="{{ tabs }}" hint-size="1120px,760px">
+      <dc-import name="Flow Screen" variant="desktop" hint-size="100%,100%"></dc-import>
+    </x-import>
+    <div style="font-size:12px;color:#5A6B6B;max-width:600px;text-align:center;line-height:1.5">Тот же путь на десктопе: сайт с калькулятором, дальше — карточка шага в центре страницы. Устройства работают независимо друг от друга.</div>
+  </div>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    return { tabs: [{ title: 'FinFresh — рубли из крипты' }], w: 1120, h: 760, phoneW: 402, phoneH: 874 };
+  }
+}
+
+</script>
+</body>
+</html>

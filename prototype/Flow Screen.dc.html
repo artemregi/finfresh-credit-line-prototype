@@ -23,7 +23,15 @@
 <div style="{{ rootStyle }}">
 
   <sc-if value="{{ isDesk }}" hint-placeholder-val="{{ false }}">
-    <div style="background:#008E7F;padding:12px 28px;display:flex;justify-content:flex-end;align-items:center;gap:12px;color:#fff;font-size:13px;font-weight:700;flex:0 0 auto"><span>Иван Иванов</span><div style="width:28px;height:28px;border-radius:50%;background:#004447;color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center">ИИ</div></div>
+    <div style="background:#008E7F;padding:12px 28px;display:flex;justify-content:flex-end;align-items:center;gap:12px;color:#fff;font-size:13px;font-weight:700;flex:0 0 auto;position:relative">
+      <div onClick="{{ toggleMenu }}" style="display:flex;align-items:center;gap:8px;cursor:pointer"><span>Иван Иванов</span><div style="width:28px;height:28px;border-radius:50%;background:#004447;color:#fff;font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center">ИИ</div><span style="font-size:10px;opacity:.7">▾</span></div>
+      <sc-if value="{{ menuOpen }}" hint-placeholder-val="{{ false }}">
+        <div style="position:absolute;top:100%;right:28px;background:#fff;border-radius:12px;box-shadow:0 8px 24px rgba(0,0,0,.15);padding:6px;min-width:200px;z-index:100">
+          <div onClick="{{ goToCabinet }}" style="padding:12px 16px;border-radius:8px;font-size:14px;font-weight:700;color:#212529;cursor:pointer;display:flex;align-items:center;gap:10px"><span style="font-size:16px">👤</span> Личный кабинет</div>
+          <div style="padding:12px 16px;border-radius:8px;font-size:14px;font-weight:700;color:#9B9B9B;display:flex;align-items:center;gap:10px"><span style="font-size:16px">↗</span> Выйти</div>
+        </div>
+      </sc-if>
+    </div>
     <div style="background:#DDF8D6;padding:14px 28px;display:flex;align-items:center;justify-content:space-between;gap:20px;flex:0 0 auto">
       <img src="ref/logo.svg" alt="FinFresh" onClick="{{ go.calc }}" style="height:24px;display:block;cursor:pointer">
       <div style="display:flex;gap:20px;font-size:13px;font-weight:700;color:#004447">
@@ -38,7 +46,10 @@
   <sc-if value="{{ isMob }}" hint-placeholder-val="{{ true }}">
     <div style="background:#DDF8D6;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;flex:0 0 auto;padding-top:58px">
       <img src="ref/logo.svg" alt="FinFresh" onClick="{{ go.calc }}" style="height:22px;display:block;cursor:pointer">
-      <div style="font-size:12px;font-weight:800;color:#004447">{{ stepLabel }}</div>
+      <div style="display:flex;align-items:center;gap:10px">
+        <div style="font-size:12px;font-weight:800;color:#004447">{{ stepLabel }}</div>
+        <div onClick="{{ goToCabinet }}" style="width:26px;height:26px;border-radius:50%;background:#008E7F;color:#fff;font-size:10px;font-weight:800;display:flex;align-items:center;justify-content:center;cursor:pointer">ИИ</div>
+      </div>
     </div>
   </sc-if>
 
@@ -820,7 +831,7 @@ const TOKENS = { USDT:{price:92,dec:2,net:'TRC-20'}, BTC:{price:6200000,dec:6,ne
 const nf = n => n.toLocaleString('ru-RU');
 
 class Component extends DCLogic {
-  state = { step: 'calc', product: 'line', limit: 150000, token: 'USDT', pay: 'min' };
+  state = { step: 'calc', product: 'line', limit: 150000, token: 'USDT', pay: 'min', menu: false };
 
   renderVals() {
     const desk = this.props.variant === 'desktop';
@@ -894,7 +905,11 @@ class Component extends DCLogic {
       pickFull: () => this.setState({ pay: 'full' }),
       pickOwn: () => this.setState({ pay: 'own' }),
       payTab1: payTab(this.state.pay === 'min'), payTab2: payTab(this.state.pay === 'full'), payTab3: payTab(this.state.pay === 'own'),
-      payAmount: nf(payTotal), payPrincipal: nf(payTotal - 340)
+      payAmount: nf(payTotal), payPrincipal: nf(payTotal - 340),
+
+      toggleMenu: () => this.setState(x => ({ menu: !x.menu })),
+      menuOpen: this.state.menu,
+      goToCabinet: () => this.setState({ step: 'cabinet', menu: false })
     };
   }
 }
